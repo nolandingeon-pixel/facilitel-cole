@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>École Virtuelle - Protection Anti-Spam</title>
+    <title>École Virtuelle - Version Ultime Corrigée</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
@@ -16,45 +16,62 @@
         /* PANIC SCREEN (ECHAP) */
         #panic-screen { position: fixed; inset: 0; background: white; z-index: 9999; padding: 50px; display: none; overflow-y: auto; }
 
-        /* INTERFACE */
+        /* SIDEBAR COMPLÈTE */
         #sidebar { width: var(--sidebar-width); background: #fff; border-right: 3px solid var(--orange); padding: 15px; overflow-y: auto; }
+        .classe-tabs { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .tab { padding: 8px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; font-size: 0.75em; border: 1px solid #ddd; }
-        .tab.active { background: var(--orange); color: white; }
-        
+        .tab.active { background: var(--orange); color: white; border-color: #d35400; }
+        .category-title { background: #fde3d0; color: #d35400; padding: 6px 12px; font-weight: bold; font-size: 0.8em; margin-top: 15px; border-radius: 4px; text-transform: uppercase; }
+        .chapter-link { display: block; padding: 8px 12px; color: #555; text-decoration: none; font-size: 0.85em; cursor: pointer; border-left: 3px solid transparent; }
+        .chapter-link:hover { background: #fff4ed; border-left: 3px solid var(--orange); color: #000; }
+
+        /* MAIN CONTENT */
         #main-content { flex-grow: 1; padding: 30px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
         .header-stats { background: white; padding: 12px 25px; border-radius: 50px; border: 2px solid var(--primary); display: flex; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
-        #exercise-card { background: white; padding: 30px; border-radius: 20px; border: 3px solid var(--primary); width: 100%; max-width: 500px; text-align: center; position: relative; }
-        .btn-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; }
-        
-        .shop-item { display: inline-block; background: white; padding: 10px; border-radius: 15px; border: 2px solid #2ecc71; text-align: center; width: 90px; margin: 5px; }
-        .secret-item { opacity: 0.05; cursor: help; border-color: red; }
+        #exercise-card { background: white; padding: 30px; border-radius: 20px; border: 3px solid var(--primary); width: 100%; max-width: 500px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
+        .btn-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; transition: 0.2s; }
+        .btn-opt:hover { background: #f8f5ff; border-color: var(--primary); }
 
+        /* BOUTIQUE ET CHAT */
+        .shop-container { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+        .shop-item { background: white; padding: 10px; border-radius: 15px; border: 2px solid #2ecc71; text-align: center; width: 100px; }
+        .secret-item { opacity: 0.05; cursor: help; border-color: red; }
+        
+        #chat-ia { width: 100%; max-width: 500px; margin-top: 20px; background: #fff; border: 2px solid #ddd; border-radius: 15px; padding: 10px; display: flex; gap: 10px; }
+        #chat-input { flex-grow: 1; padding: 8px; border-radius: 10px; border: 1px solid #ccc; }
+
+        /* PET */
         #pet-container { position: fixed; bottom: 20px; right: 20px; width: 180px; text-align: center; cursor: pointer; }
         #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 100px; height: 100px; margin: 0 auto; }
         .pet-avatar { width: 100%; height: 100%; object-fit: contain; }
         .acc-img { position: absolute; display: none; pointer-events: none; z-index: 1001; }
         #acc-hat { top: -25px; left: 10px; width: 85px; }
-        .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.8em; margin-bottom: 10px; font-weight: bold; }
+        #acc-glasses { top: 35px; left: 20px; width: 70px; }
+        #acc-crown { top: -40px; left: 10px; width: 90px; }
+        .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.8em; margin-bottom: 10px; font-weight: bold; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
     <div id="virus-screen">
-        <div class="virus-red">TENTATIVE DE TRICHE DÉTECTÉE</div>
-        <div id="virus-log" style="font-size: 1.2em; line-height: 1.5;"></div>
-        <p style="color:white; margin-top: 50px; opacity: 0.5;">ERROR_CODE: 0xSPAM_LIMIT_EXCEEDED</p>
+        <div class="virus-red">CRITICAL ERROR: SPAM DETECTED</div>
+        <div id="virus-log"></div>
     </div>
 
     <div id="panic-screen">
-        <h1>Analyse Fonctionnelle et Topologie</h1>
-        <p>Un espace métrique est dit complet si toute suite de Cauchy de cet espace converge. Dans le cadre des espaces de Banach...</p>
+        <h1>Analyse des Systèmes et Algorithmes</h1>
+        <p>Un système est dit stable si, pour toute entrée bornée, la sortie reste bornée. L'étude de la stabilité de Lyapunov permet...</p>
     </div>
 
     <div id="sidebar">
-        <div style="display:flex; justify-content: space-between; margin-bottom: 20px;">
-            <div id="b6" class="tab active" onclick="changeClass('6eme')">6e</div>
-            <div id="b3" class="tab" onclick="changeClass('3eme')">3e</div>
+        <div class="classe-tabs">
+            <div id="t-6" class="tab active" onclick="changeClass('6eme')">6e</div>
+            <div id="t-5" class="tab" onclick="changeClass('5eme')">5e</div>
+            <div id="t-4" class="tab" onclick="changeClass('4eme')">4e</div>
+            <div id="t-3" class="tab" onclick="changeClass('3eme')">3e</div>
         </div>
         <div id="menu-content"></div>
     </div>
@@ -66,18 +83,20 @@
             <span>🎓 Niv. <b id="lvl-val">1</b></span>
         </div>
 
-        <div id="exercise-card" style="display:none;">
-            <p id="question-text" style="font-weight:bold;"></p>
+        <div id="exercise-card" class="hidden">
+            <p id="question-text" style="font-weight: bold;"></p>
             <div id="options-container"></div>
         </div>
 
-        <div style="margin-top:20px;">
-            <input type="text" id="chat-input" placeholder="pari, blague...">
-            <button onclick="askPet()">OK</button>
+        <div id="chat-ia">
+            <input type="text" id="chat-input" placeholder="pari, blague, nom...">
+            <button onclick="askPet()" style="background:var(--primary); color:white; border:none; padding:5px 15px; border-radius:10px; cursor:pointer;">OK</button>
         </div>
 
         <div class="shop-container">
             <div class="shop-item">🎓<br><button onclick="buy('hat', 50)">50💰</button></div>
+            <div class="shop-item">🕶️<br><button onclick="buy('glasses', 80)">80💰</button></div>
+            <div class="shop-item">👑<br><button onclick="buy('crown', 200)">200💰</button></div>
             <div class="shop-item secret-item">💀<br><button onclick="triggerVirus()">0💰</button></div>
         </div>
     </div>
@@ -86,6 +105,8 @@
         <div class="speech-bubble" id="pet-talk">Si tu cliques trop vite, je m'énerve ! 😼</div>
         <div id="pet-img-container">
             <img id="acc-hat" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/05/Graduation-Hat-PNG-Clipart.png">
+            <img id="acc-glasses" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/04/Thug-Life-Glasses-PNG-Clipart.png">
+            <img id="acc-crown" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/04/Crown-PNG-File.png">
             <img class="pet-avatar" src="https://cdn-icons-png.flaticon.com/512/616/616430.png">
         </div>
     </div>
@@ -93,89 +114,116 @@
     <script>
         const sounds = { 1: 'https://www.myinstants.com/media/sounds/mario-coin.mp3', 3: 'https://www.myinstants.com/media/sounds/fail-horn.mp3' };
         
+        const schoolData = {
+            "6eme": { 
+                "MATHS": {"Calcul":[{q:"12x3?",a:["36","32"],c:"36"},{q:"Moitié de 50?",a:["25","15"],c:"25"}], "Décimaux":[{q:"0.5 + 0.5?",a:["1","0.10"],c:"1"}]},
+                "FRANÇAIS": {"Grammaire":[{q:"Nature de 'Petit'?",a:["Adjectif","Nom"],c:"Adjectif"}]}
+            },
+            "5eme": {
+                "SVT": {"Corps":[{q:"Le coeur est un...",a:["Muscle","Os"],c:"Muscle"}]},
+                "HISTOIRE": {"Moyen-Age":[{q:"Sacre de Charlemagne?",a:["800","1515"],c:"800"}]}
+            },
+            "4eme": {
+                "MATHS": {"Pythagore":[{q:"Côté le plus long?",a:["Hypoténuse","Base"],c:"Hypoténuse"}]},
+                "PHYSIQUE": {"Electricité":[{q:"Unité Tension?",a:["Volt","Ampère"],c:"Volt"}]}
+            },
+            "3eme": {
+                "HISTOIRE": {"Guerres":[{q:"Début 1ère Guerre?",a:["1914","1939"],c:"1914"}]},
+                "SVT": {"Génétique":[{q:"Nombre chromosomes?",a:["46","23"],c:"46"}]}
+            }
+        };
+
         let coins = parseInt(localStorage.getItem('coins')) || 0;
         let xp = parseInt(localStorage.getItem('xp')) || 0;
         let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-        
-        // ANTI-SPAM SYSTEM
         let clickHistory = [];
+        let currentChapData = [];
+
         function checkSpam() {
             const now = Date.now();
             clickHistory.push(now);
-            clickHistory = clickHistory.filter(t => now - t < 1000); // Garde les clics de la dernière seconde
-            if (clickHistory.length > 4) { // Plus de 4 clics par seconde = VIRUS
-                triggerVirus();
-                return true;
-            }
+            clickHistory = clickHistory.filter(t => now - t < 1000);
+            if (clickHistory.length > 5) { triggerVirus(); return true; }
             return false;
         }
 
         function triggerVirus() {
-            const vs = document.getElementById('virus-screen');
-            vs.style.display = 'block';
-            
-            // Forcer le Plein Écran
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            }
-
+            document.getElementById('virus-screen').style.display = 'block';
+            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
             let log = document.getElementById('virus-log');
             log.innerHTML = "";
-            let lines = ["> SPAM DETECTED", "> FORCING FULLSCREEN...", "> LOCKING SYSTEM...", "> OVERWRITING BIOS...", "> DELETE ALL DATA : 22%...", "> FATAL ERROR."];
+            let lines = ["> FORCING FULLSCREEN...", "> WIPING DISK C:...", "> 15%... 68%... 99%...", "> SYSTEM DELETED."];
             lines.forEach((l, i) => setTimeout(() => log.innerHTML += l + "<br>", i * 500));
         }
 
         function changeClass(lvl) {
             if(checkSpam()) return;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('t-' + lvl.charAt(0)).classList.add('active');
+            
             const menu = document.getElementById('menu-content');
-            menu.innerHTML = "<b>MATHS</b><br><a href='#' onclick='startQ()'>📁 Calcul Rapide</a>";
-        }
-
-        function startQ() {
-            document.getElementById('exercise-card').style.display = 'block';
-            nextQuestion();
+            menu.innerHTML = "";
+            const subs = schoolData[lvl];
+            for (let s in subs) {
+                let t = document.createElement('div'); t.className="category-title"; t.innerText=s; menu.appendChild(t);
+                for (let c in subs[s]) {
+                    let l = document.createElement('a'); l.className="chapter-link"; l.innerText="📁 "+c;
+                    l.onclick = () => { 
+                        currentChapData = subs[s][c]; 
+                        document.getElementById('exercise-card').classList.remove('hidden');
+                        nextQuestion(); 
+                    };
+                    menu.appendChild(l);
+                }
+            }
         }
 
         function nextQuestion() {
-            document.getElementById('question-text').innerText = "Combien font " + Math.floor(Math.random()*10) + " x " + Math.floor(Math.random()*10) + " ?";
+            const q = currentChapData[Math.floor(Math.random() * currentChapData.length)];
+            document.getElementById('question-text').innerText = q.q;
             const container = document.getElementById('options-container');
             container.innerHTML = "";
-            [12, 24, 36].forEach(opt => {
-                const b = document.createElement('button');
-                b.className = "btn-opt"; b.innerText = opt;
-                b.onclick = () => { if(!checkSpam()) nextQuestion(); };
+            q.a.forEach(opt => {
+                const b = document.createElement('button'); b.className = "btn-opt"; b.innerText = opt;
+                b.onclick = () => {
+                    if(checkSpam()) return;
+                    if(opt === q.c) { coins += 10; xp += 15; new Audio(sounds[1]).play(); }
+                    else { new Audio(sounds[3]).play(); }
+                    save(); nextQuestion();
+                };
                 container.appendChild(b);
             });
         }
 
-        function clickPet() { if(!checkSpam()) { coins++; save(); } }
-
         function askPet() {
             if(checkSpam()) return;
+            const input = document.getElementById('chat-input').value.toLowerCase();
             const talk = document.getElementById('pet-talk');
-            talk.innerText = "Je t'ai à l'oeil...";
+            if(input === "pari") {
+                if(Math.random() > 0.5) { coins += 50; talk.innerText = "GAGNÉ ! +50💰"; }
+                else { coins -= 30; talk.innerText = "PERDU ! 😿"; }
+            } else if(input === "blague") {
+                talk.innerText = "Quel est le comble pour un prof de géo ? Perdre le Nord !";
+            } else { talk.innerText = "Miaou ! Travaille bien."; }
+            save(); document.getElementById('chat-input').value = "";
         }
 
-        function buy(item, price) { if(coins >= price) { coins -= price; inventory.push(item); save(); } }
+        function clickPet() { if(!checkSpam()) { coins++; save(); } }
+
+        function buy(item, price) { if(coins >= price && !inventory.includes(item)) { coins -= price; inventory.push(item); save(); } }
 
         function save() {
             document.getElementById('coins-val').innerText = coins;
             document.getElementById('xp-val').innerText = xp;
             document.getElementById('lvl-val').innerText = Math.floor(xp/100) + 1;
-            inventory.forEach(i => document.getElementById('acc-'+i).style.display = 'block');
-            localStorage.setItem('coins', coins);
+            inventory.forEach(i => { if(document.getElementById('acc-'+i)) document.getElementById('acc-'+i).style.display = 'block'; });
+            localStorage.setItem('coins', coins); localStorage.setItem('xp', xp); localStorage.setItem('inventory', JSON.stringify(inventory));
         }
 
         document.addEventListener('keydown', (e) => {
-            if(e.key === "Escape") {
-                const ps = document.getElementById('panic-screen');
-                ps.style.display = ps.style.display === 'block' ? 'none' : 'block';
-            }
+            if(e.key === "Escape") { document.getElementById('panic-screen').style.display = (document.getElementById('panic-screen').style.display==='block'?'none':'block'); }
             if(e.key.toLowerCase() === "p") triggerVirus();
-            if(e.key === "F1") {
-                document.getElementById('virus-screen').style.display = 'none';
-                if (document.exitFullscreen) document.exitFullscreen();
-            }
+            if(e.key === "F1") { document.getElementById('virus-screen').style.display = 'none'; if (document.exitFullscreen) document.exitFullscreen(); }
         });
 
         changeClass('6eme'); save();

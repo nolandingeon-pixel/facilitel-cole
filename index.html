@@ -3,44 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>École Virtuelle - Version Infinie</title>
+    <title>École Virtuelle - Boutique & Chat IA</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
 
-        /* MENU GAUCHE */
-        #sidebar { width: var(--sidebar-width); background: #fff; border-right: 3px solid var(--orange); padding: 15px; overflow-y: auto; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+        /* SIDEBAR */
+        #sidebar { width: var(--sidebar-width); background: #fff; border-right: 3px solid var(--orange); padding: 15px; overflow-y: auto; }
         .classe-tabs { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .tab { padding: 8px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; border: 1px solid #ddd; font-size: 0.75em; }
+        .tab { padding: 8px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; font-size: 0.75em; border: 1px solid #ddd; }
         .tab.active { background: var(--orange); color: white; border-color: #d35400; }
-        
         .category-title { background: #fde3d0; color: #d35400; padding: 6px 12px; font-weight: bold; font-size: 0.8em; margin-top: 15px; border-radius: 4px; text-transform: uppercase; }
         .chapter-link { display: block; padding: 8px 12px; color: #555; text-decoration: none; font-size: 0.85em; cursor: pointer; border-left: 3px solid transparent; }
         .chapter-link:hover { background: #fff4ed; border-left: 3px solid var(--orange); color: #000; }
 
-        /* ZONE CENTRALE */
-        #main-content { flex-grow: 1; padding: 40px; display: flex; flex-direction: column; align-items: center; position: relative; overflow-y: auto; }
-        .header-stats { position: sticky; top: 0; background: white; padding: 12px 25px; border-radius: 50px; border: 2px solid var(--primary); display: flex; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); z-index: 10; }
+        /* MAIN */
+        #main-content { flex-grow: 1; padding: 30px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
+        .header-stats { background: white; padding: 12px 25px; border-radius: 50px; border: 2px solid var(--primary); display: flex; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
-        #exercise-card { background: white; padding: 35px; border-radius: 20px; border: 3px solid var(--primary); width: 100%; max-width: 550px; text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.1); margin-top: 30px; }
-        .btn-opt { display: block; width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; transition: 0.2s; }
-        .btn-opt:hover { background: #f8f5ff; border-color: var(--primary); transform: scale(1.02); }
+        #exercise-card { background: white; padding: 30px; border-radius: 20px; border: 3px solid var(--primary); width: 100%; max-width: 500px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .btn-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; transition: 0.2s; }
+        .btn-opt:hover { background: #f8f5ff; border-color: var(--primary); }
 
-        /* LE CHAT */
-        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 200px; text-align: center; }
-        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 110px; height: 110px; margin: 0 auto; }
+        /* BOUTIQUE */
+        .shop-container { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+        .shop-item { background: white; padding: 10px; border-radius: 15px; border: 2px solid #2ecc71; text-align: center; width: 100px; }
+        .shop-item button { background: #2ecc71; color: white; border: none; padding: 5px; border-radius: 5px; cursor: pointer; font-size: 0.8em; width: 100%; }
+
+        /* CHAT AVEC L'ANIMAL */
+        #chat-ia { width: 100%; max-width: 500px; margin-top: 20px; background: #fff; border: 2px solid #ddd; border-radius: 15px; padding: 10px; }
+        #chat-input { width: 80%; padding: 8px; border-radius: 10px; border: 1px solid #ccc; }
+        #chat-btn { padding: 8px; border-radius: 10px; background: var(--primary); color: white; border: none; cursor: pointer; }
+
+        /* PET */
+        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 180px; text-align: center; }
+        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 100px; height: 100px; margin: 0 auto; }
         .pet-avatar { width: 100%; height: 100%; object-fit: contain; }
-        #pet-accessory { position: absolute; top: -15px; left: 15px; width: 75px; display: none; z-index: 5; }
-        .speech-bubble { background: white; padding: 8px; border-radius: 12px; border: 1px solid #ddd; font-size: 0.85em; margin-bottom: 8px; font-weight: bold; }
+        .acc-img { position: absolute; top: -15px; left: 15px; width: 70px; display: none; }
+        .speech-bubble { background: white; padding: 8px; border-radius: 12px; border: 1px solid #ddd; font-size: 0.8em; margin-bottom: 8px; font-weight: bold; height: 40px; display: flex; align-items: center; justify-content: center;}
 
         /* SOUNDBOARD */
-        #soundboard { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 25px; border-radius: 20px; border: 5px solid var(--primary); display: none; z-index: 2000; text-align: center; box-shadow: 0 0 200px rgba(0,0,0,0.5); }
-        .sound-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
-        .sound-item { display: flex; flex-direction: column; align-items: center; }
-        .sound-btn { padding: 15px; font-size: 20px; border: none; border-radius: 10px; cursor: pointer; background: #f1c40f; width: 60px; }
-        .key-hint { font-size: 0.7em; color: #666; font-weight: bold; }
-
-        .shop-btn { margin-top: 20px; padding: 12px 25px; cursor: pointer; background: #2ecc71; color: white; border: none; border-radius: 50px; font-weight: bold; }
+        #soundboard { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 20px; border: 5px solid var(--primary); display: none; z-index: 2000; text-align: center; }
+        .sound-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
         .hidden { display: none; }
     </style>
 </head>
@@ -48,118 +52,111 @@
 
     <div id="sidebar">
         <div class="classe-tabs">
-            <div id="btn-6" class="tab active" onclick="changeClass('6eme')">6e</div>
-            <div id="btn-5" class="tab" onclick="changeClass('5eme')">5e</div>
-            <div id="btn-4" class="tab" onclick="changeClass('4eme')">4e</div>
-            <div id="btn-3" class="tab" onclick="changeClass('3eme')">3e</div>
+            <div id="b6" class="tab active" onclick="changeClass('6eme')">6e</div>
+            <div id="b5" class="tab" onclick="changeClass('5eme')">5e</div>
+            <div id="b4" class="tab" onclick="changeClass('4eme')">4e</div>
+            <div id="b3" class="tab" onclick="changeClass('3eme')">3e</div>
         </div>
         <div id="menu-content"></div>
     </div>
 
     <div id="main-content">
         <div class="header-stats">
-            <span>💰 Pièces: <b id="coins-val">0</b></span>
-            <span>⭐ XP: <b id="xp-val">0</b></span>
-            <span>🎓 Niveau: <b id="lvl-val">1</b></span>
+            <span>💰 <b id="coins-val">0</b></span>
+            <span>⭐ <b id="xp-val">0</b></span>
+            <span>🎓 Niv. <b id="lvl-val">1</b></span>
         </div>
-        <h2 id="current-title">Choisis un chapitre</h2>
+
+        <h3 id="current-title">Choisis un chapitre</h3>
+        
         <div id="exercise-card" class="hidden">
-            <p id="question-text" style="font-weight: bold; font-size: 1.2em;"></p>
+            <p id="question-text"></p>
             <div id="options-container"></div>
         </div>
-        <button class="shop-btn" onclick="buyHat()">🛒 Chapeau (50 pièces)</button>
+
+        <div id="chat-ia">
+            <p style="font-size: 0.8em; margin: 0 0 5px 0;">Pose une question au chat :</p>
+            <input type="text" id="chat-input" placeholder="Tu aimes les souris ?">
+            <button id="chat-btn" onclick="askPet()">OK</button>
+        </div>
+
+        <div class="shop-container">
+            <div class="shop-item">🎓<br>Diplôme<br><button onclick="buy('hat', 50)">50💰</button></div>
+            <div class="shop-item">🕶️<br>Lunettes<br><button onclick="buy('glasses', 80)">80💰</button></div>
+            <div class="shop-item">👑<br>Couronne<br><button onclick="buy('crown', 200)">200💰</button></div>
+        </div>
     </div>
 
     <div id="pet-container">
-        <div class="speech-bubble" id="pet-talk">MIAOU !</div>
+        <div class="speech-bubble" id="pet-talk">Miaou !</div>
         <div id="pet-img-container">
-            <img id="pet-accessory" src="https://cdn-icons-png.flaticon.com/512/7153/7153108.png">
+            <img id="acc-hat" class="acc-img" src="https://cdn-icons-png.flaticon.com/512/7153/7153108.png">
+            <img id="acc-glasses" class="acc-img" src="https://cdn-icons-png.flaticon.com/512/6592/6592963.png" style="top:25px; width: 60px;">
+            <img id="acc-crown" class="acc-img" src="https://cdn-icons-png.flaticon.com/512/3039/3039534.png" style="top:-25px;">
             <img class="pet-avatar" src="https://cdn-icons-png.flaticon.com/512/616/616430.png">
         </div>
     </div>
 
     <div id="soundboard">
-        <h3>🎵 Soundboard (U pour fermer)</h3>
+        <h3>🎵 Soundboard (U)</h3>
         <div class="sound-grid">
-            <div class="sound-item"><button class="sound-btn" onclick="playSound('coin')">💰</button><span class="key-hint">1</span></div>
-            <div class="sound-item"><button class="sound-btn" onclick="playSound('notif')">🔔</button><span class="key-hint">2</span></div>
-            <div class="sound-item"><button class="sound-btn" onclick="playSound('fail')">📢</button><span class="key-hint">3</span></div>
-            <div class="sound-item"><button class="sound-btn" onclick="playSound('yeet')">🚀</button><span class="key-hint">4</span></div>
-            <div class="sound-item"><button class="sound-btn" onclick="playSound('tada')">🎉</button><span class="key-hint">5</span></div>
-            <div class="sound-item"><button class="sound-btn" onclick="playSound('haha')">😆</button><span class="key-hint">6</span></div>
+            <button onclick="playSound('coin')">💰 (1)</button>
+            <button onclick="playSound('fail')">📢 (3)</button>
+            <button onclick="playSound('haha')">😆 (6)</button>
         </div>
     </div>
 
     <script>
         const sounds = {
             coin: 'https://www.myinstants.com/media/sounds/mario-coin.mp3',
-            notif: 'https://www.myinstants.com/media/sounds/discord-notification.mp3',
             fail: 'https://www.myinstants.com/media/sounds/fail-horn.mp3',
-            yeet: 'https://www.myinstants.com/media/sounds/yeet.mp3',
-            tada: 'https://www.myinstants.com/media/sounds/tada.mp3',
             haha: 'https://www.myinstants.com/media/sounds/nelson-haha.mp3'
         };
 
         const schoolData = {
             "6eme": {
-                "MATHS": {
-                    "Décimaux": [{q:"1,2 + 0,8 ?", a:["2","1,8","1,1"], c:"2"}, {q:"La moitié de 100 ?", a:["50","25","75"], c:"50"}],
-                    "Espace": [{q:"Combien de côtés a un triangle ?", a:["3","4","5"], c:"3"}]
-                },
-                "FRANÇAIS": {
-                    "Grammaire": [{q:"Le sujet de 'Le chat dort' ?", a:["Le chat","dort","Le"], c:"Le chat"}],
-                    "Orthographe": [{q:"Pluriel de 'Hibou' ?", a:["Hiboux","Hibous","Hibouxes"], c:"Hiboux"}]
-                }
+                "MATHS": { "Calcul": [{q:"15+15?", a:["30","40"], c:"30"}] },
+                "HISTOIRE": { "Tautavel": [
+                    {q:"Âge de l'Homme de Tautavel ?", a:["450 000 ans","10 000 ans"], c:"450 000 ans"},
+                    {q:"Où a-t-on trouvé ses restes ?", a:["Caune de l'Arago","Paris"], c:"Caune de l'Arago"}
+                ]}
             },
-            "5eme": {
-                "MATHS": { "Relatifs": [{q:"(-5) + (-2) ?", a:["-7","7","-3"], c:"-7"}] },
-                "HISTOIRE": { "Moyen-Âge": [{q:"Qui gagne à Marignan en 1515 ?", a:["François 1er","Napoléon","Louis XIV"], c:"François 1er"}] }
-            },
-            "4eme": {
-                "MATHS": { "Pythagore": [{q:"Triangle rectangle = quel théorème ?", a:["Pythagore","Thalès","Newton"], c:"Pythagore"}] },
-                "SCIENCES": { "Chimie": [{q:"Symbole de l'Eau ?", a:["H2O","O2","CO2"], c:"H2O"}] }
-            },
-            "3eme": {
-                "MATHS": { "Thalès": [{q:"Thalès = droites ?", a:["Parallèles","Perpendiculaires","Sécantes"], c:"Parallèles"}] },
-                "SVT": { "Génétique": [{q:"Nombre de chromosomes humain ?", a:["46","23","48"], c:"46"}] }
-            }
+            "5eme": { "HISTOIRE": { "Moyen-Âge": [{q:"Sacré en 800 ?", a:["Charlemagne","Clovis"], c:"Charlemagne"}] } },
+            "4eme": { "MATHS": { "Pythagore": [{q:"Triangle ?", a:["Rectangle","Isocèle"], c:"Rectangle"}] } },
+            "3eme": { "SVT": { "Génétique": [{q:"Chromosomes ?", a:["46","23"], c:"46"}] } }
         };
 
-        let currentClass = "6eme";
-        let currentChapData = [];
         let coins = parseInt(localStorage.getItem('coins')) || 0;
         let xp = parseInt(localStorage.getItem('xp')) || 0;
-        let hasHat = localStorage.getItem('hasHat') === 'true';
+        let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+        let currentClass = "6eme";
+        let currentChapData = [];
 
         function changeClass(lvl) {
             currentClass = lvl;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById("btn-" + lvl.charAt(0)).classList.add('active');
+            document.getElementById('b'+lvl.charAt(0)).classList.add('active');
             renderMenu();
         }
 
         function renderMenu() {
             const menu = document.getElementById('menu-content');
             menu.innerHTML = "";
-            const subjects = schoolData[currentClass];
-            for (let sub in subjects) {
-                let title = document.createElement('div');
-                title.className = "category-title";
-                title.innerText = sub;
-                menu.appendChild(title);
-                for (let chap in subjects[sub]) {
-                    let link = document.createElement('a');
-                    link.className = "chapter-link";
-                    link.innerText = "📁 " + chap;
-                    link.onclick = () => {
-                        currentChapData = subjects[sub][chap];
-                        document.getElementById('current-title').innerText = "Chapitre : " + chap;
-                        document.getElementById('exercise-card').classList.remove('hidden');
-                        nextQuestion();
-                    };
-                    menu.appendChild(link);
+            const subs = schoolData[currentClass];
+            for (let s in subs) {
+                let t = document.createElement('div'); t.className="category-title"; t.innerText=s; menu.appendChild(t);
+                for (let c in subs[s]) {
+                    let l = document.createElement('a'); l.className="chapter-link"; l.innerText="📁 "+c;
+                    l.onclick = () => { currentChapData = subs[s][c]; startExercise(c); };
+                    menu.appendChild(l);
                 }
             }
+        }
+
+        function startExercise(name) {
+            document.getElementById('current-title').innerText = "Chapitre : " + name;
+            document.getElementById('exercise-card').classList.remove('hidden');
+            nextQuestion();
         }
 
         function nextQuestion() {
@@ -168,57 +165,51 @@
             const container = document.getElementById('options-container');
             container.innerHTML = "";
             q.a.forEach(opt => {
-                const b = document.createElement('button');
-                b.className = "btn-opt";
-                b.innerText = opt;
+                const b = document.createElement('button'); b.className = "btn-opt"; b.innerText = opt;
                 b.onclick = () => {
-                    if (opt === q.c) {
-                        coins += 10; xp += 15;
-                        document.getElementById('pet-talk').innerText = "MIAOU ! +10💰";
-                        playSound('coin');
-                    } else {
-                        document.getElementById('pet-talk').innerText = "FAAAAAIL !";
-                        playSound('fail');
-                    }
+                    if(opt === q.c) { coins += 10; xp += 15; playSound('coin'); document.getElementById('pet-talk').innerText="Ron-ron ! Correct !"; }
+                    else { playSound('fail'); document.getElementById('pet-talk').innerText="Miaou... non !"; }
                     save();
-                    // ENCHAÎNEMENT AUTOMATIQUE ICI
-                    setTimeout(nextQuestion, 600); 
+                    setTimeout(nextQuestion, 600);
                 };
                 container.appendChild(b);
             });
         }
 
-        function playSound(key) { if (sounds[key]) new Audio(sounds[key]).play(); }
+        function askPet() {
+            const input = document.getElementById('chat-input').value.toLowerCase();
+            const talk = document.getElementById('pet-talk');
+            if(input.includes("souris")) talk.innerText = "Miam ! J'adore ça !";
+            else if(input.includes("nom")) talk.innerText = "Je suis ton Chat-GPT perso !";
+            else if(input.includes("heure")) talk.innerText = "L'heure de bosser !";
+            else talk.innerText = "Miaou ? Je n'ai pas compris.";
+            document.getElementById('chat-input').value = "";
+        }
+
+        function buy(item, price) {
+            if (coins >= price) {
+                coins -= price; inventory.push(item); save();
+                document.getElementById('pet-talk').innerText = "Merci pour le cadeau !";
+            } else alert("Pas assez de pièces !");
+        }
 
         function save() {
-            localStorage.setItem('coins', coins);
-            localStorage.setItem('xp', xp);
-            localStorage.setItem('hasHat', hasHat);
+            localStorage.setItem('coins', coins); localStorage.setItem('xp', xp);
+            localStorage.setItem('inventory', JSON.stringify(inventory));
             document.getElementById('coins-val').innerText = coins;
             document.getElementById('xp-val').innerText = xp;
             document.getElementById('lvl-val').innerText = Math.floor(xp/100) + 1;
-            if (hasHat) document.getElementById('pet-accessory').style.display = 'block';
+            inventory.forEach(i => document.getElementById('acc-'+i).style.display = 'block');
         }
 
-        function buyHat() {
-            if (coins >= 50) { coins -= 50; hasHat = true; save(); }
-            else { alert("Pas assez de pièces !"); }
-        }
+        function playSound(k) { if(sounds[k]) new Audio(sounds[k]).play(); }
 
         document.addEventListener('keydown', (e) => {
-            const key = e.key.toLowerCase();
-            if (key === 'u') {
-                const sb = document.getElementById('soundboard');
-                sb.style.display = (sb.style.display === 'block') ? 'none' : 'block';
-            }
-            if (['1','2','3','4','5','6'].includes(key)) {
-                const map = {'1':'coin','2':'notif','3':'fail','4':'yeet','5':'tada','6':'haha'};
-                playSound(map[key]);
-            }
+            if(e.key.toLowerCase()==='u') { const s = document.getElementById('soundboard'); s.style.display = s.style.display==='block'?'none':'block'; }
+            if(e.key==='1') playSound('coin'); if(e.key==='3') playSound('fail'); if(e.key==='6') playSound('haha');
         });
 
-        renderMenu();
-        save();
+        renderMenu(); save();
     </script>
 </body>
 </html>

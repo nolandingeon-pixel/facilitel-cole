@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon École Virtuelle - Multi-Matières</title>
+    <title>École Virtuelle - Mode Expert</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
@@ -11,34 +11,36 @@
         /* MENU GAUCHE */
         #sidebar { width: var(--sidebar-width); background: #fff; border-right: 3px solid var(--orange); padding: 15px; overflow-y: auto; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
         .classe-tabs { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .tab { padding: 8px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; border: 1px solid #ddd; font-size: 0.8em; }
+        .tab { padding: 8px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; border: 1px solid #ddd; font-size: 0.75em; }
         .tab.active { background: var(--orange); color: white; border-color: #d35400; }
         
-        .category-title { background: #fde3d0; color: #d35400; padding: 6px 12px; font-weight: bold; font-size: 0.85em; margin-top: 15px; border-radius: 4px; text-transform: uppercase; }
-        .chapter-link { display: block; padding: 8px 12px; color: #555; text-decoration: none; font-size: 0.85em; cursor: pointer; border-left: 3px solid transparent; transition: 0.2s; }
+        .category-title { background: #fde3d0; color: #d35400; padding: 6px 12px; font-weight: bold; font-size: 0.8em; margin-top: 15px; border-radius: 4px; text-transform: uppercase; }
+        .chapter-link { display: block; padding: 8px 12px; color: #555; text-decoration: none; font-size: 0.85em; cursor: pointer; border-left: 3px solid transparent; }
         .chapter-link:hover { background: #fff4ed; border-left: 3px solid var(--orange); color: #000; }
 
         /* ZONE CENTRALE */
         #main-content { flex-grow: 1; padding: 40px; display: flex; flex-direction: column; align-items: center; position: relative; overflow-y: auto; }
-        .header-stats { position: sticky; top: 0; background: white; padding: 15px 25px; border-radius: 50px; border: 2px solid var(--primary); display: flex; gap: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 10; }
+        .header-stats { position: sticky; top: 0; background: white; padding: 12px 25px; border-radius: 50px; border: 2px solid var(--primary); display: flex; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); z-index: 10; }
         
-        #exercise-card { background: white; padding: 40px; border-radius: 25px; border: 4px solid var(--primary); width: 100%; max-width: 600px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); margin-top: 30px; }
-        .btn-opt { display: block; width: 100%; padding: 16px; margin: 12px 0; border: 2px solid #edf2f7; border-radius: 12px; cursor: pointer; background: #fff; font-size: 1.1em; transition: 0.2s; }
+        #exercise-card { background: white; padding: 35px; border-radius: 20px; border: 3px solid var(--primary); width: 100%; max-width: 550px; text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.1); margin-top: 30px; }
+        .btn-opt { display: block; width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; transition: 0.2s; }
         .btn-opt:hover { background: #f8f5ff; border-color: var(--primary); transform: scale(1.02); }
 
         /* LE CHAT */
-        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 220px; text-align: center; z-index: 100; }
-        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 15px; border: 4px solid var(--primary); box-shadow: 0 8px 25px rgba(0,0,0,0.2); width: 110px; height: 110px; margin: 0 auto; }
+        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 200px; text-align: center; }
+        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 110px; height: 110px; margin: 0 auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .pet-avatar { width: 100%; height: 100%; object-fit: contain; }
-        #pet-accessory { position: absolute; top: -20px; left: 20px; width: 80px; display: none; }
-        .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.9em; margin-bottom: 10px; font-weight: bold; }
+        #pet-accessory { position: absolute; top: -15px; left: 15px; width: 75px; display: none; z-index: 5; }
+        .speech-bubble { background: white; padding: 8px; border-radius: 12px; border: 1px solid #ddd; font-size: 0.85em; margin-bottom: 8px; font-weight: bold; }
 
         /* SOUNDBOARD */
-        #soundboard { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 30px; border: 6px solid var(--primary); display: none; z-index: 2000; text-align: center; }
-        .sound-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
-        .sound-btn { padding: 20px; font-size: 25px; border: none; border-radius: 15px; cursor: pointer; background: #f1c40f; }
+        #soundboard { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 25px; border-radius: 20px; border: 5px solid var(--primary); display: none; z-index: 2000; text-align: center; box-shadow: 0 0 200px rgba(0,0,0,0.5); }
+        .sound-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .sound-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .sound-btn { padding: 15px; font-size: 20px; border: none; border-radius: 10px; cursor: pointer; background: #f1c40f; width: 60px; }
+        .key-hint { font-size: 0.7em; color: #666; font-weight: bold; background: #eee; padding: 2px 5px; border-radius: 3px; }
 
-        .shop-btn { margin-top: 20px; padding: 12px 30px; cursor: pointer; background: #2ecc71; color: white; border: none; border-radius: 50px; font-weight: bold; }
+        .shop-btn { margin-top: 20px; padding: 12px 25px; cursor: pointer; background: #2ecc71; color: white; border: none; border-radius: 50px; font-weight: bold; }
         .hidden { display: none; }
     </style>
 </head>
@@ -46,10 +48,10 @@
 
     <div id="sidebar">
         <div class="classe-tabs">
-            <div class="tab active" onclick="changeClass('6eme')">6e</div>
-            <div class="tab" onclick="changeClass('5eme')">5e</div>
-            <div class="tab" onclick="changeClass('4eme')">4e</div>
-            <div class="tab" onclick="changeClass('3eme')">3e</div>
+            <div id="btn-6" class="tab active" onclick="changeClass('6eme')">6e</div>
+            <div id="btn-5" class="tab" onclick="changeClass('5eme')">5e</div>
+            <div id="btn-4" class="tab" onclick="changeClass('4eme')">4e</div>
+            <div id="btn-3" class="tab" onclick="changeClass('3eme')">3e</div>
         </div>
         <div id="menu-content"></div>
     </div>
@@ -61,14 +63,15 @@
             <span>🎓 Niveau: <b id="lvl-val">1</b></span>
         </div>
 
-        <h2 id="current-category-title">Sélectionne une matière</h2>
+        <h2 id="current-title">Choisis une matière à gauche</h2>
         
         <div id="exercise-card" class="hidden">
-            <p id="question-text" style="font-weight:bold; font-size:1.2em;"></p>
+            <p id="question-text" style="font-weight: bold; font-size: 1.2em;"></p>
             <div id="options-container"></div>
         </div>
 
         <button class="shop-btn" onclick="buyHat()">🛒 Boutique : Chapeau (50 pièces)</button>
+        <p style="font-size: 0.7em; color: #aaa; margin-top: 10px;">U : Ouvrir Soundboard | 1-6 : Sons rapides</p>
     </div>
 
     <div id="pet-container">
@@ -80,57 +83,71 @@
     </div>
 
     <div id="soundboard">
-        <h2>🎵 Pause Musicale 🎵</h2>
+        <h3>🎵 Soundboard Secret</h3>
         <div class="sound-grid">
-            <button class="sound-btn" onclick="playSound('https://www.myinstants.com/media/sounds/anime-wow.mp3')">✨</button>
-            <button class="sound-btn" onclick="playSound('https://www.myinstants.com/media/sounds/tada.mp3')">🎉</button>
-            <button class="sound-btn" onclick="playSound('https://www.myinstants.com/media/sounds/mario-coin.mp3')">💰</button>
-            <button class="sound-btn" onclick="playSound('https://www.myinstants.com/media/sounds/discord-notification.mp3')">🔔</button>
-            <button class="sound-btn" onclick="playSound('https://www.myinstants.com/media/sounds/yeet.mp3')">🚀</button>
-            <button class="sound-btn" onclick="playSound('https://www.myinstants.com/media/sounds/error.mp3')">❌</button>
+            <div class="sound-item">
+                <button class="sound-btn" onclick="playSound('coin')">💰</button>
+                <span class="key-hint">Touche 1</span>
+            </div>
+            <div class="sound-item">
+                <button class="sound-btn" onclick="playSound('notif')">🔔</button>
+                <span class="key-hint">Touche 2</span>
+            </div>
+            <div class="sound-item">
+                <button class="sound-btn" onclick="playSound('fail')">📢</button>
+                <span class="key-hint">Touche 3</span>
+            </div>
+            <div class="sound-item">
+                <button class="sound-btn" onclick="playSound('yeet')">🚀</button>
+                <span class="key-hint">Touche 4</span>
+            </div>
+            <div class="sound-item">
+                <button class="sound-btn" onclick="playSound('tada')">🎉</button>
+                <span class="key-hint">Touche 5</span>
+            </div>
+            <div class="sound-item">
+                <button class="sound-btn" onclick="playSound('haha')">😆</button>
+                <span class="key-hint">Touche 6</span>
+            </div>
         </div>
-        <p>Appuie sur <b>U</b> pour fermer</p>
+        <p style="font-size: 0.8em; margin-top: 15px;">Appuie sur <b>U</b> pour masquer</p>
     </div>
 
     <script>
+        const sounds = {
+            coin: 'https://www.myinstants.com/media/sounds/mario-coin.mp3',
+            notif: 'https://www.myinstants.com/media/sounds/discord-notification.mp3',
+            fail: 'https://www.myinstants.com/media/sounds/fail-horn.mp3',
+            yeet: 'https://www.myinstants.com/media/sounds/yeet.mp3',
+            tada: 'https://www.myinstants.com/media/sounds/tada.mp3',
+            haha: 'https://www.myinstants.com/media/sounds/nelson-haha.mp3'
+        };
+
         const schoolData = {
             "6eme": {
-                "MATHS": [
-                    { q: "6e - Maths : 12 x 4 ?", a: ["48", "44", "52"], c: "48" },
-                    { q: "6e - Maths : Quel angle fait 90° ?", a: ["Droit", "Aigu", "Obtus"], c: "Droit" }
-                ],
-                "FRANÇAIS": [
-                    { q: "6e - Français : Féminin de 'Lion' ?", a: ["Lionne", "Lionte", "Lionesse"], c: "Lionne" }
-                ],
-                "HISTOIRE-GÉO": [
-                    { q: "6e - Géo : Combien y a-t-il d'océans ?", a: ["5", "3", "7"], c: "5" }
-                ]
+                "MATHS": { "Nombres": [{q:"15 + 27 ?", a:["42","32","52"], c:"42"}], "Calcul": [{q:"100 x 0,5 ?", a:["50","500","5"], c:"50"}] },
+                "FRANÇAIS": { "Grammaire": [{q:"Nature de 'vite' ?", a:["Adverbe","Nom","Verbe"], c:"Adverbe"}] },
+                "HISTOIRE-GÉO": { "Préhistoire": [{q:"L'Homme de Tautavel date de...", a:["450 000 ans","2000 ans","10 ans"], c:"450 000 ans"}] }
             },
             "5eme": {
-                "MATHS": [
-                    { q: "5e - Maths : (-5) + (-3) ?", a: ["-8", "8", "-2"], c: "-8" }
-                ],
-                "HISTOIRE": [
-                    { q: "5e - Hist : Qui a inventé l'imprimerie ?", a: ["Gutenberg", "Léonard de Vinci", "Charlemagne"], c: "Gutenberg" }
-                ]
+                "MATHS": { "Relatifs": [{q:"(-10) + 4 ?", a:["-6","6","-14"], c:"-6"}] },
+                "HISTOIRE": { "Islam": [{q:"L'Hégire date de...", a:["622","800","1492"], c:"622"}] },
+                "SCIENCES": { "SVT": [{q:"Le cœur est un...", a:["Muscle","Os","Glande"], c:"Muscle"}] }
             },
             "4eme": {
-                "SCIENCES": [
-                    { q: "4e - SVT : Quel gaz respirons-nous ?", a: ["Dioxygène", "Diazote", "Dioxyde de carbone"], c: "Dioxygène" }
-                ]
+                "MATHS": { "Pythagore": [{q:"Le carré de l'hypoténuse est égal à...", a:["Somme des carrés","Somme des côtés","Zéro"], c:"Somme des carrés"}] },
+                "HISTOIRE": { "Lumières": [{q:"Auteur de l'Encyclopédie ?", a:["Diderot","Napoléon","Molière"], c:"Diderot"}] },
+                "SCIENCES": { "Chimie": [{q:"Molécule de dioxygène ?", a:["O2","CO2","H2O"], c:"O2"}] }
             },
             "3eme": {
-                "MATHS": [
-                    { q: "3e - Thalès : Les droites doivent être...", a: ["Parallèles", "Perpendiculaires", "Sécantes"], c: "Parallèles" }
-                ],
-                "FRANÇAIS": [
-                    { q: "3e - Dictée : On écrit 'Ils...' ?", a: ["Mangeaient", "Mangeait", "Mangeais"], c: "Mangeaient" }
-                ]
+                "MATHS": { "Thalès": [{q:"Thalès = droites ?", a:["Parallèles","Perpendiculaires","Courbes"], c:"Parallèles"}] },
+                "HISTOIRE": { "Guerre": [{q:"Chute du mur de Berlin ?", a:["1989","1945","1918"], c:"1989"}] },
+                "SCIENCES": { "Génétique": [{q:"Où est l'ADN ?", a:["Noyau","Peau","Cheveux"], c:"Noyau"}] }
             }
         };
 
         let currentClass = "6eme";
-        let currentSubject = "";
+        let currentChapData = [];
         let coins = parseInt(localStorage.getItem('coins')) || 0;
         let xp = parseInt(localStorage.getItem('xp')) || 0;
         let hasHat = localStorage.getItem('hasHat') === 'true';
@@ -138,7 +155,7 @@
         function changeClass(lvl) {
             currentClass = lvl;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            document.getElementById("btn-" + lvl.charAt(0)).classList.add('active');
             renderMenu();
         }
 
@@ -151,49 +168,48 @@
                 title.className = "category-title";
                 title.innerText = sub;
                 menu.appendChild(title);
-                
-                let link = document.createElement('a');
-                link.className = "chapter-link";
-                link.innerText = "📁 Ouvrir " + sub;
-                link.onclick = () => startSubject(sub);
-                menu.appendChild(link);
+                for (let chap in subjects[sub]) {
+                    let link = document.createElement('a');
+                    link.className = "chapter-link";
+                    link.innerText = "📁 " + chap;
+                    link.onclick = () => {
+                        currentChapData = subjects[sub][chap];
+                        document.getElementById('current-title').innerText = "Chapitre : " + chap;
+                        document.getElementById('exercise-card').classList.remove('hidden');
+                        nextQuestion();
+                    };
+                    menu.appendChild(link);
+                }
             }
         }
 
-        function startSubject(sub) {
-            currentSubject = sub;
-            document.getElementById('current-category-title').innerText = "Matière : " + sub;
-            document.getElementById('exercise-card').classList.remove('hidden');
-            document.getElementById('pet-talk').innerText = "C'est parti pour les " + sub + " !";
-            nextQuestion();
-        }
-
         function nextQuestion() {
-            const questions = schoolData[currentClass][currentSubject];
-            const q = questions[Math.floor(Math.random() * questions.length)];
-            
+            const q = currentChapData[Math.floor(Math.random() * currentChapData.length)];
             document.getElementById('question-text').innerText = q.q;
             const container = document.getElementById('options-container');
             container.innerHTML = "";
-            
-            q.a.sort(() => Math.random() - 0.5).forEach(opt => {
+            q.a.forEach(opt => {
                 const b = document.createElement('button');
                 b.className = "btn-opt";
                 b.innerText = opt;
                 b.onclick = () => {
                     if (opt === q.c) {
                         coins += 10; xp += 15;
-                        document.getElementById('pet-talk').innerText = "Miaou ! C'est juste ! +10💰";
-                        playSound('https://www.myinstants.com/media/sounds/mario-coin.mp3');
+                        document.getElementById('pet-talk').innerText = "Miaou ! C'est bon !";
+                        playSound('coin');
                     } else {
-                        document.getElementById('pet-talk').innerText = "Oups ! Réessaie !";
-                        playSound('https://www.myinstants.com/media/sounds/error.mp3');
+                        document.getElementById('pet-talk').innerText = "Faaaaaaail...";
+                        playSound('fail');
                     }
                     save();
                     nextQuestion();
                 };
                 container.appendChild(b);
             });
+        }
+
+        function playSound(key) {
+            if (sounds[key]) new Audio(sounds[key]).play();
         }
 
         function save() {
@@ -207,19 +223,23 @@
         }
 
         function buyHat() {
-            if (coins >= 50) {
-                coins -= 50; hasHat = true; save();
-                alert("Chapeau acheté !");
-            } else alert("Pas assez de pièces !");
+            if (coins >= 50) { coins -= 50; hasHat = true; save(); }
+            else { alert("Pas assez de pièces !"); }
         }
 
-        function playSound(url) { new Audio(url).play(); }
-
         document.addEventListener('keydown', (e) => {
-            if (e.key.toLowerCase() === 'u') {
+            const key = e.key.toLowerCase();
+            if (key === 'u') {
                 const sb = document.getElementById('soundboard');
                 sb.style.display = (sb.style.display === 'block') ? 'none' : 'block';
             }
+            // RACCOURCIS DIRECTS
+            if (key === '1') playSound('coin');
+            if (key === '2') playSound('notif');
+            if (key === '3') playSound('fail');
+            if (key === '4') playSound('yeet');
+            if (key === '5') playSound('tada');
+            if (key === '6') playSound('haha');
         });
 
         renderMenu();

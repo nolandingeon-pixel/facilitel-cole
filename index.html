@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>École Virtuelle - Mode Expert</title>
+    <title>École Virtuelle - Version Infinie</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
@@ -28,7 +28,7 @@
 
         /* LE CHAT */
         #pet-container { position: fixed; bottom: 20px; right: 20px; width: 200px; text-align: center; }
-        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 110px; height: 110px; margin: 0 auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 110px; height: 110px; margin: 0 auto; }
         .pet-avatar { width: 100%; height: 100%; object-fit: contain; }
         #pet-accessory { position: absolute; top: -15px; left: 15px; width: 75px; display: none; z-index: 5; }
         .speech-bubble { background: white; padding: 8px; border-radius: 12px; border: 1px solid #ddd; font-size: 0.85em; margin-bottom: 8px; font-weight: bold; }
@@ -36,9 +36,9 @@
         /* SOUNDBOARD */
         #soundboard { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 25px; border-radius: 20px; border: 5px solid var(--primary); display: none; z-index: 2000; text-align: center; box-shadow: 0 0 200px rgba(0,0,0,0.5); }
         .sound-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
-        .sound-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .sound-item { display: flex; flex-direction: column; align-items: center; }
         .sound-btn { padding: 15px; font-size: 20px; border: none; border-radius: 10px; cursor: pointer; background: #f1c40f; width: 60px; }
-        .key-hint { font-size: 0.7em; color: #666; font-weight: bold; background: #eee; padding: 2px 5px; border-radius: 3px; }
+        .key-hint { font-size: 0.7em; color: #666; font-weight: bold; }
 
         .shop-btn { margin-top: 20px; padding: 12px 25px; cursor: pointer; background: #2ecc71; color: white; border: none; border-radius: 50px; font-weight: bold; }
         .hidden { display: none; }
@@ -62,20 +62,16 @@
             <span>⭐ XP: <b id="xp-val">0</b></span>
             <span>🎓 Niveau: <b id="lvl-val">1</b></span>
         </div>
-
-        <h2 id="current-title">Choisis une matière à gauche</h2>
-        
+        <h2 id="current-title">Choisis un chapitre</h2>
         <div id="exercise-card" class="hidden">
             <p id="question-text" style="font-weight: bold; font-size: 1.2em;"></p>
             <div id="options-container"></div>
         </div>
-
-        <button class="shop-btn" onclick="buyHat()">🛒 Boutique : Chapeau (50 pièces)</button>
-        <p style="font-size: 0.7em; color: #aaa; margin-top: 10px;">U : Ouvrir Soundboard | 1-6 : Sons rapides</p>
+        <button class="shop-btn" onclick="buyHat()">🛒 Chapeau (50 pièces)</button>
     </div>
 
     <div id="pet-container">
-        <div class="speech-bubble" id="pet-talk">Salut ! Prêt à bosser ?</div>
+        <div class="speech-bubble" id="pet-talk">MIAOU !</div>
         <div id="pet-img-container">
             <img id="pet-accessory" src="https://cdn-icons-png.flaticon.com/512/7153/7153108.png">
             <img class="pet-avatar" src="https://cdn-icons-png.flaticon.com/512/616/616430.png">
@@ -83,34 +79,15 @@
     </div>
 
     <div id="soundboard">
-        <h3>🎵 Soundboard Secret</h3>
+        <h3>🎵 Soundboard (U pour fermer)</h3>
         <div class="sound-grid">
-            <div class="sound-item">
-                <button class="sound-btn" onclick="playSound('coin')">💰</button>
-                <span class="key-hint">Touche 1</span>
-            </div>
-            <div class="sound-item">
-                <button class="sound-btn" onclick="playSound('notif')">🔔</button>
-                <span class="key-hint">Touche 2</span>
-            </div>
-            <div class="sound-item">
-                <button class="sound-btn" onclick="playSound('fail')">📢</button>
-                <span class="key-hint">Touche 3</span>
-            </div>
-            <div class="sound-item">
-                <button class="sound-btn" onclick="playSound('yeet')">🚀</button>
-                <span class="key-hint">Touche 4</span>
-            </div>
-            <div class="sound-item">
-                <button class="sound-btn" onclick="playSound('tada')">🎉</button>
-                <span class="key-hint">Touche 5</span>
-            </div>
-            <div class="sound-item">
-                <button class="sound-btn" onclick="playSound('haha')">😆</button>
-                <span class="key-hint">Touche 6</span>
-            </div>
+            <div class="sound-item"><button class="sound-btn" onclick="playSound('coin')">💰</button><span class="key-hint">1</span></div>
+            <div class="sound-item"><button class="sound-btn" onclick="playSound('notif')">🔔</button><span class="key-hint">2</span></div>
+            <div class="sound-item"><button class="sound-btn" onclick="playSound('fail')">📢</button><span class="key-hint">3</span></div>
+            <div class="sound-item"><button class="sound-btn" onclick="playSound('yeet')">🚀</button><span class="key-hint">4</span></div>
+            <div class="sound-item"><button class="sound-btn" onclick="playSound('tada')">🎉</button><span class="key-hint">5</span></div>
+            <div class="sound-item"><button class="sound-btn" onclick="playSound('haha')">😆</button><span class="key-hint">6</span></div>
         </div>
-        <p style="font-size: 0.8em; margin-top: 15px;">Appuie sur <b>U</b> pour masquer</p>
     </div>
 
     <script>
@@ -125,24 +102,26 @@
 
         const schoolData = {
             "6eme": {
-                "MATHS": { "Nombres": [{q:"15 + 27 ?", a:["42","32","52"], c:"42"}], "Calcul": [{q:"100 x 0,5 ?", a:["50","500","5"], c:"50"}] },
-                "FRANÇAIS": { "Grammaire": [{q:"Nature de 'vite' ?", a:["Adverbe","Nom","Verbe"], c:"Adverbe"}] },
-                "HISTOIRE-GÉO": { "Préhistoire": [{q:"L'Homme de Tautavel date de...", a:["450 000 ans","2000 ans","10 ans"], c:"450 000 ans"}] }
+                "MATHS": {
+                    "Décimaux": [{q:"1,2 + 0,8 ?", a:["2","1,8","1,1"], c:"2"}, {q:"La moitié de 100 ?", a:["50","25","75"], c:"50"}],
+                    "Espace": [{q:"Combien de côtés a un triangle ?", a:["3","4","5"], c:"3"}]
+                },
+                "FRANÇAIS": {
+                    "Grammaire": [{q:"Le sujet de 'Le chat dort' ?", a:["Le chat","dort","Le"], c:"Le chat"}],
+                    "Orthographe": [{q:"Pluriel de 'Hibou' ?", a:["Hiboux","Hibous","Hibouxes"], c:"Hiboux"}]
+                }
             },
             "5eme": {
-                "MATHS": { "Relatifs": [{q:"(-10) + 4 ?", a:["-6","6","-14"], c:"-6"}] },
-                "HISTOIRE": { "Islam": [{q:"L'Hégire date de...", a:["622","800","1492"], c:"622"}] },
-                "SCIENCES": { "SVT": [{q:"Le cœur est un...", a:["Muscle","Os","Glande"], c:"Muscle"}] }
+                "MATHS": { "Relatifs": [{q:"(-5) + (-2) ?", a:["-7","7","-3"], c:"-7"}] },
+                "HISTOIRE": { "Moyen-Âge": [{q:"Qui gagne à Marignan en 1515 ?", a:["François 1er","Napoléon","Louis XIV"], c:"François 1er"}] }
             },
             "4eme": {
-                "MATHS": { "Pythagore": [{q:"Le carré de l'hypoténuse est égal à...", a:["Somme des carrés","Somme des côtés","Zéro"], c:"Somme des carrés"}] },
-                "HISTOIRE": { "Lumières": [{q:"Auteur de l'Encyclopédie ?", a:["Diderot","Napoléon","Molière"], c:"Diderot"}] },
-                "SCIENCES": { "Chimie": [{q:"Molécule de dioxygène ?", a:["O2","CO2","H2O"], c:"O2"}] }
+                "MATHS": { "Pythagore": [{q:"Triangle rectangle = quel théorème ?", a:["Pythagore","Thalès","Newton"], c:"Pythagore"}] },
+                "SCIENCES": { "Chimie": [{q:"Symbole de l'Eau ?", a:["H2O","O2","CO2"], c:"H2O"}] }
             },
             "3eme": {
-                "MATHS": { "Thalès": [{q:"Thalès = droites ?", a:["Parallèles","Perpendiculaires","Courbes"], c:"Parallèles"}] },
-                "HISTOIRE": { "Guerre": [{q:"Chute du mur de Berlin ?", a:["1989","1945","1918"], c:"1989"}] },
-                "SCIENCES": { "Génétique": [{q:"Où est l'ADN ?", a:["Noyau","Peau","Cheveux"], c:"Noyau"}] }
+                "MATHS": { "Thalès": [{q:"Thalès = droites ?", a:["Parallèles","Perpendiculaires","Sécantes"], c:"Parallèles"}] },
+                "SVT": { "Génétique": [{q:"Nombre de chromosomes humain ?", a:["46","23","48"], c:"46"}] }
             }
         };
 
@@ -195,22 +174,21 @@
                 b.onclick = () => {
                     if (opt === q.c) {
                         coins += 10; xp += 15;
-                        document.getElementById('pet-talk').innerText = "Miaou ! C'est bon !";
+                        document.getElementById('pet-talk').innerText = "MIAOU ! +10💰";
                         playSound('coin');
                     } else {
-                        document.getElementById('pet-talk').innerText = "Faaaaaaail...";
+                        document.getElementById('pet-talk').innerText = "FAAAAAIL !";
                         playSound('fail');
                     }
                     save();
-                    nextQuestion();
+                    // ENCHAÎNEMENT AUTOMATIQUE ICI
+                    setTimeout(nextQuestion, 600); 
                 };
                 container.appendChild(b);
             });
         }
 
-        function playSound(key) {
-            if (sounds[key]) new Audio(sounds[key]).play();
-        }
+        function playSound(key) { if (sounds[key]) new Audio(sounds[key]).play(); }
 
         function save() {
             localStorage.setItem('coins', coins);
@@ -233,13 +211,10 @@
                 const sb = document.getElementById('soundboard');
                 sb.style.display = (sb.style.display === 'block') ? 'none' : 'block';
             }
-            // RACCOURCIS DIRECTS
-            if (key === '1') playSound('coin');
-            if (key === '2') playSound('notif');
-            if (key === '3') playSound('fail');
-            if (key === '4') playSound('yeet');
-            if (key === '5') playSound('tada');
-            if (key === '6') playSound('haha');
+            if (['1','2','3','4','5','6'].includes(key)) {
+                const map = {'1':'coin','2':'notif','3':'fail','4':'yeet','5':'tada','6':'haha'};
+                playSound(map[key]);
+            }
         });
 
         renderMenu();

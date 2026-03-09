@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speedrun Auto-Leaderboard</title>
+    <style>
+        :root { --primary: #00ff88; --bg: #121212; --card: #1e1e1e; }
+        body { font-family: sans-serif; background: var(--bg); color: white; text-align: center; }
+        header { padding: 20px; border-bottom: 2px solid var(--primary); }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        table { width: 100%; background: var(--card); border-collapse: collapse; margin-top: 20px; border-radius: 8px; overflow: hidden; }
+        th { background: #333; padding: 15px; color: var(--primary); }
+        td { padding: 12px; border-bottom: 1px solid #333; }
+        .btn { background: var(--primary); color: black; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px; margin: 10px; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏆 SPEEDRUN AUTOMATIQUE</h1>
+    <button class="btn" onclick="show('leaderboard')">Classement</button>
+    <button class="btn" onclick="show('submit')">Envoyer un Run</button>
+</header>
+
+<div class="container">
+    <section id="leaderboard">
+        <h2>Classement en Temps Réel</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rang</th>
+                    <th>Joueur</th>
+                    <th>Temps</th>
+                    <th>Pays</th>
+                    <th>Preuve</th>
+                </tr>
+            </thead>
+            <tbody id="rankingData">
+                <tr><td colspan="5">Chargement des scores...</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="submit" class="hidden">
+        <h2>Soumettre un Record</h2>
+        <p>Pour que ce soit automatique, crée un <b>Google Form</b> et lie-le à ton Google Sheet.</p>
+        <a href="TON_LIEN_GOOGLE_FORM" target="_blank" class="btn">Ouvrir le formulaire d'envoi</a>
+    </section>
+</div>
+
+<script>
+    // URL DE TON GOOGLE SHEET PUBLIÉ EN CSV
+    const SHEET_URL = "REMPLACE_PAR_TON_LIEN_CSV_ICI";
+
+    async function loadScores() {
+        const response = await fetch(SHEET_URL);
+        const data = await response.text();
+        const rows = data.split('\n').slice(1); // On enlève la première ligne (titres)
+        
+        const tableBody = document.getElementById('rankingData');
+        tableBody.innerHTML = "";
+
+        // On trie les données par temps (index 2)
+        rows.sort((a, b) => a.split(',')[2].localeCompare(b.split(',')[2]));
+
+        rows.forEach((row, index) => {
+            const cols = row.split(',');
+            if(cols.length < 4) return;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${index + 1}</td>
+                <td><b>${cols[0]}</b></td>
+                <td>${cols[2]}</td>
+                <td>${cols[3]}</td>
+                <td><a href="${cols[4]}" target="_blank" style="color:cyan">Lien Vidéo</a></td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    function show(id) {
+        document.getElementById('leaderboard').classList.toggle('hidden', id !== 'leaderboard');
+        document.getElementById('submit').classList.toggle('hidden', id !== 'submit');
+    }
+
+    // Charger les scores au démarrage
+    loadScores();
+</script>
+
+</body>
+</html>

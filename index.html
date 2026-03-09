@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plateforme Éducative - Mode Ninja</title>
+    <title>École Virtuelle - Version Ultime</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
@@ -41,9 +41,9 @@
         .pet-avatar { width: 100%; height: 100%; object-fit: contain; }
         .acc-img { position: absolute; display: none; pointer-events: none; z-index: 1001; }
         
-        #acc-hat { top: -20px; left: 15px; width: 80px; }
+        #acc-hat { top: -25px; left: 10px; width: 90px; }
         #acc-glasses { top: 35px; left: 20px; width: 70px; }
-        #acc-crown { top: -35px; left: 15px; width: 80px; }
+        #acc-crown { top: -40px; left: 10px; width: 90px; }
 
         .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.85em; margin-bottom: 10px; font-weight: bold; min-height: 40px; display: flex; align-items: center; justify-content: center; }
         .hidden { display: none; }
@@ -68,10 +68,10 @@
             <span>🎓 Niv. <b id="lvl-val">1</b></span>
         </div>
 
-        <h3 id="current-title">Clique sur un chapitre à gauche</h3>
+        <h3 id="current-title">Choisis une matière</h3>
         
         <div id="exercise-card" class="hidden">
-            <p id="question-text" style="font-weight: bold; font-size: 1.1em;"></p>
+            <p id="question-text" style="font-weight: bold;"></p>
             <div id="options-container"></div>
         </div>
 
@@ -88,7 +88,7 @@
     </div>
 
     <div id="pet-container">
-        <div class="speech-bubble" id="pet-talk">Salut l'ami !</div>
+        <div class="speech-bubble" id="pet-talk">Salut ! On révise ?</div>
         <div id="pet-img-container">
             <img id="acc-hat" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/05/Graduation-Hat-PNG-Clipart.png">
             <img id="acc-glasses" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/04/Thug-Life-Glasses-PNG-Clipart.png">
@@ -107,16 +107,28 @@
 
         const schoolData = {
             "6eme": {
-                "MATHS": { "Nombres": [{q:"15+15?", a:["30","40"], c:"30"}, {q:"10 x 10?", a:["100","1000"], c:"100"}] },
-                "HISTOIRE": { "Tautavel": [
-                    {q:"Âge de l'Homme de Tautavel ?", a:["450 000 ans","10 000 ans"], c:"450 000 ans"},
-                    {q:"Où a-t-on trouvé son crâne ?", a:["Caune de l'Arago","Grotte Lascaux"], c:"Caune de l'Arago"},
-                    {q:"Était-il un Homo Sapiens ?", a:["Non, Erectus","Oui"], c:"Non, Erectus"}
-                ]}
+                "MATHS": { "Calcul": [{q:"12 x 3 ?", a:["36","32","42"], c:"36"}, {q:"150 - 75 ?", a:["75","85","65"], c:"75"}] },
+                "HISTOIRE": { "Tautavel": [{q:"Âge de l'Homme de Tautavel ?", a:["450 000 ans","10 000 ans"], c:"450 000 ans"}, {q:"Lieu de découverte ?", a:["Caune de l'Arago","Lascaux"], c:"Caune de l'Arago"}] },
+                "FRANÇAIS": { "Grammaire": [{q:"Nature de 'Magnifique' ?", a:["Adjectif","Verbe"], c:"Adjectif"}] }
             },
-            "5eme": { "HISTOIRE": { "Islam": [{q:"L'Hégire date de ?", a:["622","800"], c:"622"}] } },
-            "4eme": { "SCIENCES": { "Chimie": [{q:"Molécule d'Eau ?", a:["H2O","CO2"], c:"H2O"}] } },
-            "3eme": { "BREVET": { "Génétique": [{q:"Nombre de chromosomes ?", a:["46","23"], c:"46"}] } }
+            "5eme": {
+                "MATHS": { "Relatifs": [{q:"(-5) + 8 ?", a:["3","-3","13"], c:"3"}, {q:"(-2) x (-4) ?", a:["8","-8","6"], c:"8"}] },
+                "HISTOIRE": { "Moyen-Âge": [{q:"Qui est sacré en 800 ?", a:["Charlemagne","Clovis"], c:"Charlemagne"}, {q:"Capitale de Charlemagne ?", a:["Aix-la-Chapelle","Paris"], c:"Aix-la-Chapelle"}] },
+                "GÉOGRAPHIE": { "Durable": [{q:"Que signifie le D de EDD ?", a:["Durable","Développement"], c:["Durable"]}] },
+                "SCIENCES": { "SVT": [{q:"Organe qui pompe le sang ?", a:["Cœur","Poumon"], c:"Cœur"}] }
+            },
+            "4eme": {
+                "MATHS": { "Pythagore": [{q:"Le côté le plus long ?", a:["Hypoténuse","Adjacent"], c:"Hypoténuse"}, {q:"3² + 4² = ?", a:["25","7","12"], c:"25"}] },
+                "HISTOIRE": { "Lumières": [{q:"Auteur de l'Émile ?", a:["Rousseau","Voltaire"], c:"Rousseau"}] },
+                "PHYSIQUE": { "Électricité": [{q:"Unité de la tension ?", a:["Volt","Ampère"], c:"Volt"}] },
+                "FRANÇAIS": { "Fantastique": [{q:"Auteur de 'Le Horla' ?", a:["Maupassant","Zola"], c:"Maupassant"}] }
+            },
+            "3eme": {
+                "MATHS": { "Thalès": [{q:"Thalès nécessite des droites...", a:["Parallèles","Perpendiculaires"], c:"Parallèles"}] },
+                "HISTOIRE": { "Guerre Mondiale": [{q:"Début de la 2nde Guerre ?", a:["1939","1914","1945"], c:"1939"}, {q:"Appel du 18 juin ?", a:["De Gaulle","Pétain"], c:"De Gaulle"}] },
+                "SVT": { "Génétique": [{q:"Nombre de chromosomes ?", a:["46","23","48"], c:"46"}] },
+                "FRANÇAIS": { "Poésie": [{q:"Un vers de 10 syllabes ?", a:["Décasyllabe","Alexandrin"], c:"Décasyllabe"}] }
+            }
         };
 
         let coins = parseInt(localStorage.getItem('coins')) || 0;
@@ -124,6 +136,7 @@
         let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
         let currentClass = "6eme";
         let currentChapData = [];
+        let lastQ = null;
 
         function changeClass(lvl) {
             currentClass = lvl;
@@ -147,13 +160,17 @@
         }
 
         function startExercise(name) {
-            document.getElementById('current-title').innerText = "Chapitre : " + name;
+            document.getElementById('current-title').innerText = name;
             document.getElementById('exercise-card').classList.remove('hidden');
             nextQuestion();
         }
 
         function nextQuestion() {
-            const q = currentChapData[Math.floor(Math.random() * currentChapData.length)];
+            let q;
+            do { q = currentChapData[Math.floor(Math.random() * currentChapData.length)]; } 
+            while (q === lastQ && currentChapData.length > 1);
+            lastQ = q;
+
             document.getElementById('question-text').innerText = q.q;
             const container = document.getElementById('options-container');
             container.innerHTML = "";
@@ -161,12 +178,11 @@
                 const b = document.createElement('button'); b.className = "btn-opt"; b.innerText = opt;
                 b.onclick = () => {
                     if(opt === q.c) { 
-                        coins += 10; xp += 15; 
-                        new Audio(sounds[1]).play(); 
-                        document.getElementById('pet-talk').innerText="Ron-ron ! Correct !"; 
+                        coins += 10; xp += 15; new Audio(sounds[1]).play(); 
+                        document.getElementById('pet-talk').innerText="Excellent ! +10💰";
                     } else { 
                         new Audio(sounds[3]).play(); 
-                        document.getElementById('pet-talk').innerText="Miaou... non !"; 
+                        document.getElementById('pet-talk').innerText="Oups ! Réessaie."; 
                     }
                     save();
                     setTimeout(nextQuestion, 600);
@@ -178,16 +194,15 @@
         function askPet() {
             const input = document.getElementById('chat-input').value.toLowerCase();
             const talk = document.getElementById('pet-talk');
-            if(input.includes("souris")) talk.innerText = "Chasser des souris ? Ma passion !";
-            else if(input.includes("nom")) talk.innerText = "Appelle-moi Maître Chat !";
-            else if(input.includes("argent") || input.includes("pièces")) talk.innerText = "Travaille bien pour gagner des 💰 !";
-            else if(input.includes("prof")) talk.innerText = "Elle va être impressionnée, c'est sûr !";
-            else talk.innerText = "Miaou ? Je réfléchis encore...";
+            if(input.includes("souris")) talk.innerText = "Miam ! Un régal.";
+            else if(input.includes("nom")) talk.innerText = "Je suis ton assistant de révision !";
+            else if(input.includes("prof")) talk.innerText = "Chut... travaille bien !";
+            else talk.innerText = "Miaou ! Continue comme ça !";
             document.getElementById('chat-input').value = "";
         }
 
         function buy(item, price) {
-            if (inventory.includes(item)) return alert("Tu l'as déjà !");
+            if (inventory.includes(item)) return alert("Tu possèdes déjà cet objet !");
             if (coins >= price) {
                 coins -= price; inventory.push(item); save();
                 document.getElementById('pet-talk').innerText = "Regarde mon nouveau style !";
@@ -201,18 +216,14 @@
             document.getElementById('coins-val').innerText = coins;
             document.getElementById('xp-val').innerText = xp;
             document.getElementById('lvl-val').innerText = Math.floor(xp/100) + 1;
-            inventory.forEach(i => {
-                const el = document.getElementById('acc-'+i);
-                if(el) el.style.display = 'block';
-            });
+            inventory.forEach(i => { if(document.getElementById('acc-'+i)) document.getElementById('acc-'+i).style.display = 'block'; });
         }
 
-        document.addEventListener('keydown', (e) => {
-            if(sounds[e.key]) new Audio(sounds[e.key]).play();
-        });
+        document.addEventListener('keydown', (e) => { if(sounds[e.key]) new Audio(sounds[e.key]).play(); });
 
         renderMenu(); save();
     </script>
 </body>
 </html>
+
 

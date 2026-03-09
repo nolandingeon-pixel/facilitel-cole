@@ -3,151 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat-Apprentissage : Mon École Virtuelle</title>
+    <title>Mon École Virtuelle</title>
     <style>
-        :root { --primary: #6c5ce7; --secondary: #a29bfe; --gold: #fdcb6e; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #2d3436; }
+        :root { --sidebar-width: 280px; --primary: #8e44ad; --bg: #fdfdfd; }
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
+
+        /* Menu de gauche (Style Sésamath) */
+        #sidebar { width: var(--sidebar-width); background: #fff; border-right: 2px solid #d35400; padding: 15px; overflow-y: auto; box-shadow: 2px 0 5px rgba(0,0,0,0.1); }
+        .classe-tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .tab { padding: 5px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #eee; border: 1px solid #ccc; }
+        .tab.active { background: #e67e22; color: white; }
         
-        /* Dashboard & Stats */
-        .header { background: white; padding: 15px; border-radius: 15px; display: flex; justify-content: space-around; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .stat-box { font-weight: bold; color: var(--primary); }
+        .category-title { background: #fde3d0; color: #d35400; padding: 5px; font-weight: bold; font-size: 0.9em; margin-top: 15px; border-radius: 3px; }
+        .chapter-link { display: block; padding: 5px 10px; color: #555; text-decoration: none; font-size: 0.85em; cursor: pointer; }
+        .chapter-link:hover { background: #f0f0f0; color: #000; }
 
-        /* Le Chat Virtuel */
-        #game-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 300px; text-align: center; }
+        /* Zone centrale de travail */
+        #main-content { flex-grow: 1; padding: 40px; display: flex; flex-direction: column; align-items: center; }
+        .header-stats { position: absolute; top: 10px; right: 20px; background: white; padding: 10px; border-radius: 10px; border: 1px solid #ddd; display: flex; gap: 15px; }
         
-        #cat-display { position: relative; width: 150px; height: 150px; margin: 0 auto; background: #dfe6e9; border-radius: 50%; overflow: hidden; border: 4px solid var(--secondary); }
-        .cat-img { width: 100%; height: 100%; object-fit: cover; }
-        #accessory-overlay { position: absolute; top: 10%; left: 25%; width: 50%; display: none; z-index: 5; }
+        #exercise-card { background: white; padding: 30px; border-radius: 15px; border: 2px solid #8e44ad; width: 100%; max-width: 500px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .btn-opt { display: block; width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; background: #fff; font-size: 1em; }
+        .btn-opt:hover { background: #f9f9f9; border-color: var(--primary); }
 
-        /* Exercices */
-        select, button { padding: 10px; border-radius: 8px; border: 1px solid #ddd; margin: 5px; cursor: pointer; }
-        .btn-main { background: var(--primary); color: white; border: none; transition: 0.3s; }
-        .btn-main:hover { background: var(--secondary); }
+        /* Le Chat en bas à droite */
+        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 180px; text-align: center; z-index: 100; }
+        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid #8e44ad; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .pet-avatar { width: 100px; height: 100px; }
+        #pet-accessory { position: absolute; top: 5px; left: 30px; width: 60px; display: none; }
+        .speech-bubble { background: white; padding: 8px; border-radius: 10px; border: 1px solid #ddd; font-size: 0.8em; margin-bottom: 5px; position: relative; }
 
-        /* Masquer/Afficher les sections */
-        .hidden { display: none; }
+        /* Boutique Modal */
+        #shop-btn { margin-top: 20px; padding: 10px; cursor: pointer; background: #f1c40f; border: none; border-radius: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="stat-box">🐱 Niveau: <span id="lvl-val">1</span></div>
-        <div class="stat-box">⭐ XP: <span id="xp-val">0</span>/100</div>
-        <div class="stat-box">💰 Pièces: <span id="coins-val">0</span></div>
+    <div id="sidebar">
+        <div class="classe-tabs" id="class-tabs">
+            <div class="tab active" onclick="changeClass('6eme')">6e</div>
+            <div class="tab" onclick="changeClass('5eme')">5e</div>
+            <div class="tab" onclick="changeClass('4eme')">4e</div>
+            <div class="tab" onclick="changeClass('3eme')">3e</div>
+        </div>
+        
+        <div id="menu-content">
+            </div>
     </div>
 
-    <div id="game-container">
-        <div class="card">
-            <h3>Mon Compagnon</h3>
-            <div id="cat-display">
-                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="cat-img" alt="Chat">
-                <img id="accessory-overlay" src="https://cdn-icons-png.flaticon.com/512/7153/7153108.png" alt="Chapeau">
-            </div>
-            <p id="cat-status">Ton chat a faim d'apprendre !</p>
+    <div id="main-content">
+        <div class="header-stats">
+            <span>💰 <b id="coins-val">0</b></span>
+            <span>⭐ XP: <b id="xp-val">0</b></span>
+            <span>Niveau: <b id="lvl-val">1</b></span>
         </div>
 
-        <div class="card">
-            <h3>Salle de Classe</h3>
-            <label>Niveau :</label>
-            <select id="level-select" onchange="loadQuestion()">
-                <option value="6eme">6ème</option>
-                <option value="5eme">5ème</option>
-                <option value="4eme">4ème</option>
-                <option value="3eme">3ème</option>
-            </select>
-            <div id="question-box">
-                <p id="question-text">Choisis un niveau pour commencer !</p>
-                <div id="options-container"></div>
-            </div>
+        <h2 id="current-category">Choisissez un chapitre</h2>
+        
+        <div id="exercise-card" class="hidden">
+            <h3 id="question-text">Question...</h3>
+            <div id="options-container"></div>
         </div>
 
-        <div class="card">
-            <h3>Boutique</h3>
-            <p>Chapeau de Magicien</p>
-            <p>Prix : <strong>50 pièces</strong></p>
-            <button id="buy-hat" class="btn-main" onclick="buyItem('hat', 50)">Acheter</button>
+        <button id="shop-btn" onclick="buyAccessory()">🛍️ Boutique : Chapeau (50 pièces)</button>
+    </div>
+
+    <div id="pet-container">
+        <div class="speech-bubble" id="pet-talk">Salut ! Choisis un chapitre pour m'aider !</div>
+        <div id="pet-img-container">
+            <img id="pet-accessory" src="https://cdn-icons-png.flaticon.com/512/7153/7153108.png">
+            <img class="pet-avatar" src="https://cdn-icons-png.flaticon.com/512/616/616408.png">
         </div>
     </div>
 
     <script>
-        // Données des exercices
-        const database = {
-            "6eme": { q: "Maths : 12 x 3 ?", a: ["36", "32", "40"], correct: "36" },
-            "5eme": { q: "Histoire : Qui a régné de 1643 à 1715 ?", a: ["Louis XIV", "Napoléon", "Charlemagne"], correct: "Louis XIV" },
-            "4eme": { q: "Physique : Symbole du Fer ?", a: ["Fe", "F", "Fr"], correct: "Fe" },
-            "3eme": { q: "Maths : Racine carrée de 81 ?", a: ["9", "7", "81"], correct: "9" }
+        // Données complètes
+        const schoolData = {
+            "6eme": {
+                "NOMBRES ET CALCULS": ["Opérations", "Fractions", "Décimaux"],
+                "ESPACE ET GÉOMÉTRIE": ["Parallèles", "Triangles"],
+                questions: [
+                    { q: "6ème : 15 + 27 ?", a: ["42", "32", "52"], c: "42" },
+                    { q: "6ème : Lequel est un nombre décimal ?", a: ["5,5", "8", "100"], c: "5,5" }
+                ]
+            },
+            "5eme": {
+                "NOMBRES ET CALCULS": ["Relatifs", "Priorités"],
+                questions: [
+                    { q: "5ème : (-5) + (+2) ?", a: ["-3", "3", "7"], c: "-3" }
+                ]
+            }
         };
 
-        // Variables de jeu (chargées depuis la mémoire du navigateur)
+        let currentClass = "6eme";
         let coins = parseInt(localStorage.getItem('coins')) || 0;
         let xp = parseInt(localStorage.getItem('xp')) || 0;
-        let lvl = parseInt(localStorage.getItem('lvl')) || 1;
         let hasHat = localStorage.getItem('hasHat') === 'true';
 
-        function updateUI() {
-            document.getElementById('coins-val').innerText = coins;
-            document.getElementById('xp-val').innerText = xp;
-            document.getElementById('lvl-val').innerText = lvl;
-            if (hasHat) {
-                document.getElementById('accessory-overlay').style.display = 'block';
-                document.getElementById('buy-hat').innerText = "Possédé";
-                document.getElementById('buy-hat').disabled = true;
-            }
-            
-            // Sauvegarde
-            localStorage.setItem('coins', coins);
-            localStorage.setItem('xp', xp);
-            localStorage.setItem('lvl', lvl);
-            localStorage.setItem('hasHat', hasHat);
+        function changeClass(lvl) {
+            currentClass = lvl;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            renderMenu();
         }
 
-        function loadQuestion() {
-            const level = document.getElementById('level-select').value;
-            const data = database[level];
-            document.getElementById('question-text').innerText = data.q;
+        function renderMenu() {
+            const menu = document.getElementById('menu-content');
+            menu.innerHTML = "";
+            const data = schoolData[currentClass];
+            
+            for (let cat in data) {
+                if (cat === "questions") continue;
+                let title = document.createElement('div');
+                title.className = "category-title";
+                title.innerText = cat;
+                menu.appendChild(title);
+                
+                data[cat].forEach(chap => {
+                    let link = document.createElement('a');
+                    link.className = "chapter-link";
+                    link.innerText = "📁 " + chap;
+                    link.onclick = () => startExercise(chap);
+                    menu.appendChild(link);
+                });
+            }
+        }
+
+        function startExercise(name) {
+            document.getElementById('current-category').innerText = name;
+            document.getElementById('exercise-card').classList.remove('hidden');
+            document.getElementById('pet-talk').innerText = "C'est parti pour " + name + " !";
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            const qs = schoolData[currentClass].questions;
+            const randomQ = qs[Math.floor(Math.random() * qs.length)];
+            
+            document.getElementById('question-text').innerText = randomQ.q;
             const container = document.getElementById('options-container');
             container.innerHTML = "";
             
-            data.a.forEach(opt => {
+            randomQ.a.forEach(opt => {
                 const btn = document.createElement('button');
+                btn.className = "btn-opt";
                 btn.innerText = opt;
-                btn.onclick = () => checkAnswer(opt, data.correct);
+                btn.onclick = () => checkAnswer(opt, randomQ.c);
                 container.appendChild(btn);
             });
         }
 
-        function checkAnswer(chosen, correct) {
-            if (chosen === correct) {
-                alert("Excellent ! +15 XP et +10 Pièces");
-                coins += 10;
-                xp += 15;
-                if (xp >= 100) {
-                    lvl++;
-                    xp = 0;
-                    alert("NIVEAU SUPÉRIEUR ! Ton chat est fier de toi.");
-                }
+        function checkAnswer(ans, cor) {
+            if (ans === cor) {
+                coins += 10; xp += 20;
+                document.getElementById('pet-talk').innerText = "Miaou ! C'est juste ! +10💰";
             } else {
-                alert("Oups ! Relis bien ton cours.");
+                document.getElementById('pet-talk').innerText = "Oh non... réessaie !";
             }
-            updateUI();
-            loadQuestion(); // Change de question (ou recharge la même pour l'exemple)
+            saveAndRefresh();
+            nextQuestion();
         }
 
-        function buyItem(item, price) {
-            if (coins >= price) {
-                coins -= price;
-                if (item === 'hat') hasHat = true;
-                alert("Objet acheté ! Ton chat a un nouveau look.");
-                updateUI();
+        function buyAccessory() {
+            if (coins >= 50) {
+                coins -= 50;
+                hasHat = true;
+                saveAndRefresh();
+                alert("Ton chat a maintenant un chapeau !");
             } else {
-                alert("Pas assez de pièces ! Travaille encore un peu.");
+                alert("Pas assez de pièces !");
             }
         }
 
-        // Initialisation au lancement
-        updateUI();
-        loadQuestion();
+        function saveAndRefresh() {
+            localStorage.setItem('coins', coins);
+            localStorage.setItem('xp', xp);
+            localStorage.setItem('hasHat', hasHat);
+            document.getElementById('coins-val').innerText = coins;
+            document.getElementById('xp-val').innerText = xp;
+            document.getElementById('lvl-val').innerText = Math.floor(xp/100) + 1;
+            if (hasHat) document.getElementById('pet-accessory').style.display = 'block';
+        }
+
+        // Init
+        renderMenu();
+        saveAndRefresh();
     </script>
 </body>
 </html>

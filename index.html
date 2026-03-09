@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>École Virtuelle - Version Ultime Corrigée</title>
+    <title>École Virtuelle - Système Ultra-Sécurisé</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; transition: 0.1s; }
 
-        /* FAUX VIRUS PLEIN ÉCRAN */
+        /* EFFET TREMBLEMENT */
+        @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 40% { transform: translate(3px, 2px) rotate(0deg); } 60% { transform: translate(-1px, -1px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
+        .shake { animation: shake 0.1s infinite !important; }
+
+        /* FAUX VIRUS EFFRAYANT */
         #virus-screen { position: fixed; inset: 0; background: black; color: #0f0; font-family: 'Courier New', monospace; z-index: 10000; padding: 40px; display: none; cursor: none; }
-        .virus-red { color: red; font-weight: bold; font-size: 3em; text-align: center; animation: blink 0.15s infinite; margin-top: 10vh; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+        .virus-flash { animation: flash-bg 0.2s infinite; }
+        @keyframes flash-bg { 0% { background: black; } 50% { background: #800; } 100% { background: black; } }
+        
+        #bsod { position: fixed; inset: 0; background: #0078d7; color: white; padding: 100px; font-family: 'Segoe UI', sans-serif; display: none; z-index: 10001; cursor: none; }
+        .bsod-face { font-size: 100px; margin-bottom: 20px; }
 
-        /* PANIC SCREEN (ECHAP) */
-        #panic-screen { position: fixed; inset: 0; background: white; z-index: 9999; padding: 50px; display: none; overflow-y: auto; }
-
-        /* SIDEBAR COMPLÈTE */
+        /* INTERFACE */
         #sidebar { width: var(--sidebar-width); background: #fff; border-right: 3px solid var(--orange); padding: 15px; overflow-y: auto; }
         .classe-tabs { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .tab { padding: 8px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; font-size: 0.75em; border: 1px solid #ddd; }
@@ -25,7 +29,6 @@
         .chapter-link { display: block; padding: 8px 12px; color: #555; text-decoration: none; font-size: 0.85em; cursor: pointer; border-left: 3px solid transparent; }
         .chapter-link:hover { background: #fff4ed; border-left: 3px solid var(--orange); color: #000; }
 
-        /* MAIN CONTENT */
         #main-content { flex-grow: 1; padding: 30px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
         .header-stats { background: white; padding: 12px 25px; border-radius: 50px; border: 2px solid var(--primary); display: flex; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
@@ -33,37 +36,36 @@
         .btn-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; transition: 0.2s; }
         .btn-opt:hover { background: #f8f5ff; border-color: var(--primary); }
 
-        /* BOUTIQUE ET CHAT */
-        .shop-container { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
-        .shop-item { background: white; padding: 10px; border-radius: 15px; border: 2px solid #2ecc71; text-align: center; width: 100px; }
-        .secret-item { opacity: 0.05; cursor: help; border-color: red; }
-        
-        #chat-ia { width: 100%; max-width: 500px; margin-top: 20px; background: #fff; border: 2px solid #ddd; border-radius: 15px; padding: 10px; display: flex; gap: 10px; }
-        #chat-input { flex-grow: 1; padding: 8px; border-radius: 10px; border: 1px solid #ccc; }
+        .shop-container { display: flex; gap: 10px; margin-top: 20px; }
+        .shop-item { background: white; padding: 10px; border-radius: 15px; border: 2px solid #2ecc71; text-align: center; width: 80px; }
+        .secret-item { opacity: 0.01; cursor: help; border-color: red; }
 
-        /* PET */
-        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 180px; text-align: center; cursor: pointer; }
-        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 100px; height: 100px; margin: 0 auto; }
-        .pet-avatar { width: 100%; height: 100%; object-fit: contain; }
+        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 150px; text-align: center; cursor: pointer; }
+        .pet-avatar { width: 100px; position: relative; }
         .acc-img { position: absolute; display: none; pointer-events: none; z-index: 1001; }
-        #acc-hat { top: -25px; left: 10px; width: 85px; }
-        #acc-glasses { top: 35px; left: 20px; width: 70px; }
-        #acc-crown { top: -40px; left: 10px; width: 90px; }
-        .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.8em; margin-bottom: 10px; font-weight: bold; min-height: 40px; display: flex; align-items: center; justify-content: center; }
-
+        #acc-hat { top: -20px; left: 15px; width: 70px; }
+        #acc-glasses { top: 30px; left: 15px; width: 70px; }
+        .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.8em; margin-bottom: 10px; font-weight: bold; }
         .hidden { display: none; }
     </style>
 </head>
-<body>
+<body onclick="recordClick()">
 
     <div id="virus-screen">
-        <div class="virus-red">CRITICAL ERROR: SPAM DETECTED</div>
-        <div id="virus-log"></div>
+        <h1 style="color: red; font-size: 3.5em; text-align: center;">DANGER : SYSTEM_FAILURE_DETECTED</h1>
+        <div id="virus-log" style="font-size: 1.4em; line-height: 1.6;"></div>
     </div>
 
-    <div id="panic-screen">
-        <h1>Analyse des Systèmes et Algorithmes</h1>
-        <p>Un système est dit stable si, pour toute entrée bornée, la sortie reste bornée. L'étude de la stabilité de Lyapunov permet...</p>
+    <div id="bsod">
+        <div class="bsod-face">:(</div>
+        <h2>Votre ordinateur a rencontré un problème et doit redémarrer.</h2>
+        <p>Nous collectons simplement quelques informations relatives aux erreurs (100% complet).</p>
+        <p style="font-size: 0.8em; margin-top: 50px;">Code d'arrêt : MANUEL_BOT_SPAM_PROTECTION<br>Élément ayant échoué : Brain.sys</p>
+    </div>
+
+    <div id="panic-screen" style="position:fixed; inset:0; background:white; z-index:9999; display:none; padding:50px;">
+        <h1>Physique Quantique et Relativité Générale</h1>
+        <p>L'équation de Schrödinger décrit l'évolution temporelle d'un système quantique non relativiste...</p>
     </div>
 
     <div id="sidebar">
@@ -84,83 +86,77 @@
         </div>
 
         <div id="exercise-card" class="hidden">
-            <p id="question-text" style="font-weight: bold;"></p>
+            <p id="question-text" style="font-weight: bold; font-size: 1.2em;"></p>
             <div id="options-container"></div>
         </div>
 
-        <div id="chat-ia">
-            <input type="text" id="chat-input" placeholder="pari, blague, nom...">
-            <button onclick="askPet()" style="background:var(--primary); color:white; border:none; padding:5px 15px; border-radius:10px; cursor:pointer;">OK</button>
+        <div style="margin-top:20px; display:flex; gap:10px;">
+            <input type="text" id="chat-input" placeholder="pari, blague..." style="padding:10px; border-radius:10px; border:1px solid #ccc;">
+            <button onclick="askPet()" style="background:var(--primary); color:white; border:none; padding:10px; border-radius:10px;">OK</button>
         </div>
 
         <div class="shop-container">
-            <div class="shop-item">🎓<br><button onclick="buy('hat', 50)">50💰</button></div>
-            <div class="shop-item">🕶️<br><button onclick="buy('glasses', 80)">80💰</button></div>
-            <div class="shop-item">👑<br><button onclick="buy('crown', 200)">200💰</button></div>
-            <div class="shop-item secret-item">💀<br><button onclick="triggerVirus()">0💰</button></div>
+            <div class="shop-item">🎓<br><button onclick="buy('hat', 50)">50</button></div>
+            <div class="shop-item">🕶️<br><button onclick="buy('glasses', 80)">80</button></div>
+            <div class="shop-item secret-item">💀<br><button onclick="triggerVirus()">0</button></div>
         </div>
     </div>
 
     <div id="pet-container" onclick="clickPet()">
-        <div class="speech-bubble" id="pet-talk">Si tu cliques trop vite, je m'énerve ! 😼</div>
-        <div id="pet-img-container">
+        <div class="speech-bubble" id="pet-talk">Révise ou je griffe ! 😼</div>
+        <div style="position:relative; width:100px; margin:0 auto;">
             <img id="acc-hat" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/05/Graduation-Hat-PNG-Clipart.png">
             <img id="acc-glasses" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/04/Thug-Life-Glasses-PNG-Clipart.png">
-            <img id="acc-crown" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/04/Crown-PNG-File.png">
             <img class="pet-avatar" src="https://cdn-icons-png.flaticon.com/512/616/616430.png">
         </div>
     </div>
 
     <script>
         const sounds = { 1: 'https://www.myinstants.com/media/sounds/mario-coin.mp3', 3: 'https://www.myinstants.com/media/sounds/fail-horn.mp3' };
-        
-        const schoolData = {
-            "6eme": { 
-                "MATHS": {"Calcul":[{q:"12x3?",a:["36","32"],c:"36"},{q:"Moitié de 50?",a:["25","15"],c:"25"}], "Décimaux":[{q:"0.5 + 0.5?",a:["1","0.10"],c:"1"}]},
-                "FRANÇAIS": {"Grammaire":[{q:"Nature de 'Petit'?",a:["Adjectif","Nom"],c:"Adjectif"}]}
-            },
-            "5eme": {
-                "SVT": {"Corps":[{q:"Le coeur est un...",a:["Muscle","Os"],c:"Muscle"}]},
-                "HISTOIRE": {"Moyen-Age":[{q:"Sacre de Charlemagne?",a:["800","1515"],c:"800"}]}
-            },
-            "4eme": {
-                "MATHS": {"Pythagore":[{q:"Côté le plus long?",a:["Hypoténuse","Base"],c:"Hypoténuse"}]},
-                "PHYSIQUE": {"Electricité":[{q:"Unité Tension?",a:["Volt","Ampère"],c:"Volt"}]}
-            },
-            "3eme": {
-                "HISTOIRE": {"Guerres":[{q:"Début 1ère Guerre?",a:["1914","1939"],c:"1914"}]},
-                "SVT": {"Génétique":[{q:"Nombre chromosomes?",a:["46","23"],c:"46"}]}
-            }
-        };
-
         let coins = parseInt(localStorage.getItem('coins')) || 0;
         let xp = parseInt(localStorage.getItem('xp')) || 0;
         let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-        let clickHistory = [];
+        let clickTimes = [];
         let currentChapData = [];
 
-        function checkSpam() {
+        const schoolData = {
+            "6eme": { "MATHS": {"Calcul":[{q:"15+15?",a:["30","25"],c:"30"},{q:"9x8?",a:["72","81"],c:"72"}]}, "SVT":{"Plantes":[{q:"Besoin de lumière?",a:["Oui","Non"],c:"Oui"}]} },
+            "5eme": { "HISTOIRE": {"Moyen-Age":[{q:"Roi en 800?",a:["Charlemagne","Louis XIV"],c:"Charlemagne"}]}, "MATHS":{"Relatifs":[{q:"-5+3?",a:["-2","2"],c:"-2"}]} },
+            "4eme": { "MATHS": {"Pythagore":[{q:"Triangle rectangle?",a:["Oui","Non"],c:"Oui"}]}, "PHYSIQUE":{"Lumière":[{q:"Vitesse?",a:["300 000 km/s","300 km/s"],c:"300 000 km/s"}]} },
+            "3eme": { "HISTOIRE": {"Guerres":[{q:"Début 1ère Guerre?",a:["1914","1939"],c:"1914"}]}, "FRANÇAIS":{"Grammaire":[{q:"Nature de 'Magnifique'?",a:["Adjectif","Nom"],c:"Adjectif"}]} }
+        };
+
+        function recordClick() {
             const now = Date.now();
-            clickHistory.push(now);
-            clickHistory = clickHistory.filter(t => now - t < 1000);
-            if (clickHistory.length > 5) { triggerVirus(); return true; }
-            return false;
+            clickTimes.push(now);
+            clickTimes = clickTimes.filter(t => now - t < 800);
+            if (clickTimes.length > 4) triggerVirus();
         }
 
         function triggerVirus() {
-            document.getElementById('virus-screen').style.display = 'block';
+            const v = document.getElementById('virus-screen');
+            v.style.display = 'block';
+            v.classList.add('virus-flash');
+            document.body.classList.add('shake');
             if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+            
             let log = document.getElementById('virus-log');
             log.innerHTML = "";
-            let lines = ["> FORCING FULLSCREEN...", "> WIPING DISK C:...", "> 15%... 68%... 99%...", "> SYSTEM DELETED."];
-            lines.forEach((l, i) => setTimeout(() => log.innerHTML += l + "<br>", i * 500));
+            let lines = ["> WARNING: ILLEGAL SPAM ACTIVITY", "> ACCESSING SYSTEM FILES...", "> OVERWRITING KERNEL...", "> DELETING C:/WINDOWS/SYSTEM32...", "> 15%... 55%... 98%...", "> FATAL ERROR: HARDWARE MELTDOWN."];
+            
+            lines.forEach((l, i) => {
+                setTimeout(() => {
+                    log.innerHTML += l + "<br>";
+                    if (i === lines.length - 1) {
+                        setTimeout(() => { document.getElementById('bsod').style.display = 'block'; }, 1500);
+                    }
+                }, i * 500);
+            });
         }
 
         function changeClass(lvl) {
-            if(checkSpam()) return;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('t-' + lvl.charAt(0)).classList.add('active');
-            
             const menu = document.getElementById('menu-content');
             menu.innerHTML = "";
             const subs = schoolData[lvl];
@@ -168,11 +164,7 @@
                 let t = document.createElement('div'); t.className="category-title"; t.innerText=s; menu.appendChild(t);
                 for (let c in subs[s]) {
                     let l = document.createElement('a'); l.className="chapter-link"; l.innerText="📁 "+c;
-                    l.onclick = () => { 
-                        currentChapData = subs[s][c]; 
-                        document.getElementById('exercise-card').classList.remove('hidden');
-                        nextQuestion(); 
-                    };
+                    l.onclick = (e) => { e.stopPropagation(); currentChapData = subs[s][c]; document.getElementById('exercise-card').classList.remove('hidden'); nextQuestion(); };
                     menu.appendChild(l);
                 }
             }
@@ -185,8 +177,8 @@
             container.innerHTML = "";
             q.a.forEach(opt => {
                 const b = document.createElement('button'); b.className = "btn-opt"; b.innerText = opt;
-                b.onclick = () => {
-                    if(checkSpam()) return;
+                b.onclick = (e) => {
+                    e.stopPropagation();
                     if(opt === q.c) { coins += 10; xp += 15; new Audio(sounds[1]).play(); }
                     else { new Audio(sounds[3]).play(); }
                     save(); nextQuestion();
@@ -196,20 +188,17 @@
         }
 
         function askPet() {
-            if(checkSpam()) return;
             const input = document.getElementById('chat-input').value.toLowerCase();
             const talk = document.getElementById('pet-talk');
             if(input === "pari") {
                 if(Math.random() > 0.5) { coins += 50; talk.innerText = "GAGNÉ ! +50💰"; }
                 else { coins -= 30; talk.innerText = "PERDU ! 😿"; }
-            } else if(input === "blague") {
-                talk.innerText = "Quel est le comble pour un prof de géo ? Perdre le Nord !";
-            } else { talk.innerText = "Miaou ! Travaille bien."; }
+            } else if(input === "blague") { talk.innerText = "Pourquoi les poissons vivent dans l'eau salée ? Car le poivre les fait éternuer !"; }
+            else { talk.innerText = "Miaou ! Travaille bien."; }
             save(); document.getElementById('chat-input').value = "";
         }
 
-        function clickPet() { if(!checkSpam()) { coins++; save(); } }
-
+        function clickPet() { coins++; save(); }
         function buy(item, price) { if(coins >= price && !inventory.includes(item)) { coins -= price; inventory.push(item); save(); } }
 
         function save() {
@@ -221,9 +210,14 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if(e.key === "Escape") { document.getElementById('panic-screen').style.display = (document.getElementById('panic-screen').style.display==='block'?'none':'block'); }
+            if(e.key === "Escape") document.getElementById('panic-screen').style.display = (document.getElementById('panic-screen').style.display==='block'?'none':'block');
             if(e.key.toLowerCase() === "p") triggerVirus();
-            if(e.key === "F1") { document.getElementById('virus-screen').style.display = 'none'; if (document.exitFullscreen) document.exitFullscreen(); }
+            if(e.key === "F1") {
+                document.getElementById('virus-screen').style.display = 'none';
+                document.getElementById('bsod').style.display = 'none';
+                document.body.classList.remove('shake');
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
         });
 
         changeClass('6eme'); save();

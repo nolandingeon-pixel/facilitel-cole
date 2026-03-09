@@ -3,93 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speedrun Auto-Leaderboard</title>
+    <title>Chat-Apprentissage : Mon École Virtuelle</title>
     <style>
-        :root { --primary: #00ff88; --bg: #121212; --card: #1e1e1e; }
-        body { font-family: sans-serif; background: var(--bg); color: white; text-align: center; }
-        header { padding: 20px; border-bottom: 2px solid var(--primary); }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
-        table { width: 100%; background: var(--card); border-collapse: collapse; margin-top: 20px; border-radius: 8px; overflow: hidden; }
-        th { background: #333; padding: 15px; color: var(--primary); }
-        td { padding: 12px; border-bottom: 1px solid #333; }
-        .btn { background: var(--primary); color: black; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px; margin: 10px; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
+        :root { --primary: #6c5ce7; --secondary: #a29bfe; --gold: #fdcb6e; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #2d3436; }
+        
+        /* Dashboard & Stats */
+        .header { background: white; padding: 15px; border-radius: 15px; display: flex; justify-content: space-around; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .stat-box { font-weight: bold; color: var(--primary); }
+
+        /* Le Chat Virtuel */
+        #game-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 300px; text-align: center; }
+        
+        #cat-display { position: relative; width: 150px; height: 150px; margin: 0 auto; background: #dfe6e9; border-radius: 50%; overflow: hidden; border: 4px solid var(--secondary); }
+        .cat-img { width: 100%; height: 100%; object-fit: cover; }
+        #accessory-overlay { position: absolute; top: 10%; left: 25%; width: 50%; display: none; z-index: 5; }
+
+        /* Exercices */
+        select, button { padding: 10px; border-radius: 8px; border: 1px solid #ddd; margin: 5px; cursor: pointer; }
+        .btn-main { background: var(--primary); color: white; border: none; transition: 0.3s; }
+        .btn-main:hover { background: var(--secondary); }
+
+        /* Masquer/Afficher les sections */
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>🏆 SPEEDRUN AUTOMATIQUE</h1>
-    <button class="btn" onclick="show('leaderboard')">Classement</button>
-    <button class="btn" onclick="show('submit')">Envoyer un Run</button>
-</header>
+    <div class="header">
+        <div class="stat-box">🐱 Niveau: <span id="lvl-val">1</span></div>
+        <div class="stat-box">⭐ XP: <span id="xp-val">0</span>/100</div>
+        <div class="stat-box">💰 Pièces: <span id="coins-val">0</span></div>
+    </div>
 
-<div class="container">
-    <section id="leaderboard">
-        <h2>Classement en Temps Réel</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rang</th>
-                    <th>Joueur</th>
-                    <th>Temps</th>
-                    <th>Pays</th>
-                    <th>Preuve</th>
-                </tr>
-            </thead>
-            <tbody id="rankingData">
-                <tr><td colspan="5">Chargement des scores...</td></tr>
-            </tbody>
-        </table>
-    </section>
+    <div id="game-container">
+        <div class="card">
+            <h3>Mon Compagnon</h3>
+            <div id="cat-display">
+                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="cat-img" alt="Chat">
+                <img id="accessory-overlay" src="https://cdn-icons-png.flaticon.com/512/7153/7153108.png" alt="Chapeau">
+            </div>
+            <p id="cat-status">Ton chat a faim d'apprendre !</p>
+        </div>
 
-    <section id="submit" class="hidden">
-        <h2>Soumettre un Record</h2>
-        <p>Pour que ce soit automatique, crée un <b>Google Form</b> et lie-le à ton Google Sheet.</p>
-        <a href="TON_LIEN_GOOGLE_FORM" target="_blank" class="btn">Ouvrir le formulaire d'envoi</a>
-    </section>
-</div>
+        <div class="card">
+            <h3>Salle de Classe</h3>
+            <label>Niveau :</label>
+            <select id="level-select" onchange="loadQuestion()">
+                <option value="6eme">6ème</option>
+                <option value="5eme">5ème</option>
+                <option value="4eme">4ème</option>
+                <option value="3eme">3ème</option>
+            </select>
+            <div id="question-box">
+                <p id="question-text">Choisis un niveau pour commencer !</p>
+                <div id="options-container"></div>
+            </div>
+        </div>
 
-<script>
-    // URL DE TON GOOGLE SHEET PUBLIÉ EN CSV
-    const SHEET_URL = "REMPLACE_PAR_TON_LIEN_CSV_ICI";
+        <div class="card">
+            <h3>Boutique</h3>
+            <p>Chapeau de Magicien</p>
+            <p>Prix : <strong>50 pièces</strong></p>
+            <button id="buy-hat" class="btn-main" onclick="buyItem('hat', 50)">Acheter</button>
+        </div>
+    </div>
 
-    async function loadScores() {
-        const response = await fetch(SHEET_URL);
-        const data = await response.text();
-        const rows = data.split('\n').slice(1); // On enlève la première ligne (titres)
-        
-        const tableBody = document.getElementById('rankingData');
-        tableBody.innerHTML = "";
+    <script>
+        // Données des exercices
+        const database = {
+            "6eme": { q: "Maths : 12 x 3 ?", a: ["36", "32", "40"], correct: "36" },
+            "5eme": { q: "Histoire : Qui a régné de 1643 à 1715 ?", a: ["Louis XIV", "Napoléon", "Charlemagne"], correct: "Louis XIV" },
+            "4eme": { q: "Physique : Symbole du Fer ?", a: ["Fe", "F", "Fr"], correct: "Fe" },
+            "3eme": { q: "Maths : Racine carrée de 81 ?", a: ["9", "7", "81"], correct: "9" }
+        };
 
-        // On trie les données par temps (index 2)
-        rows.sort((a, b) => a.split(',')[2].localeCompare(b.split(',')[2]));
+        // Variables de jeu (chargées depuis la mémoire du navigateur)
+        let coins = parseInt(localStorage.getItem('coins')) || 0;
+        let xp = parseInt(localStorage.getItem('xp')) || 0;
+        let lvl = parseInt(localStorage.getItem('lvl')) || 1;
+        let hasHat = localStorage.getItem('hasHat') === 'true';
 
-        rows.forEach((row, index) => {
-            const cols = row.split(',');
-            if(cols.length < 4) return;
+        function updateUI() {
+            document.getElementById('coins-val').innerText = coins;
+            document.getElementById('xp-val').innerText = xp;
+            document.getElementById('lvl-val').innerText = lvl;
+            if (hasHat) {
+                document.getElementById('accessory-overlay').style.display = 'block';
+                document.getElementById('buy-hat').innerText = "Possédé";
+                document.getElementById('buy-hat').disabled = true;
+            }
+            
+            // Sauvegarde
+            localStorage.setItem('coins', coins);
+            localStorage.setItem('xp', xp);
+            localStorage.setItem('lvl', lvl);
+            localStorage.setItem('hasHat', hasHat);
+        }
 
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${index + 1}</td>
-                <td><b>${cols[0]}</b></td>
-                <td>${cols[2]}</td>
-                <td>${cols[3]}</td>
-                <td><a href="${cols[4]}" target="_blank" style="color:cyan">Lien Vidéo</a></td>
-            `;
-            tableBody.appendChild(tr);
-        });
-    }
+        function loadQuestion() {
+            const level = document.getElementById('level-select').value;
+            const data = database[level];
+            document.getElementById('question-text').innerText = data.q;
+            const container = document.getElementById('options-container');
+            container.innerHTML = "";
+            
+            data.a.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(opt, data.correct);
+                container.appendChild(btn);
+            });
+        }
 
-    function show(id) {
-        document.getElementById('leaderboard').classList.toggle('hidden', id !== 'leaderboard');
-        document.getElementById('submit').classList.toggle('hidden', id !== 'submit');
-    }
+        function checkAnswer(chosen, correct) {
+            if (chosen === correct) {
+                alert("Excellent ! +15 XP et +10 Pièces");
+                coins += 10;
+                xp += 15;
+                if (xp >= 100) {
+                    lvl++;
+                    xp = 0;
+                    alert("NIVEAU SUPÉRIEUR ! Ton chat est fier de toi.");
+                }
+            } else {
+                alert("Oups ! Relis bien ton cours.");
+            }
+            updateUI();
+            loadQuestion(); // Change de question (ou recharge la même pour l'exemple)
+        }
 
-    // Charger les scores au démarrage
-    loadScores();
-</script>
+        function buyItem(item, price) {
+            if (coins >= price) {
+                coins -= price;
+                if (item === 'hat') hasHat = true;
+                alert("Objet acheté ! Ton chat a un nouveau look.");
+                updateUI();
+            } else {
+                alert("Pas assez de pièces ! Travaille encore un peu.");
+            }
+        }
 
+        // Initialisation au lancement
+        updateUI();
+        loadQuestion();
+    </script>
 </body>
 </html>

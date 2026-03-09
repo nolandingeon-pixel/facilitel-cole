@@ -3,59 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>École Virtuelle - Version Ultime</title>
+    <title>École Virtuelle - Protection Anti-Spam</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #f8f9fa; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
 
-        /* SIDEBAR */
-        #sidebar { width: var(--sidebar-width); background: #fff; border-right: 3px solid var(--orange); padding: 15px; overflow-y: auto; }
-        .classe-tabs { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .tab { padding: 8px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; font-size: 0.75em; border: 1px solid #ddd; }
-        .tab.active { background: var(--orange); color: white; border-color: #d35400; }
-        .category-title { background: #fde3d0; color: #d35400; padding: 6px 12px; font-weight: bold; font-size: 0.8em; margin-top: 15px; border-radius: 4px; text-transform: uppercase; }
-        .chapter-link { display: block; padding: 8px 12px; color: #555; text-decoration: none; font-size: 0.85em; cursor: pointer; border-left: 3px solid transparent; }
-        .chapter-link:hover { background: #fff4ed; border-left: 3px solid var(--orange); color: #000; }
+        /* FAUX VIRUS PLEIN ÉCRAN */
+        #virus-screen { position: fixed; inset: 0; background: black; color: #0f0; font-family: 'Courier New', monospace; z-index: 10000; padding: 40px; display: none; cursor: none; }
+        .virus-red { color: red; font-weight: bold; font-size: 3em; text-align: center; animation: blink 0.15s infinite; margin-top: 10vh; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* MAIN */
+        /* PANIC SCREEN (ECHAP) */
+        #panic-screen { position: fixed; inset: 0; background: white; z-index: 9999; padding: 50px; display: none; overflow-y: auto; }
+
+        /* INTERFACE */
+        #sidebar { width: var(--sidebar-width); background: #fff; border-right: 3px solid var(--orange); padding: 15px; overflow-y: auto; }
+        .tab { padding: 8px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; font-size: 0.75em; border: 1px solid #ddd; }
+        .tab.active { background: var(--orange); color: white; }
+        
         #main-content { flex-grow: 1; padding: 30px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
         .header-stats { background: white; padding: 12px 25px; border-radius: 50px; border: 2px solid var(--primary); display: flex; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
-        #exercise-card { background: white; padding: 30px; border-radius: 20px; border: 3px solid var(--primary); width: 100%; max-width: 500px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .btn-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; transition: 0.2s; }
-        .btn-opt:hover { background: #f8f5ff; border-color: var(--primary); }
+        #exercise-card { background: white; padding: 30px; border-radius: 20px; border: 3px solid var(--primary); width: 100%; max-width: 500px; text-align: center; position: relative; }
+        .btn-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; }
+        
+        .shop-item { display: inline-block; background: white; padding: 10px; border-radius: 15px; border: 2px solid #2ecc71; text-align: center; width: 90px; margin: 5px; }
+        .secret-item { opacity: 0.05; cursor: help; border-color: red; }
 
-        /* BOUTIQUE */
-        .shop-container { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
-        .shop-item { background: white; padding: 10px; border-radius: 15px; border: 2px solid #2ecc71; text-align: center; width: 110px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .shop-item button { background: #2ecc71; color: white; border: none; padding: 5px; border-radius: 5px; cursor: pointer; font-size: 0.8em; width: 100%; margin-top: 5px;}
-
-        /* CHAT IA */
-        #chat-ia { width: 100%; max-width: 500px; margin-top: 20px; background: #fff; border: 2px solid #ddd; border-radius: 15px; padding: 10px; display: flex; gap: 10px; }
-        #chat-input { flex-grow: 1; padding: 8px; border-radius: 10px; border: 1px solid #ccc; }
-        #chat-btn { padding: 8px 15px; border-radius: 10px; background: var(--primary); color: white; border: none; cursor: pointer; }
-
-        /* PET & ACCESSOIRES */
-        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 180px; text-align: center; z-index: 1000; }
-        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 110px; height: 110px; margin: 0 auto; }
+        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 180px; text-align: center; cursor: pointer; }
+        #pet-img-container { position: relative; background: white; border-radius: 50%; padding: 10px; border: 3px solid var(--primary); width: 100px; height: 100px; margin: 0 auto; }
         .pet-avatar { width: 100%; height: 100%; object-fit: contain; }
         .acc-img { position: absolute; display: none; pointer-events: none; z-index: 1001; }
-        
-        #acc-hat { top: -25px; left: 10px; width: 90px; }
-        #acc-glasses { top: 35px; left: 20px; width: 70px; }
-        #acc-crown { top: -40px; left: 10px; width: 90px; }
-
-        .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.85em; margin-bottom: 10px; font-weight: bold; min-height: 40px; display: flex; align-items: center; justify-content: center; }
-        .hidden { display: none; }
+        #acc-hat { top: -25px; left: 10px; width: 85px; }
+        .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.8em; margin-bottom: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
+    <div id="virus-screen">
+        <div class="virus-red">TENTATIVE DE TRICHE DÉTECTÉE</div>
+        <div id="virus-log" style="font-size: 1.2em; line-height: 1.5;"></div>
+        <p style="color:white; margin-top: 50px; opacity: 0.5;">ERROR_CODE: 0xSPAM_LIMIT_EXCEEDED</p>
+    </div>
+
+    <div id="panic-screen">
+        <h1>Analyse Fonctionnelle et Topologie</h1>
+        <p>Un espace métrique est dit complet si toute suite de Cauchy de cet espace converge. Dans le cadre des espaces de Banach...</p>
+    </div>
+
     <div id="sidebar">
-        <div class="classe-tabs">
+        <div style="display:flex; justify-content: space-between; margin-bottom: 20px;">
             <div id="b6" class="tab active" onclick="changeClass('6eme')">6e</div>
-            <div id="b5" class="tab" onclick="changeClass('5eme')">5e</div>
-            <div id="b4" class="tab" onclick="changeClass('4eme')">4e</div>
             <div id="b3" class="tab" onclick="changeClass('3eme')">3e</div>
         </div>
         <div id="menu-content"></div>
@@ -68,162 +66,119 @@
             <span>🎓 Niv. <b id="lvl-val">1</b></span>
         </div>
 
-        <h3 id="current-title">Choisis une matière</h3>
-        
-        <div id="exercise-card" class="hidden">
-            <p id="question-text" style="font-weight: bold;"></p>
+        <div id="exercise-card" style="display:none;">
+            <p id="question-text" style="font-weight:bold;"></p>
             <div id="options-container"></div>
         </div>
 
-        <div id="chat-ia">
-            <input type="text" id="chat-input" placeholder="Parle au chat...">
-            <button id="chat-btn" onclick="askPet()">OK</button>
+        <div style="margin-top:20px;">
+            <input type="text" id="chat-input" placeholder="pari, blague...">
+            <button onclick="askPet()">OK</button>
         </div>
 
         <div class="shop-container">
-            <div class="shop-item">🎓<br>Diplômé<br><button onclick="buy('hat', 50)">50💰</button></div>
-            <div class="shop-item">🕶️<br>Thug Life<br><button onclick="buy('glasses', 80)">80💰</button></div>
-            <div class="shop-item">👑<br>Royal<br><button onclick="buy('crown', 200)">200💰</button></div>
+            <div class="shop-item">🎓<br><button onclick="buy('hat', 50)">50💰</button></div>
+            <div class="shop-item secret-item">💀<br><button onclick="triggerVirus()">0💰</button></div>
         </div>
     </div>
 
-    <div id="pet-container">
-        <div class="speech-bubble" id="pet-talk">Salut ! On révise ?</div>
+    <div id="pet-container" onclick="clickPet()">
+        <div class="speech-bubble" id="pet-talk">Si tu cliques trop vite, je m'énerve ! 😼</div>
         <div id="pet-img-container">
             <img id="acc-hat" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/05/Graduation-Hat-PNG-Clipart.png">
-            <img id="acc-glasses" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/04/Thug-Life-Glasses-PNG-Clipart.png">
-            <img id="acc-crown" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/04/Crown-PNG-File.png">
             <img class="pet-avatar" src="https://cdn-icons-png.flaticon.com/512/616/616430.png">
         </div>
     </div>
 
     <script>
-        const sounds = {
-            1: 'https://www.myinstants.com/media/sounds/mario-coin.mp3',
-            2: 'https://www.myinstants.com/media/sounds/discord-notification.mp3',
-            3: 'https://www.myinstants.com/media/sounds/fail-horn.mp3',
-            6: 'https://www.myinstants.com/media/sounds/nelson-haha.mp3'
-        };
-
-        const schoolData = {
-            "6eme": {
-                "MATHS": { "Calcul": [{q:"12 x 3 ?", a:["36","32","42"], c:"36"}, {q:"150 - 75 ?", a:["75","85","65"], c:"75"}] },
-                "HISTOIRE": { "Tautavel": [{q:"Âge de l'Homme de Tautavel ?", a:["450 000 ans","10 000 ans"], c:"450 000 ans"}, {q:"Lieu de découverte ?", a:["Caune de l'Arago","Lascaux"], c:"Caune de l'Arago"}] },
-                "FRANÇAIS": { "Grammaire": [{q:"Nature de 'Magnifique' ?", a:["Adjectif","Verbe"], c:"Adjectif"}] }
-            },
-            "5eme": {
-                "MATHS": { "Relatifs": [{q:"(-5) + 8 ?", a:["3","-3","13"], c:"3"}, {q:"(-2) x (-4) ?", a:["8","-8","6"], c:"8"}] },
-                "HISTOIRE": { "Moyen-Âge": [{q:"Qui est sacré en 800 ?", a:["Charlemagne","Clovis"], c:"Charlemagne"}, {q:"Capitale de Charlemagne ?", a:["Aix-la-Chapelle","Paris"], c:"Aix-la-Chapelle"}] },
-                "GÉOGRAPHIE": { "Durable": [{q:"Que signifie le D de EDD ?", a:["Durable","Développement"], c:["Durable"]}] },
-                "SCIENCES": { "SVT": [{q:"Organe qui pompe le sang ?", a:["Cœur","Poumon"], c:"Cœur"}] }
-            },
-            "4eme": {
-                "MATHS": { "Pythagore": [{q:"Le côté le plus long ?", a:["Hypoténuse","Adjacent"], c:"Hypoténuse"}, {q:"3² + 4² = ?", a:["25","7","12"], c:"25"}] },
-                "HISTOIRE": { "Lumières": [{q:"Auteur de l'Émile ?", a:["Rousseau","Voltaire"], c:"Rousseau"}] },
-                "PHYSIQUE": { "Électricité": [{q:"Unité de la tension ?", a:["Volt","Ampère"], c:"Volt"}] },
-                "FRANÇAIS": { "Fantastique": [{q:"Auteur de 'Le Horla' ?", a:["Maupassant","Zola"], c:"Maupassant"}] }
-            },
-            "3eme": {
-                "MATHS": { "Thalès": [{q:"Thalès nécessite des droites...", a:["Parallèles","Perpendiculaires"], c:"Parallèles"}] },
-                "HISTOIRE": { "Guerre Mondiale": [{q:"Début de la 2nde Guerre ?", a:["1939","1914","1945"], c:"1939"}, {q:"Appel du 18 juin ?", a:["De Gaulle","Pétain"], c:"De Gaulle"}] },
-                "SVT": { "Génétique": [{q:"Nombre de chromosomes ?", a:["46","23","48"], c:"46"}] },
-                "FRANÇAIS": { "Poésie": [{q:"Un vers de 10 syllabes ?", a:["Décasyllabe","Alexandrin"], c:"Décasyllabe"}] }
-            }
-        };
-
+        const sounds = { 1: 'https://www.myinstants.com/media/sounds/mario-coin.mp3', 3: 'https://www.myinstants.com/media/sounds/fail-horn.mp3' };
+        
         let coins = parseInt(localStorage.getItem('coins')) || 0;
         let xp = parseInt(localStorage.getItem('xp')) || 0;
         let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-        let currentClass = "6eme";
-        let currentChapData = [];
-        let lastQ = null;
+        
+        // ANTI-SPAM SYSTEM
+        let clickHistory = [];
+        function checkSpam() {
+            const now = Date.now();
+            clickHistory.push(now);
+            clickHistory = clickHistory.filter(t => now - t < 1000); // Garde les clics de la dernière seconde
+            if (clickHistory.length > 4) { // Plus de 4 clics par seconde = VIRUS
+                triggerVirus();
+                return true;
+            }
+            return false;
+        }
+
+        function triggerVirus() {
+            const vs = document.getElementById('virus-screen');
+            vs.style.display = 'block';
+            
+            // Forcer le Plein Écran
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
+
+            let log = document.getElementById('virus-log');
+            log.innerHTML = "";
+            let lines = ["> SPAM DETECTED", "> FORCING FULLSCREEN...", "> LOCKING SYSTEM...", "> OVERWRITING BIOS...", "> DELETE ALL DATA : 22%...", "> FATAL ERROR."];
+            lines.forEach((l, i) => setTimeout(() => log.innerHTML += l + "<br>", i * 500));
+        }
 
         function changeClass(lvl) {
-            currentClass = lvl;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('b'+lvl.charAt(0)).classList.add('active');
-            renderMenu();
-        }
-
-        function renderMenu() {
+            if(checkSpam()) return;
             const menu = document.getElementById('menu-content');
-            menu.innerHTML = "";
-            const subs = schoolData[currentClass];
-            for (let s in subs) {
-                let t = document.createElement('div'); t.className="category-title"; t.innerText=s; menu.appendChild(t);
-                for (let c in subs[s]) {
-                    let l = document.createElement('a'); l.className="chapter-link"; l.innerText="📁 "+c;
-                    l.onclick = () => { currentChapData = subs[s][c]; startExercise(c); };
-                    menu.appendChild(l);
-                }
-            }
+            menu.innerHTML = "<b>MATHS</b><br><a href='#' onclick='startQ()'>📁 Calcul Rapide</a>";
         }
 
-        function startExercise(name) {
-            document.getElementById('current-title').innerText = name;
-            document.getElementById('exercise-card').classList.remove('hidden');
+        function startQ() {
+            document.getElementById('exercise-card').style.display = 'block';
             nextQuestion();
         }
 
         function nextQuestion() {
-            let q;
-            do { q = currentChapData[Math.floor(Math.random() * currentChapData.length)]; } 
-            while (q === lastQ && currentChapData.length > 1);
-            lastQ = q;
-
-            document.getElementById('question-text').innerText = q.q;
+            document.getElementById('question-text').innerText = "Combien font " + Math.floor(Math.random()*10) + " x " + Math.floor(Math.random()*10) + " ?";
             const container = document.getElementById('options-container');
             container.innerHTML = "";
-            q.a.forEach(opt => {
-                const b = document.createElement('button'); b.className = "btn-opt"; b.innerText = opt;
-                b.onclick = () => {
-                    if(opt === q.c) { 
-                        coins += 10; xp += 15; new Audio(sounds[1]).play(); 
-                        document.getElementById('pet-talk').innerText="Excellent ! +10💰";
-                    } else { 
-                        new Audio(sounds[3]).play(); 
-                        document.getElementById('pet-talk').innerText="Oups ! Réessaie."; 
-                    }
-                    save();
-                    setTimeout(nextQuestion, 600);
-                };
+            [12, 24, 36].forEach(opt => {
+                const b = document.createElement('button');
+                b.className = "btn-opt"; b.innerText = opt;
+                b.onclick = () => { if(!checkSpam()) nextQuestion(); };
                 container.appendChild(b);
             });
         }
 
+        function clickPet() { if(!checkSpam()) { coins++; save(); } }
+
         function askPet() {
-            const input = document.getElementById('chat-input').value.toLowerCase();
+            if(checkSpam()) return;
             const talk = document.getElementById('pet-talk');
-            if(input.includes("souris")) talk.innerText = "Miam ! Un régal.";
-            else if(input.includes("nom")) talk.innerText = "Je suis ton assistant de révision !";
-            else if(input.includes("prof")) talk.innerText = "Chut... travaille bien !";
-            else talk.innerText = "Miaou ! Continue comme ça !";
-            document.getElementById('chat-input').value = "";
+            talk.innerText = "Je t'ai à l'oeil...";
         }
 
-        function buy(item, price) {
-            if (inventory.includes(item)) return alert("Tu possèdes déjà cet objet !");
-            if (coins >= price) {
-                coins -= price; inventory.push(item); save();
-                document.getElementById('pet-talk').innerText = "Regarde mon nouveau style !";
-            } else alert("Il te manque des pièces !");
-        }
+        function buy(item, price) { if(coins >= price) { coins -= price; inventory.push(item); save(); } }
 
         function save() {
-            localStorage.setItem('coins', coins);
-            localStorage.setItem('xp', xp);
-            localStorage.setItem('inventory', JSON.stringify(inventory));
             document.getElementById('coins-val').innerText = coins;
             document.getElementById('xp-val').innerText = xp;
             document.getElementById('lvl-val').innerText = Math.floor(xp/100) + 1;
-            inventory.forEach(i => { if(document.getElementById('acc-'+i)) document.getElementById('acc-'+i).style.display = 'block'; });
+            inventory.forEach(i => document.getElementById('acc-'+i).style.display = 'block');
+            localStorage.setItem('coins', coins);
         }
 
-        document.addEventListener('keydown', (e) => { if(sounds[e.key]) new Audio(sounds[e.key]).play(); });
+        document.addEventListener('keydown', (e) => {
+            if(e.key === "Escape") {
+                const ps = document.getElementById('panic-screen');
+                ps.style.display = ps.style.display === 'block' ? 'none' : 'block';
+            }
+            if(e.key.toLowerCase() === "p") triggerVirus();
+            if(e.key === "F1") {
+                document.getElementById('virus-screen').style.display = 'none';
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        });
 
-        renderMenu(); save();
+        changeClass('6eme'); save();
     </script>
 </body>
 </html>
-
-

@@ -2,38 +2,69 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>École Virtuelle - Stealth Pro Edition</title>
+    <title>École Virtuelle - Master Stealth</title>
     <style>
         :root { --sidebar-width: 250px; --primary: #8e44ad; --orange: #e67e22; --bg: #fff; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
 
-        /* --- MODE FANTÔME MULTI-PAGES (TOUCHE N) --- */
+        /* --- MODE GHOST MULTI-PAGES (N) --- */
         #ghost-overlay { position: fixed; inset: 0; z-index: 100000; display: none; background: #fff; }
         #ghost-overlay img { width: 100%; height: 100%; object-fit: cover; }
-        #loading-spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite; display: none; }
+        #loading-spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; border: 6px solid #f3f3f3; border-top: 6px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite; display: none; }
         @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        /* --- VOYANT DE VIGILANCE (AUTO-TEST) --- */
-        #spy-light { position: fixed; bottom: 5px; right: 5px; width: 8px; height: 8px; background: #2ecc71; border-radius: 50%; z-index: 200000; opacity: 0.6; pointer-events: none; }
+        /* --- VOYANT VIGILANCE --- */
+        #spy-light { position: fixed; bottom: 5px; right: 5px; width: 8px; height: 8px; background: #2ecc71; border-radius: 50%; z-index: 200001; opacity: 0.6; }
         .spy-alert { background: #e74c3c !important; box-shadow: 0 0 10px #ff0000; }
 
-        /* --- VIRUS & BSOD (TOUCHE P) --- */
+        /* --- VIRUS / BSOD --- */
         #virus-screen { position: fixed; inset: 0; background: black; color: #0f0; font-family: 'Courier New', monospace; z-index: 30000; padding: 40px; display: none; cursor: none; }
         .virus-flash { animation: flash-bg 0.2s infinite; }
         @keyframes flash-bg { 0%, 100% { background: black; } 50% { background: #800; } }
         #bsod { position: fixed; inset: 0; background: #0078d7; color: white; padding: 100px; display: none; z-index: 30001; }
+        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-3px, -2px); } 100% { transform: translate(1px, 2px); } }
+        .shake { animation: shake 0.1s infinite; }
 
-        /* --- INTERFACE --- */
+        /* --- GEOMETRY DASH --- */
+        #gd-game { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 350px; background: #222; border: 4px solid #0f0; z-index: 15000; display: none; border-radius: 15px; color: white; text-align: center; }
+        .cube { width: 40px; height: 40px; background: #0f0; position: absolute; bottom: 50px; left: 50px; transition: 0.3s; }
+
+        /* --- INTERFACE COMPLETE --- */
         #sidebar { width: var(--sidebar-width); border-right: 2px solid var(--orange); padding: 10px; }
-        .tab-btn { padding: 5px 15px; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: bold; background: #eee; }
+        .tabs-top { display: flex; gap: 5px; margin-bottom: 20px; }
+        .tab-btn { padding: 5px 15px; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: bold; }
         .tab-btn.active { background: var(--orange); color: white; border-color: var(--orange); }
-        #main-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 20px; }
-        .stats-bar { display: flex; gap: 15px; background: white; padding: 8px 20px; border: 2px solid var(--primary); border-radius: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 30px; }
-        #exercise-card { background: white; padding: 20px; border-radius: 15px; border: 2px solid var(--primary); width: 400px; text-align: center; display: none; }
-        .btn-opt { display: block; width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; }
+        .menu-title { font-weight: bold; font-size: 14px; margin: 10px 0; color: #333; }
+        .chapter-link { display: block; color: blue; text-decoration: underline; cursor: pointer; font-size: 14px; margin-left: 10px; margin-bottom: 10px; }
+
+        #main-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 20px; position: relative; }
+        .stats-bar { display: flex; gap: 15px; background: white; padding: 8px 25px; border: 2px solid var(--primary); border-radius: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .stats-bar span { font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+
+        .chat-area { display: flex; gap: 5px; margin-bottom: 20px; }
+        .chat-input { padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; width: 250px; }
+        .btn-ok { background: #eee; border: 1px solid #999; padding: 5px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        .shop-box { display: flex; gap: 15px; }
+        .item { width: 90px; height: 90px; border: 2px solid #ccc; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; background: #fff; cursor: pointer; transition: 0.2s; }
+        .item:hover { transform: scale(1.05); }
+        .item.bought { border-color: #2ecc71; background: #f0fff0; }
+        .secret-trig { position: absolute; inset: 0; opacity: 0.01; cursor: help; }
+
+        #exercise-card { background: white; padding: 25px; border-radius: 15px; border: 2px solid var(--primary); width: 450px; text-align: center; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: none; }
+        .btn-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; background: #f9f9f9; font-size: 14px; }
+        .btn-opt:hover { background: #f0f0f0; }
+
+        /* --- PET --- */
+        #pet-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; align-items: flex-end; z-index: 100; }
+        .bubble { background: white; border: 1px solid #ccc; border-radius: 15px; padding: 12px; margin-bottom: 10px; font-size: 13px; max-width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); position: relative; }
+        .bubble::after { content: ''; position: absolute; bottom: -10px; right: 20px; border-width: 10px 10px 0; border-style: solid; border-color: white transparent; }
+        .cat-icon { width: 110px; height: 110px; background: url('https://cdn-icons-png.flaticon.com/512/616/616430.png') no-repeat center/contain; }
+
+        .controls-hint { position: absolute; top: 100px; font-size: 11px; color: #bbb; text-align: center; pointer-events: none; }
     </style>
 </head>
-<body onclick="recordClick()" onbeforeunload="return 'Voulez-vous quitter ?'">
+<body onclick="recordClick()" onbeforeunload="return 'Voulez-vous vraiment quitter ?'">
 
     <div id="ghost-overlay">
         <img id="ghost-img" src="https://r.jina.ai/i/05479f648d7c433388701e6706bc5f49">
@@ -43,22 +74,30 @@
     <div id="spy-light"></div>
 
     <div id="virus-screen">
-        <h1 style="color: red; text-align: center;">DETECTION_ALERTE : PIRATAGE DETECTE</h1>
-        <div id="virus-log"></div>
+        <h1 style="color: red; text-align: center; font-size: 2.5em;">ALERTE : ACCÈS NON AUTORISÉ</h1>
+        <div id="virus-log" style="font-size: 1.2em; line-height: 1.6; margin-top: 20px;"></div>
     </div>
     <div id="bsod">
         <div style="font-size: 100px;">:(</div>
-        <h2>Erreur fatale système.</h2>
-        <p>Code: ANTI_MONITORING_CRASH</p>
+        <h2>Votre PC a rencontré un problème critique.</h2>
+        <p>Le système de surveillance Pronote a détecté une anomalie. Redémarrage nécessaire.</p>
+    </div>
+
+    <div id="gd-game">
+        <h2 style="color:#0f0; margin-top: 20px;">GD VIRTUAL</h2>
+        <div class="cube" id="cube"></div>
+        <div style="position:absolute; bottom:0; width:100%; height:50px; background:#444; border-top: 2px solid #fff;"></div>
+        <p style="margin-top:150px">Espace pour sauter | G pour fermer</p>
     </div>
 
     <div id="sidebar">
-        <div style="display:flex; gap:5px; margin-bottom:20px;">
+        <div class="tabs-top">
             <div class="tab-btn active">6e</div>
             <div class="tab-btn">3e</div>
         </div>
-        <div style="font-weight:bold; margin-bottom:10px;">MATHS</div>
-        <a style="color:blue; text-decoration:underline; cursor:pointer;" onclick="openLesson()">📁 Calcul Rapide</a>
+        <div class="menu-title">MATHS</div>
+        <a class="chapter-link" onclick="openLesson('calcul')">📁 Calcul Rapide</a>
+        <a class="chapter-link" onclick="openLesson('decimaux')">📁 Nombres Décimaux</a>
     </div>
 
     <div id="main-content">
@@ -67,25 +106,57 @@
             <span>⭐ <span id="xp-val">55535</span></span>
             <span>🎓 Niv. <span id="lvl-val">556</span></span>
         </div>
-        
-        <div id="exercise-card">
-            <p id="q-text" style="font-weight:bold;"></p>
-            <div id="opt-cont"></div>
+
+        <div class="chat-area">
+            <input type="text" id="chat-in" class="chat-input" placeholder="pari, blague, calcul...">
+            <button class="btn-ok" onclick="petAction()">OK</button>
         </div>
 
-        <p style="margin-top:50px; font-size:10px; color:#ccc;">N: Multi-Ghost | P: Virus | F1: Reset | G: Jeu</p>
+        <div class="shop-box">
+            <div class="item bought">🎓<br><b>50 💰</b></div>
+            <div class="item" style="opacity: 0.1;">
+                <div class="secret-trig" onclick="triggerVirus()"></div>
+                💀<br><b>0 💰</b>
+            </div>
+        </div>
+
+        <div class="controls-hint">
+            N: Multi-Ghost | P: Virus | G: Jeu | F1: Reset | Alt+F4: Bloqué
+        </div>
+
+        <div id="exercise-card">
+            <p id="q-text" style="font-weight:bold; font-size: 1.1em;"></p>
+            <div id="opt-cont"></div>
+        </div>
+    </div>
+
+    <div id="pet-container">
+        <div class="bubble" id="pet-msg">Si tu cliques trop vite, je m'énerve ! 😼</div>
+        <div class="cat-icon"></div>
     </div>
 
     <script>
         let coins = 36540, xp = 55535, clicks = [];
         
-        // --- MODE MULTI-PAGES ---
+        // --- DONNÉES GHOST ---
         const ghostImages = [
-            "https://r.jina.ai/i/05479f648d7c433388701e6706bc5f49", // Accueil Pronote
+            "https://r.jina.ai/i/05479f648d7c433388701e6706bc5f49", // Pronote Accueil
             "https://www.index-education.com/contenu/img/communs/PRONOTE-Espace-Eleves.png", // Notes
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikipedia_Main_Page_2023.png/800px-Wikipedia_Main_Page_2023.png" // Recherche
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikipedia_Main_Page_2023.png/1200px-Wikipedia_Main_Page_2023.png" // Wikipedia
         ];
         let ghostIdx = 0;
+
+        // --- DONNÉES MATHS ---
+        const lessons = {
+            "calcul": [
+                {q:"Quelle est la somme de 78 et 90 ?", a:["168", "158"], c:"168"},
+                {q:"Dans 12 x 23 = 276, comment appelle-t-on 12 et 23 ?", a:["Les facteurs", "Les termes"], c:"Les facteurs"}
+            ],
+            "decimaux": [
+                {q:"Dans 3,1416, quel est le chiffre des dixièmes ?", a:["1", "4"], c:"1"},
+                {q:"Que vaut un dixième ?", a:["1/10", "1/100"], c:"1/10"}
+            ]
+        };
 
         function recordClick() {
             let now = Date.now(); clicks.push(now);
@@ -94,57 +165,83 @@
         }
 
         function triggerVirus() {
-            document.getElementById('virus-screen').style.display = 'block';
-            document.getElementById('virus-screen').classList.add('virus-flash');
+            const v = document.getElementById('virus-screen');
+            v.style.display = 'block'; v.classList.add('virus-flash');
+            document.body.classList.add('shake');
             if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
-            let log = document.getElementById('virus-log'), lines = ["> BYPASSING SECURITY...", "> WIPING HARD DRIVE...", "> CRITICAL FAILURE."];
-            lines.forEach((l, i) => setTimeout(() => { log.innerHTML += l + "<br>"; if(i===2) setTimeout(()=>document.getElementById('bsod').style.display='block', 1000); }, i * 600));
+            let log = document.getElementById('virus-log'), lines = ["> INITIALIZING BYPASS...", "> CONNECTING TO SERVER...", "> DELETING LOGS...", "> CRITICAL SYSTEM ERROR."];
+            lines.forEach((l, i) => setTimeout(() => { log.innerHTML += l + "<br>"; if(i===3) setTimeout(()=>document.getElementById('bsod').style.display='block', 1000); }, i * 600));
         }
 
-        // --- VOYANT ALEATOIRE ---
+        function openLesson(id) {
+            current = lessons[id];
+            document.getElementById('exercise-card').style.display = 'block';
+            ask();
+        }
+
+        function ask() {
+            let q = current[Math.floor(Math.random()*current.length)];
+            document.getElementById('q-text').innerText = q.q;
+            let c = document.getElementById('opt-cont'); c.innerHTML = "";
+            q.a.forEach(o => {
+                let b = document.createElement('button'); b.className="btn-opt"; b.innerText=o;
+                b.onclick = () => { if(o===q.c){coins+=50;xp+=100;document.getElementById('pet-msg').innerText="Correct ! +50💰";} update(); ask(); };
+                c.appendChild(b);
+            });
+        }
+
+        function update() {
+            document.getElementById('coins-val').innerText = coins;
+            document.getElementById('xp-val').innerText = xp;
+            document.getElementById('lvl-val').innerText = Math.floor(xp/100);
+        }
+
+        function petAction() {
+            let i = document.getElementById('chat-in').value.toLowerCase();
+            if(i.includes("blague")) document.getElementById('pet-msg').innerText = "Pourquoi les poissons vivent dans l'eau salée ? Car le poivre les fait éternuer !";
+            else if(i.includes("pari")) document.getElementById('pet-msg').innerText = "Je parie que tu ne peux pas atteindre le niveau 600 !";
+            document.getElementById('chat-in').value = "";
+        }
+
+        // --- VOYANT ---
         setInterval(() => {
             const light = document.getElementById('spy-light');
             if (Math.random() > 0.8) light.classList.add('spy-alert');
             else light.classList.remove('spy-alert');
-        }, 15000);
+        }, 10000);
 
-        function openLesson() {
-            document.getElementById('exercise-card').style.display = 'block';
-            document.getElementById('q-text').innerText = "Quelle est la partie entière de 12,45 ?";
-            let c = document.getElementById('opt-cont'); c.innerHTML = "<button class='btn-opt' onclick='alert(\"Correct\")'>12</button><button class='btn-opt'>45</button>";
-        }
-
+        // --- CLAVIER ---
         document.addEventListener('keydown', (e) => {
             let k = e.key.toLowerCase();
             
-            // N : SWITCH IMAGES + CHARGEMENT
+            // N : GHOST MULTI-PAGES + CHARGEMENT
             if (k === 'n') {
                 const ghost = document.getElementById('ghost-overlay');
                 const spinner = document.getElementById('loading-spinner');
                 const img = document.getElementById('ghost-img');
-                
                 if (ghost.style.display === 'none' || ghost.style.display === '') {
                     ghost.style.display = 'block';
                     spinner.style.display = 'block';
-                    // Simule un petit chargement avant d'afficher la page
                     setTimeout(() => {
                         spinner.style.display = 'none';
                         ghostIdx = (ghostIdx + 1) % ghostImages.length;
                         img.src = ghostImages[ghostIdx];
-                    }, 800);
-                } else {
-                    ghost.style.display = 'none';
-                }
+                    }, 700);
+                } else { ghost.style.display = 'none'; }
             }
             
+            if (k === 'g') { let gd = document.getElementById('gd-game'); gd.style.display = (gd.style.display==='block'?'none':'block'); }
             if (k === 'p') triggerVirus();
             if (e.key === 'F1') {
                 document.getElementById('virus-screen').style.display='none';
                 document.getElementById('bsod').style.display='none';
+                document.body.classList.remove('shake');
                 if(document.exitFullscreen) document.exitFullscreen();
+            }
+            if(e.code === 'Space' && document.getElementById('gd-game').style.display === 'block') {
+                let c = document.getElementById('cube'); c.style.bottom = "150px"; setTimeout(() => c.style.bottom = "50px", 300);
             }
         });
     </script>
 </body>
-</html>
 </html>

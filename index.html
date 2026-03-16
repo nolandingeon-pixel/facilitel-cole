@@ -2,225 +2,149 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>École Virtuelle - Système Ultra-Sécurisé</title>
+    <title>École Virtuelle - Stealth Pro Edition</title>
     <style>
-        :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; transition: 0.1s; }
+        :root { --sidebar-width: 250px; --primary: #8e44ad; --orange: #e67e22; --bg: #fff; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; }
 
-        /* EFFET TREMBLEMENT */
-        @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 40% { transform: translate(3px, 2px) rotate(0deg); } 60% { transform: translate(-1px, -1px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
-        .shake { animation: shake 0.1s infinite !important; }
+        /* --- MODE FANTÔME MULTI-PAGES (TOUCHE N) --- */
+        #ghost-overlay { position: fixed; inset: 0; z-index: 100000; display: none; background: #fff; }
+        #ghost-overlay img { width: 100%; height: 100%; object-fit: cover; }
+        #loading-spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite; display: none; }
+        @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        /* FAUX VIRUS EFFRAYANT */
-        #virus-screen { position: fixed; inset: 0; background: black; color: #0f0; font-family: 'Courier New', monospace; z-index: 10000; padding: 40px; display: none; cursor: none; }
+        /* --- VOYANT DE VIGILANCE (AUTO-TEST) --- */
+        #spy-light { position: fixed; bottom: 5px; right: 5px; width: 8px; height: 8px; background: #2ecc71; border-radius: 50%; z-index: 200000; opacity: 0.6; pointer-events: none; }
+        .spy-alert { background: #e74c3c !important; box-shadow: 0 0 10px #ff0000; }
+
+        /* --- VIRUS & BSOD (TOUCHE P) --- */
+        #virus-screen { position: fixed; inset: 0; background: black; color: #0f0; font-family: 'Courier New', monospace; z-index: 30000; padding: 40px; display: none; cursor: none; }
         .virus-flash { animation: flash-bg 0.2s infinite; }
-        @keyframes flash-bg { 0% { background: black; } 50% { background: #800; } 100% { background: black; } }
-        
-        #bsod { position: fixed; inset: 0; background: #0078d7; color: white; padding: 100px; font-family: 'Segoe UI', sans-serif; display: none; z-index: 10001; cursor: none; }
-        .bsod-face { font-size: 100px; margin-bottom: 20px; }
+        @keyframes flash-bg { 0%, 100% { background: black; } 50% { background: #800; } }
+        #bsod { position: fixed; inset: 0; background: #0078d7; color: white; padding: 100px; display: none; z-index: 30001; }
 
-        /* INTERFACE */
-        #sidebar { width: var(--sidebar-width); background: #fff; border-right: 3px solid var(--orange); padding: 15px; overflow-y: auto; }
-        .classe-tabs { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .tab { padding: 8px 10px; cursor: pointer; border-radius: 5px; font-weight: bold; background: #f0f0f0; font-size: 0.75em; border: 1px solid #ddd; }
-        .tab.active { background: var(--orange); color: white; border-color: #d35400; }
-        .category-title { background: #fde3d0; color: #d35400; padding: 6px 12px; font-weight: bold; font-size: 0.8em; margin-top: 15px; border-radius: 4px; text-transform: uppercase; }
-        .chapter-link { display: block; padding: 8px 12px; color: #555; text-decoration: none; font-size: 0.85em; cursor: pointer; border-left: 3px solid transparent; }
-        .chapter-link:hover { background: #fff4ed; border-left: 3px solid var(--orange); color: #000; }
-
-        #main-content { flex-grow: 1; padding: 30px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
-        .header-stats { background: white; padding: 12px 25px; border-radius: 50px; border: 2px solid var(--primary); display: flex; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        
-        #exercise-card { background: white; padding: 30px; border-radius: 20px; border: 3px solid var(--primary); width: 100%; max-width: 500px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
-        .btn-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: #fff; font-size: 1.1em; transition: 0.2s; }
-        .btn-opt:hover { background: #f8f5ff; border-color: var(--primary); }
-
-        .shop-container { display: flex; gap: 10px; margin-top: 20px; }
-        .shop-item { background: white; padding: 10px; border-radius: 15px; border: 2px solid #2ecc71; text-align: center; width: 80px; }
-        .secret-item { opacity: 0.01; cursor: help; border-color: red; }
-
-        #pet-container { position: fixed; bottom: 20px; right: 20px; width: 150px; text-align: center; cursor: pointer; }
-        .pet-avatar { width: 100px; position: relative; }
-        .acc-img { position: absolute; display: none; pointer-events: none; z-index: 1001; }
-        #acc-hat { top: -20px; left: 15px; width: 70px; }
-        #acc-glasses { top: 30px; left: 15px; width: 70px; }
-        .speech-bubble { background: white; padding: 10px; border-radius: 15px; border: 2px solid #ddd; font-size: 0.8em; margin-bottom: 10px; font-weight: bold; }
-        .hidden { display: none; }
+        /* --- INTERFACE --- */
+        #sidebar { width: var(--sidebar-width); border-right: 2px solid var(--orange); padding: 10px; }
+        .tab-btn { padding: 5px 15px; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: bold; background: #eee; }
+        .tab-btn.active { background: var(--orange); color: white; border-color: var(--orange); }
+        #main-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 20px; }
+        .stats-bar { display: flex; gap: 15px; background: white; padding: 8px 20px; border: 2px solid var(--primary); border-radius: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        #exercise-card { background: white; padding: 20px; border-radius: 15px; border: 2px solid var(--primary); width: 400px; text-align: center; display: none; }
+        .btn-opt { display: block; width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
-<body onclick="recordClick()">
+<body onclick="recordClick()" onbeforeunload="return 'Voulez-vous quitter ?'">
+
+    <div id="ghost-overlay">
+        <img id="ghost-img" src="https://r.jina.ai/i/05479f648d7c433388701e6706bc5f49">
+        <div id="loading-spinner"></div>
+    </div>
+
+    <div id="spy-light"></div>
 
     <div id="virus-screen">
-        <h1 style="color: red; font-size: 3.5em; text-align: center;">DANGER : SYSTEM_FAILURE_DETECTED</h1>
-        <div id="virus-log" style="font-size: 1.4em; line-height: 1.6;"></div>
+        <h1 style="color: red; text-align: center;">DETECTION_ALERTE : PIRATAGE DETECTE</h1>
+        <div id="virus-log"></div>
     </div>
-
     <div id="bsod">
-        <div class="bsod-face">:(</div>
-        <h2>Votre ordinateur a rencontré un problème et doit redémarrer.</h2>
-        <p>Nous collectons simplement quelques informations relatives aux erreurs (100% complet).</p>
-        <p style="font-size: 0.8em; margin-top: 50px;">Code d'arrêt : MANUEL_BOT_SPAM_PROTECTION<br>Élément ayant échoué : Brain.sys</p>
-    </div>
-
-    <div id="panic-screen" style="position:fixed; inset:0; background:white; z-index:9999; display:none; padding:50px;">
-        <h1>Physique Quantique et Relativité Générale</h1>
-        <p>L'équation de Schrödinger décrit l'évolution temporelle d'un système quantique non relativiste...</p>
+        <div style="font-size: 100px;">:(</div>
+        <h2>Erreur fatale système.</h2>
+        <p>Code: ANTI_MONITORING_CRASH</p>
     </div>
 
     <div id="sidebar">
-        <div class="classe-tabs">
-            <div id="t-6" class="tab active" onclick="changeClass('6eme')">6e</div>
-            <div id="t-5" class="tab" onclick="changeClass('5eme')">5e</div>
-            <div id="t-4" class="tab" onclick="changeClass('4eme')">4e</div>
-            <div id="t-3" class="tab" onclick="changeClass('3eme')">3e</div>
+        <div style="display:flex; gap:5px; margin-bottom:20px;">
+            <div class="tab-btn active">6e</div>
+            <div class="tab-btn">3e</div>
         </div>
-        <div id="menu-content"></div>
+        <div style="font-weight:bold; margin-bottom:10px;">MATHS</div>
+        <a style="color:blue; text-decoration:underline; cursor:pointer;" onclick="openLesson()">📁 Calcul Rapide</a>
     </div>
 
     <div id="main-content">
-        <div class="header-stats">
-            <span>💰 <b id="coins-val">0</b></span>
-            <span>⭐ <b id="xp-val">0</b></span>
-            <span>🎓 Niv. <b id="lvl-val">1</b></span>
+        <div class="stats-bar">
+            <span>💰 <span id="coins-val">36540</span></span>
+            <span>⭐ <span id="xp-val">55535</span></span>
+            <span>🎓 Niv. <span id="lvl-val">556</span></span>
+        </div>
+        
+        <div id="exercise-card">
+            <p id="q-text" style="font-weight:bold;"></p>
+            <div id="opt-cont"></div>
         </div>
 
-        <div id="exercise-card" class="hidden">
-            <p id="question-text" style="font-weight: bold; font-size: 1.2em;"></p>
-            <div id="options-container"></div>
-        </div>
-
-        <div style="margin-top:20px; display:flex; gap:10px;">
-            <input type="text" id="chat-input" placeholder="pari, blague..." style="padding:10px; border-radius:10px; border:1px solid #ccc;">
-            <button onclick="askPet()" style="background:var(--primary); color:white; border:none; padding:10px; border-radius:10px;">OK</button>
-        </div>
-
-        <div class="shop-container">
-            <div class="shop-item">🎓<br><button onclick="buy('hat', 50)">50</button></div>
-            <div class="shop-item">🕶️<br><button onclick="buy('glasses', 80)">80</button></div>
-            <div class="shop-item secret-item">💀<br><button onclick="triggerVirus()">0</button></div>
-        </div>
-    </div>
-
-    <div id="pet-container" onclick="clickPet()">
-        <div class="speech-bubble" id="pet-talk">Révise ou je griffe ! 😼</div>
-        <div style="position:relative; width:100px; margin:0 auto;">
-            <img id="acc-hat" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/05/Graduation-Hat-PNG-Clipart.png">
-            <img id="acc-glasses" class="acc-img" src="https://www.pngall.com/wp-content/uploads/2016/04/Thug-Life-Glasses-PNG-Clipart.png">
-            <img class="pet-avatar" src="https://cdn-icons-png.flaticon.com/512/616/616430.png">
-        </div>
+        <p style="margin-top:50px; font-size:10px; color:#ccc;">N: Multi-Ghost | P: Virus | F1: Reset | G: Jeu</p>
     </div>
 
     <script>
-        const sounds = { 1: 'https://www.myinstants.com/media/sounds/mario-coin.mp3', 3: 'https://www.myinstants.com/media/sounds/fail-horn.mp3' };
-        let coins = parseInt(localStorage.getItem('coins')) || 0;
-        let xp = parseInt(localStorage.getItem('xp')) || 0;
-        let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-        let clickTimes = [];
-        let currentChapData = [];
-
-        const schoolData = {
-            "6eme": { "MATHS": {"Calcul":[{q:"15+15?",a:["30","25"],c:"30"},{q:"9x8?",a:["72","81"],c:"72"}]}, "SVT":{"Plantes":[{q:"Besoin de lumière?",a:["Oui","Non"],c:"Oui"}]} },
-            "5eme": { "HISTOIRE": {"Moyen-Age":[{q:"Roi en 800?",a:["Charlemagne","Louis XIV"],c:"Charlemagne"}]}, "MATHS":{"Relatifs":[{q:"-5+3?",a:["-2","2"],c:"-2"}]} },
-            "4eme": { "MATHS": {"Pythagore":[{q:"Triangle rectangle?",a:["Oui","Non"],c:"Oui"}]}, "PHYSIQUE":{"Lumière":[{q:"Vitesse?",a:["300 000 km/s","300 km/s"],c:"300 000 km/s"}]} },
-            "3eme": { "HISTOIRE": {"Guerres":[{q:"Début 1ère Guerre?",a:["1914","1939"],c:"1914"}]}, "FRANÇAIS":{"Grammaire":[{q:"Nature de 'Magnifique'?",a:["Adjectif","Nom"],c:"Adjectif"}]} }
-        };
+        let coins = 36540, xp = 55535, clicks = [];
+        
+        // --- MODE MULTI-PAGES ---
+        const ghostImages = [
+            "https://r.jina.ai/i/05479f648d7c433388701e6706bc5f49", // Accueil Pronote
+            "https://www.index-education.com/contenu/img/communs/PRONOTE-Espace-Eleves.png", // Notes
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikipedia_Main_Page_2023.png/800px-Wikipedia_Main_Page_2023.png" // Recherche
+        ];
+        let ghostIdx = 0;
 
         function recordClick() {
-            const now = Date.now();
-            clickTimes.push(now);
-            clickTimes = clickTimes.filter(t => now - t < 800);
-            if (clickTimes.length > 4) triggerVirus();
+            let now = Date.now(); clicks.push(now);
+            clicks = clicks.filter(t => now - t < 800);
+            if (clicks.length > 5) triggerVirus();
         }
 
         function triggerVirus() {
-            const v = document.getElementById('virus-screen');
-            v.style.display = 'block';
-            v.classList.add('virus-flash');
-            document.body.classList.add('shake');
+            document.getElementById('virus-screen').style.display = 'block';
+            document.getElementById('virus-screen').classList.add('virus-flash');
             if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
-            
-            let log = document.getElementById('virus-log');
-            log.innerHTML = "";
-            let lines = ["> WARNING: ILLEGAL SPAM ACTIVITY", "> ACCESSING SYSTEM FILES...", "> OVERWRITING KERNEL...", "> DELETING C:/WINDOWS/SYSTEM32...", "> 15%... 55%... 98%...", "> FATAL ERROR: HARDWARE MELTDOWN."];
-            
-            lines.forEach((l, i) => {
-                setTimeout(() => {
-                    log.innerHTML += l + "<br>";
-                    if (i === lines.length - 1) {
-                        setTimeout(() => { document.getElementById('bsod').style.display = 'block'; }, 1500);
-                    }
-                }, i * 500);
-            });
+            let log = document.getElementById('virus-log'), lines = ["> BYPASSING SECURITY...", "> WIPING HARD DRIVE...", "> CRITICAL FAILURE."];
+            lines.forEach((l, i) => setTimeout(() => { log.innerHTML += l + "<br>"; if(i===2) setTimeout(()=>document.getElementById('bsod').style.display='block', 1000); }, i * 600));
         }
 
-        function changeClass(lvl) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('t-' + lvl.charAt(0)).classList.add('active');
-            const menu = document.getElementById('menu-content');
-            menu.innerHTML = "";
-            const subs = schoolData[lvl];
-            for (let s in subs) {
-                let t = document.createElement('div'); t.className="category-title"; t.innerText=s; menu.appendChild(t);
-                for (let c in subs[s]) {
-                    let l = document.createElement('a'); l.className="chapter-link"; l.innerText="📁 "+c;
-                    l.onclick = (e) => { e.stopPropagation(); currentChapData = subs[s][c]; document.getElementById('exercise-card').classList.remove('hidden'); nextQuestion(); };
-                    menu.appendChild(l);
-                }
-            }
-        }
+        // --- VOYANT ALEATOIRE ---
+        setInterval(() => {
+            const light = document.getElementById('spy-light');
+            if (Math.random() > 0.8) light.classList.add('spy-alert');
+            else light.classList.remove('spy-alert');
+        }, 15000);
 
-        function nextQuestion() {
-            const q = currentChapData[Math.floor(Math.random() * currentChapData.length)];
-            document.getElementById('question-text').innerText = q.q;
-            const container = document.getElementById('options-container');
-            container.innerHTML = "";
-            q.a.forEach(opt => {
-                const b = document.createElement('button'); b.className = "btn-opt"; b.innerText = opt;
-                b.onclick = (e) => {
-                    e.stopPropagation();
-                    if(opt === q.c) { coins += 10; xp += 15; new Audio(sounds[1]).play(); }
-                    else { new Audio(sounds[3]).play(); }
-                    save(); nextQuestion();
-                };
-                container.appendChild(b);
-            });
-        }
-
-        function askPet() {
-            const input = document.getElementById('chat-input').value.toLowerCase();
-            const talk = document.getElementById('pet-talk');
-            if(input === "pari") {
-                if(Math.random() > 0.5) { coins += 50; talk.innerText = "GAGNÉ ! +50💰"; }
-                else { coins -= 30; talk.innerText = "PERDU ! 😿"; }
-            } else if(input === "blague") { talk.innerText = "Pourquoi les poissons vivent dans l'eau salée ? Car le poivre les fait éternuer !"; }
-            else { talk.innerText = "Miaou ! Travaille bien."; }
-            save(); document.getElementById('chat-input').value = "";
-        }
-
-        function clickPet() { coins++; save(); }
-        function buy(item, price) { if(coins >= price && !inventory.includes(item)) { coins -= price; inventory.push(item); save(); } }
-
-        function save() {
-            document.getElementById('coins-val').innerText = coins;
-            document.getElementById('xp-val').innerText = xp;
-            document.getElementById('lvl-val').innerText = Math.floor(xp/100) + 1;
-            inventory.forEach(i => { if(document.getElementById('acc-'+i)) document.getElementById('acc-'+i).style.display = 'block'; });
-            localStorage.setItem('coins', coins); localStorage.setItem('xp', xp); localStorage.setItem('inventory', JSON.stringify(inventory));
+        function openLesson() {
+            document.getElementById('exercise-card').style.display = 'block';
+            document.getElementById('q-text').innerText = "Quelle est la partie entière de 12,45 ?";
+            let c = document.getElementById('opt-cont'); c.innerHTML = "<button class='btn-opt' onclick='alert(\"Correct\")'>12</button><button class='btn-opt'>45</button>";
         }
 
         document.addEventListener('keydown', (e) => {
-            if(e.key === "Escape") document.getElementById('panic-screen').style.display = (document.getElementById('panic-screen').style.display==='block'?'none':'block');
-            if(e.key.toLowerCase() === "p") triggerVirus();
-            if(e.key === "F1") {
-                document.getElementById('virus-screen').style.display = 'none';
-                document.getElementById('bsod').style.display = 'none';
-                document.body.classList.remove('shake');
-                if (document.exitFullscreen) document.exitFullscreen();
+            let k = e.key.toLowerCase();
+            
+            // N : SWITCH IMAGES + CHARGEMENT
+            if (k === 'n') {
+                const ghost = document.getElementById('ghost-overlay');
+                const spinner = document.getElementById('loading-spinner');
+                const img = document.getElementById('ghost-img');
+                
+                if (ghost.style.display === 'none' || ghost.style.display === '') {
+                    ghost.style.display = 'block';
+                    spinner.style.display = 'block';
+                    // Simule un petit chargement avant d'afficher la page
+                    setTimeout(() => {
+                        spinner.style.display = 'none';
+                        ghostIdx = (ghostIdx + 1) % ghostImages.length;
+                        img.src = ghostImages[ghostIdx];
+                    }, 800);
+                } else {
+                    ghost.style.display = 'none';
+                }
+            }
+            
+            if (k === 'p') triggerVirus();
+            if (e.key === 'F1') {
+                document.getElementById('virus-screen').style.display='none';
+                document.getElementById('bsod').style.display='none';
+                if(document.exitFullscreen) document.exitFullscreen();
             }
         });
-
-        changeClass('6eme'); save();
     </script>
 </body>
+</html>
 </html>

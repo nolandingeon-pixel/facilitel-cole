@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Facilitel-Cole | GHOST & TERROR</title>
+    <title>Facilitel-Cole | SYSTEM CRITICAL</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; transition: 0.1s; }
@@ -12,16 +12,18 @@
         #ghost-overlay { position: fixed; inset: 0; z-index: 100000; display: none; background: #fff; }
         #ghost-overlay img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* --- LE VIRUS TERRIFIANT (PLEIN ÉCRAN) --- */
+        /* --- LE VIRUS "ULTRA-LOCKDOWN" --- */
         #terror-overlay { 
             position: fixed; inset: 0; z-index: 200000; display: none; 
-            background: #000 url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndnZueXp3eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/Y8SuxEeoe97IA/giphy.gif') center/cover;
-            color: red; font-family: 'Courier New', Courier, monospace; 
+            background: #000; color: #ff0000; font-family: 'Courier New', monospace; 
             flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            cursor: none; /* Cache la souris pour paniquer l'utilisateur */
         }
-        #terror-overlay h1 { font-size: 50px; text-shadow: 0 0 20px red; animation: glitch 0.1s infinite; }
+        .glitch-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; z-index: -1; }
+        #terror-overlay h1 { font-size: 60px; text-transform: uppercase; margin: 0; animation: shake 0.1s infinite; }
+        .warning-box { border: 5px solid red; padding: 20px; background: rgba(255,0,0,0.1); margin-top: 20px; }
 
-        /* --- SIDEBAR --- */
+        /* --- SIDEBAR & INTERFACE --- */
         #sidebar { width: var(--sidebar-width); border-right: 2px solid var(--orange); padding: 25px; background: #fff; z-index: 10; flex-shrink: 0; }
         .tabs-top { display: flex; gap: 8px; margin-bottom: 25px; }
         .tab-btn { padding: 8px 15px; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; font-weight: bold; background: #f8f8f8; font-size: 14px; }
@@ -31,153 +33,121 @@
 
         /* --- ZONE CENTRALE --- */
         #main-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 30px; position: relative; }
-        
-        /* STATS & SPAM (1, 2, 3) */
-        .stats-bar-container { position: relative; display: inline-block; margin-bottom: 35px; }
-        .stats-bar { display: flex; gap: 30px; background: white; padding: 12px 45px; border: 3px solid var(--primary); border-radius: 45px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .stats-bar span { font-weight: bold; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+        .stats-bar { display: flex; gap: 30px; background: white; padding: 12px 45px; border: 3px solid var(--primary); border-radius: 45px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); position: relative; }
         .secret-trigger { position: absolute; top: 0; height: 100%; width: 33%; cursor: pointer; background: transparent; border: none; outline: none; z-index: 5; }
         #btn-1 { left: 0; } #btn-2 { left: 33%; } #btn-3 { left: 66%; }
 
-        /* INPUT CHAT STYLE CAPTURE */
-        .chat-area { display: flex; gap: 10px; margin-bottom: 30px; }
-        .chat-in { padding: 12px 18px; border: 1px solid #ccc; border-radius: 8px; width: 300px; font-size: 14px; }
-        .chat-btn { padding: 10px 20px; background: #eee; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; font-weight: 500; }
-
-        /* BOUTIQUE : VIRUS 100% INVISIBLE */
+        /* BOUTIQUE : VIRUS TOTALEMENT INVISIBLE */
         .shop-container { display: flex; gap: 25px; margin-bottom: 40px; }
-        .shop-item { width: 110px; height: 110px; border: 2px solid #ddd; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; font-size: 13px; font-weight: bold; position: relative; }
+        .shop-item { width: 110px; height: 110px; border: 2px solid #ddd; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; position: relative; }
         #virus-hitbox { position: absolute; inset: 0; width: 100%; height: 100%; background: transparent; border: none; outline: none; cursor: pointer; z-index: 100; opacity: 0; }
 
-        /* CARTE EXERCICES (STYLE IMAGE 039e3e) */
-        #exercise-card { background: white; padding: 40px; border-radius: 30px; border: 3px solid var(--primary); width: 600px; max-width: 90%; text-align: center; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        #q-text { font-size: 1.6em; margin-bottom: 35px; font-weight: bold; color: #2c3e50; }
+        /* EXERCICES */
+        #exercise-card { background: white; padding: 40px; border-radius: 30px; border: 3px solid var(--primary); width: 600px; max-width: 90%; text-align: center; display: none; }
         .btn-opt { display: block; width: 100%; padding: 20px; margin: 12px 0; border: 1px solid #eee; border-radius: 15px; cursor: pointer; font-size: 18px; font-weight: 600; background: #fff; }
 
         /* GEOMETRY DASH */
-        #gd-game { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 350px; background: #111; border: 5px solid #00ff00; z-index: 15000; display: none; border-radius: 20px; overflow: hidden; }
-        .cube { width: 40px; height: 40px; background: #00ff00; position: absolute; bottom: 50px; left: 70px; }
-        .obs { width: 30px; height: 30px; background: #ff0000; position: absolute; bottom: 50px; right: -50px; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        #gd-game { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 350px; background: #111; border: 5px solid #0f0; z-index: 15000; display: none; border-radius: 20px; overflow: hidden; }
+        .cube { width: 40px; height: 40px; background: #0f0; position: absolute; bottom: 50px; left: 70px; }
+        .obs { width: 30px; height: 30px; background: #f00; position: absolute; bottom: 50px; right: -50px; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
 
-        /* PET CHAT (STYLE C95B97) */
-        #pet-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: flex-end; }
-        .bubble { background: white; border: 1px solid #ddd; border-radius: 20px; padding: 15px 25px; margin-bottom: 15px; font-size: 14px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-        .cat-icon { width: 120px; height: 120px; background: url('https://cdn-icons-png.flaticon.com/512/616/616430.png') no-repeat center/contain; cursor: pointer; }
-        
-        @keyframes glitch { 0% { transform: skew(5deg); } 50% { transform: skew(-5deg); filter: invert(1); } 100% { transform: skew(0); } }
+        @keyframes shake { 0% { transform: translate(5px, 5px); } 50% { transform: translate(-5px, -5px) scale(1.1); filter: hue-rotate(90deg); } 100% { transform: translate(5px, -5px); } }
     </style>
 </head>
-<body onbeforeunload="return 'Voulez-vous vraiment quitter ?'">
+<body onbeforeunload="return 'SYSTÈME CORROMPU : VOULEZ-VOUS VRAIMENT QUITTER ?'">
 
     <div id="ghost-overlay" onclick="this.style.display='none'"><img src="https://i.ibb.co/XkyYmGz/pronote-mockup.png"></div>
 
-    <div id="terror-overlay" onclick="stopVirus()">
-        <h1>SYSTÈME BLOQUÉ !</h1>
-        <p>ACCÈS REFUSÉ - ERREUR CRITIQUE 0x666</p>
-        <p style="font-size: 12px; margin-top: 50px;">Appuie n'importe où pour débloquer (Secret)</p>
+    <div id="terror-overlay">
+        <img class="glitch-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndnZueXp3eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/Y8SuxEeoe97IA/giphy.gif">
+        <h1>FATAL ERROR</h1>
+        <div class="warning-box">
+            <p>DISQUE DUR C: EN COURS D'EFFACEMENT...</p>
+            <p id="timer">60s restantes avant formatage</p>
+        </div>
+        <p style="margin-top: 100px; color: #555;">Appuyez sur 'K' pour annuler (Code Secret)</p>
     </div>
 
     <div id="sidebar">
         <div class="tabs-top">
-            <div class="tab-btn" onclick="setLvl('6e', this)">6e</div>
-            <div class="tab-btn" onclick="setLvl('5e', this)">5e</div>
-            <div class="tab-btn" onclick="setLvl('4e', this)">4e</div>
-            <div class="tab-btn active" onclick="setLvl('3e', this)">3e</div>
+            <div class="tab-btn" onclick="setL(this)">6e</div>
+            <div class="tab-btn" onclick="setL(this)">5e</div>
+            <div class="tab-btn" onclick="setL(this)">4e</div>
+            <div class="tab-btn active" onclick="setL(this)">3e</div>
         </div>
-        <div class="menu-title" id="side-title">MATHS 3E</div>
-        <a class="chapter-link" onclick="openEx('num')">📁 Numération & Calcul</a>
-        <a class="chapter-link" onclick="openEx('geo')">📁 Géométrie & Mesures</a>
+        <div class="menu-title" id="side-t">MATHS 3E</div>
+        <a class="chapter-link" onclick="openE()">📁 Numération & Calcul</a>
+        <a class="chapter-link" onclick="openE()">📁 Géométrie</a>
     </div>
 
     <div id="main-content">
-        <div class="stats-bar-container">
-            <div class="stats-bar">
-                <span>💰 <b id="c-v">36540</b></span>
-                <span>⭐ <b id="x-v">55535</b></span>
-                <span>🎓 Niv. <b id="l-v">556</b></span>
-            </div>
+        <div class="stats-bar">
+            <span>💰 <b id="c-v">36540</b></span>
+            <span>⭐ <b id="x-v">55535</b></span>
+            <span>🎓 Niv. <b id="l-v">556</b></span>
             <button id="btn-1" class="secret-trigger" onclick="sp(1)"></button>
             <button id="btn-2" class="secret-trigger" onclick="sp(2)"></button>
             <button id="btn-3" class="secret-trigger" onclick="sp(3)"></button>
         </div>
 
-        <div class="chat-area">
-            <input type="text" class="chat-in" id="chat-input" placeholder="Calculer, rire, blague...">
-            <button class="chat-btn" onclick="sendChat()">OK</button>
-        </div>
-
-        <div class="shop-container">
+        <div class="shop-container" style="margin-top:50px;">
             <div class="shop-item" style="border-color:#2ecc71;">🎓<br>Diplôme</div>
             <div class="shop-item" style="border:none; background:transparent;">
-                <button id="virus-hitbox" onclick="startTerror()"></button>
+                <button id="virus-hitbox" onclick="startLockdown()"></button>
             </div>
         </div>
 
         <div id="exercise-card"><p id="q-text"></p><div id="opt-cont"></div></div>
 
-        <div id="pet-container">
-            <div class="bubble" id="pet-bubble">Révise tes cours pour troller ! 😼</div>
-            <div class="cat-icon" onclick="toggleGD()"></div>
+        <div style="position:fixed; bottom:30px; right:30px;" onclick="toggleGD()">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" width="120">
         </div>
     </div>
 
-    <div id="gd-game" onclick="jump()"><div class="cube" id="cube"></div><div id="obs" class="obs"></div></div>
+    <div id="gd-game" onclick="jp()"><div class="cube" id="cube"></div><div id="obs" class="obs"></div></div>
 
     <script>
-        let coins = 36540, xp = 55535, currentLvl = '3e';
+        let coins = 36540, xp = 55535, currentL = '3e', terrorActive = false;
         const sounds = { 1:'https://www.myinstants.com/media/sounds/fahhhh.mp3', 2:'https://www.myinstants.com/media/sounds/discord-notification.mp3', 3:'https://www.myinstants.com/media/sounds/bruh.mp3' };
         
         function sp(id) { let a = new Audio(sounds[id]); a.currentTime = 0; a.play(); }
 
-        const db = {
-            "6e": [{q:"15 + 5 ?", a:["20","10","25"], c:"20"}],
-            "5e": [{q:"(-7) + (+3) ?", a:["-4","4","-10"], c:"-4"}],
-            "4e": [{q:"3² ?", a:["9","6","12"], c:"9"}],
-            "3e": [{q:"√81 ?", a:["9","8","10"], c:"9"}]
-        };
-
-        // --- FONCTION TERREUR ---
-        function startTerror() {
+        function startLockdown() {
+            terrorActive = true;
             sp(3);
-            document.documentElement.requestFullscreen(); // Force le plein écran
+            document.documentElement.requestFullscreen();
             document.getElementById('terror-overlay').style.display = 'flex';
-            // Bloque les touches de sortie
-            window.onkeydown = function (e) {
-                if (e.altKey && e.keyCode == 115) { sp(3); return false; } // Bloque Alt+F4
-                if (e.ctrlKey && e.keyCode == 87) { sp(3); return false; } // Bloque Ctrl+W
+            
+            // Boucle de harcèlement sonore
+            let siren = setInterval(() => { if(!terrorActive) clearInterval(siren); else sp(3); }, 1000);
+
+            // Bloque les touches
+            window.onkeydown = function(e) {
+                if(e.key.toLowerCase() === 'k') stopLockdown(); // Seul moyen de sortir
+                e.preventDefault(); 
+                return false;
             };
         }
 
-        function stopVirus() {
+        function stopLockdown() {
+            terrorActive = false;
             document.getElementById('terror-overlay').style.display = 'none';
             document.exitFullscreen();
-            window.onkeydown = null; // Libère les touches
+            window.onkeydown = mainKeys;
         }
 
-        function setLvl(lvl, btn) {
-            currentLvl = lvl;
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById('side-title').innerText = "MATHS " + lvl.toUpperCase();
+        function setL(b) {
+            document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            currentL = b.innerText.toLowerCase();
+            document.getElementById('side-t').innerText = "MATHS " + b.innerText;
         }
 
-        function openEx(type) { document.getElementById('exercise-card').style.display = 'block'; ask(); }
+        function openE() { document.getElementById('exercise-card').style.display = 'block'; ask(); }
 
         function ask() {
-            let q = db[currentLvl][0];
-            document.getElementById('q-text').innerText = q.q;
-            let cont = document.getElementById('opt-cont'); cont.innerHTML = "";
-            q.a.forEach(o => {
-                let b = document.createElement('button'); b.className="btn-opt"; b.innerText=o;
-                b.onclick = () => { if(o===q.c){ coins+=50; xp+=100; update(); } ask(); };
-                cont.appendChild(b);
-            });
-        }
-
-        function update() {
-            document.getElementById('c-v').innerText = coins;
-            document.getElementById('x-v').innerText = xp;
-            document.getElementById('l-v').innerText = Math.floor(xp/100);
+            document.getElementById('q-text').innerText = "15 + 5 (Mode " + currentL + ")";
+            let c = document.getElementById('opt-cont'); c.innerHTML = "<button class='btn-opt' onclick='ask()'>20</button><button class='btn-opt' onclick='ask()'>10</button>";
         }
 
         function toggleGD() {
@@ -185,28 +155,20 @@
             g.style.display = (g.style.display==='block'?'none':'block');
             if(g.style.display==='block') {
                 let o = document.getElementById('obs'); let x = 600;
-                setInterval(() => { x-=10; if(x<-50) x=600; o.style.right=(600-x)+"px"; }, 20);
+                setInterval(() => { x-=15; if(x<-50) x=600; o.style.right=(600-x)+"px"; }, 20);
             }
         }
 
-        function jump() {
-            let c = document.getElementById('cube');
-            c.style.transition = "0.2s"; c.style.bottom = "160px";
-            setTimeout(() => c.style.bottom = "50px", 200);
-        }
+        function jp() { let c=document.getElementById('cube'); c.style.transition="0.2s"; c.style.bottom="160px"; setTimeout(()=>c.style.bottom="50px",200); }
 
-        function sendChat() {
-            let val = document.getElementById('chat-input').value;
-            if(val) { document.getElementById('pet-bubble').innerText = "Tu as dit : " + val; document.getElementById('chat-input').value = ""; }
-        }
-
-        document.addEventListener('keydown', (e) => {
+        function mainKeys(e) {
             let k = e.key.toLowerCase();
             if(k === '1') sp(1); if(k === '2') sp(2); if(k === '3') sp(3);
             if(k === 'n') document.getElementById('ghost-overlay').style.display = 'block';
-            if(k === 'p') startTerror(); // RACCOURCI P POUR LE VIRUS TERREUR
-            if(k === 'g') toggleGD(); if(e.code === 'Space') jump();
-        });
+            if(k === 'p') startLockdown();
+            if(k === 'g') toggleGD(); if(e.code === 'Space') jp();
+        }
+        window.onkeydown = mainKeys;
     </script>
 </body>
 </html>

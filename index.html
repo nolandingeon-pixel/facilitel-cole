@@ -3,61 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>École Virtuelle - Plateforme Intégrale</title>
+    <title>Facilitel-Cole | Final Version</title>
     <style>
         :root { --sidebar-width: 280px; --primary: #8e44ad; --orange: #e67e22; --bg: #ffffff; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; touch-action: manipulation; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: var(--bg); overflow: hidden; transition: 0.1s; }
 
-        /* --- PROTECTION GHOST (TOUCHE N) --- */
+        /* --- MODE GHOST PRONOTE (N) --- */
         #ghost-overlay { position: fixed; inset: 0; z-index: 100000; display: none; background: #fff; }
         #ghost-overlay img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* --- SIDEBAR COMPLÈTE --- */
-        #sidebar { width: var(--sidebar-width); border-right: 2px solid var(--orange); padding: 25px; background: #fff; z-index: 10; flex-shrink: 0; box-shadow: 2px 0 10px rgba(0,0,0,0.05); }
-        .tabs-top { display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap; }
-        .tab-btn { padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; font-weight: bold; background: #f8f8f8; font-size: 13px; transition: 0.2s; }
+        /* --- SIDEBAR STYLE CAPTURE --- */
+        #sidebar { width: var(--sidebar-width); border-right: 2px solid var(--orange); padding: 25px; background: #fff; z-index: 10; flex-shrink: 0; }
+        .tabs-top { display: flex; gap: 8px; margin-bottom: 25px; }
+        .tab-btn { padding: 8px 15px; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; font-weight: bold; background: #f8f8f8; font-size: 14px; }
         .tab-btn.active { background: var(--orange); color: white; border-color: var(--orange); }
-        .menu-title { font-weight: bold; font-size: 17px; margin: 25px 0 15px 0; color: #333; text-transform: uppercase; letter-spacing: 0.5px; }
+        .menu-title { font-weight: bold; font-size: 16px; margin: 25px 0 10px 0; color: #333; text-transform: uppercase; }
         .chapter-link { display: block; color: #0000ee; text-decoration: underline; cursor: pointer; margin: 12px 0; font-size: 15px; }
 
-        /* --- CONTENU PRINCIPAL --- */
-        #main-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 30px; position: relative; overflow-y: auto; }
+        /* --- ZONE CENTRALE --- */
+        #main-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 30px; position: relative; }
         
-        /* BARRE DE STATS AVEC ZONES TACTILES INVISIBLES (SOUNDBOARD) */
+        /* BARRE DE STATS AVEC SPAM (1, 2, 3) */
         .stats-bar-container { position: relative; display: inline-block; margin-bottom: 35px; }
         .stats-bar { display: flex; gap: 30px; background: white; padding: 12px 45px; border: 3px solid var(--primary); border-radius: 45px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         .stats-bar span { font-weight: bold; font-size: 18px; display: flex; align-items: center; gap: 10px; }
-        
-        .secret-trigger { position: absolute; top: 0; height: 100%; width: 33%; cursor: pointer; background: transparent; border: none; outline: none; -webkit-tap-highlight-color: transparent; z-index: 5; }
+        .secret-trigger { position: absolute; top: 0; height: 100%; width: 33%; cursor: pointer; background: transparent; border: none; outline: none; z-index: 5; }
         #btn-1 { left: 0; } #btn-2 { left: 33%; } #btn-3 { left: 66%; }
 
-        /* CHAT & BOUTIQUE AVEC VIRUS CACHÉ */
-        .chat-area { display: flex; gap: 12px; margin-bottom: 35px; }
-        .chat-in { padding: 12px 18px; border: 2px solid #ddd; border-radius: 10px; width: 280px; }
+        /* INPUT CHAT STYLE CAPTURE */
+        .chat-area { display: flex; gap: 10px; margin-bottom: 30px; }
+        .chat-in { padding: 12px 18px; border: 1px solid #ccc; border-radius: 8px; width: 300px; font-size: 14px; }
+        .chat-btn { padding: 10px 20px; background: #eee; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; font-weight: 500; }
+
+        /* BOUTIQUE : VIRUS 100% CACHÉ */
         .shop-container { display: flex; gap: 25px; margin-bottom: 40px; }
-        .shop-item { width: 120px; height: 120px; border: 2px solid #ddd; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; font-size: 14px; font-weight: bold; position: relative; }
-        .shop-item.owned { border: 3px solid #2ecc71; background: #fafffa; }
+        .shop-item { width: 110px; height: 110px; border: 2px solid #ddd; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; font-size: 13px; font-weight: bold; position: relative; }
+        .shop-item.owned { border: 3px solid #2ecc71; }
         
-        /* HITBOX VIRUS INVISIBLE SUR L'ITEM DE DROITE */
-        #virus-hitbox { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 20; }
+        /* Bouton virus invisible : ni bordure, ni texte, ni icône */
+        #virus-secret-hitbox { 
+            position: absolute; inset: 0; width: 100%; height: 100%; 
+            background: transparent; border: none; outline: none; 
+            cursor: pointer; z-index: 100; opacity: 0; 
+        }
 
-        /* ZONE D'EXERCICES */
-        #exercise-card { background: white; padding: 40px; border-radius: 25px; border: 4px solid var(--primary); width: 550px; max-width: 90%; text-align: center; display: none; box-shadow: 0 15px 40px rgba(0,0,0,0.15); margin-bottom: 50px; }
-        #q-text { font-size: 1.4em; margin-bottom: 30px; color: #2c3e50; font-weight: 700; }
-        .btn-opt { display: block; width: 100%; padding: 18px; margin: 15px 0; border: 2px solid #f0f0f0; border-radius: 15px; cursor: pointer; font-size: 17px; font-weight: 600; background: #fff; transition: 0.2s; }
-        .btn-opt:hover { background: #f9f9f9; border-color: var(--primary); transform: translateY(-3px); }
+        /* CARTE EXERCICES (STYLE IMAGE 039e3e) */
+        #exercise-card { background: white; padding: 40px; border-radius: 30px; border: 3px solid var(--primary); width: 600px; max-width: 90%; text-align: center; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 20px; }
+        #q-text { font-size: 1.6em; margin-bottom: 35px; font-weight: bold; color: #2c3e50; }
+        .btn-opt { display: block; width: 100%; padding: 20px; margin: 12px 0; border: 1px solid #eee; border-radius: 15px; cursor: pointer; font-size: 18px; font-weight: 600; background: #fff; transition: 0.2s; }
+        .btn-opt:hover { background: #fcfcfc; border-color: var(--primary); transform: scale(1.02); }
 
-        /* JEU GEOMETRY DASH */
-        #gd-game { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 650px; height: 380px; background: #111; border: 5px solid #00ff00; z-index: 15000; display: none; border-radius: 25px; overflow: hidden; }
-        .cube { width: 45px; height: 45px; background: #00ff00; position: absolute; bottom: 60px; left: 70px; box-shadow: 0 0 15px #00ff00; }
-        .obs { width: 35px; height: 35px; background: #ff4757; position: absolute; bottom: 60px; right: -60px; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
-        .ground { position: absolute; bottom: 0; width: 100%; height: 60px; background: #333; }
+        /* GEOMETRY DASH (G) */
+        #gd-game { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 350px; background: #111; border: 5px solid #00ff00; z-index: 15000; display: none; border-radius: 20px; overflow: hidden; }
+        .cube { width: 40px; height: 40px; background: #00ff00; position: absolute; bottom: 50px; left: 70px; box-shadow: 0 0 15px #00ff00; }
+        .obs { width: 30px; height: 30px; background: #ff0000; position: absolute; bottom: 50px; right: -50px; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
 
-        /* PET CHAT */
-        #pet-container { position: fixed; bottom: 35px; right: 35px; display: flex; flex-direction: column; align-items: flex-end; }
-        .bubble { background: white; border: 2px solid #eee; border-radius: 20px; padding: 15px; margin-bottom: 15px; font-size: 14px; max-width: 220px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); font-weight: 500; }
-        .cat-icon { width: 130px; height: 130px; background: url('https://cdn-icons-png.flaticon.com/512/616/616430.png') no-repeat center/contain; cursor: pointer; transition: 0.3s; }
-        .cat-icon:hover { transform: scale(1.1); }
+        /* PET CHAT & BULLE (STYLE IMAGE C95B97) */
+        #pet-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: flex-end; }
+        .bubble { background: white; border: 1px solid #ddd; border-radius: 20px; padding: 15px 25px; margin-bottom: 15px; font-size: 14px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); max-width: 250px; text-align: right; }
+        .cat-icon { width: 120px; height: 120px; background: url('https://cdn-icons-png.flaticon.com/512/616/616430.png') no-repeat center/contain; cursor: pointer; transition: 0.3s; }
+        
+        /* EFFET VIRUS GLITCH */
+        .glitch-active { animation: shake 0.1s infinite; filter: invert(1) hue-rotate(90deg); background: #000 !important; }
+        @keyframes shake { 0% { transform: translate(3px, 3px); } 50% { transform: translate(-3px, -4px); } 100% { transform: translate(3px, -3px); } }
     </style>
 </head>
 <body>
@@ -66,16 +74,16 @@
 
     <div id="sidebar">
         <div class="tabs-top">
-            <div class="tab-btn" onclick="changeLvl('6e', this)">6e</div>
-            <div class="tab-btn" onclick="changeLvl('5e', this)">5e</div>
-            <div class="tab-btn" onclick="changeLvl('4e', this)">4e</div>
-            <div class="tab-btn active" onclick="changeLvl('3e', this)">3e</div>
+            <div class="tab-btn" onclick="setLvl('6e', this)">6e</div>
+            <div class="tab-btn" onclick="setLvl('5e', this)">5e</div>
+            <div class="tab-btn" onclick="setLvl('4e', this)">4e</div>
+            <div class="tab-btn active" onclick="setLvl('3e', this)">3e</div>
         </div>
-        <div class="menu-title" id="lvl-title">MATHS 3ÈME</div>
+        <div class="menu-title" id="side-title">MATHS 3E</div>
         <div id="links">
-            <a class="chapter-link" onclick="startLesson('num')">📁 Numération & Calcul</a>
-            <a class="chapter-link" onclick="startLesson('geo')">📁 Géométrie & Mesures</a>
-            <a class="chapter-link" onclick="startLesson('prob')">📁 Probabilités</a>
+            <a class="chapter-link" onclick="openExercise('num')">📁 Numération & Calcul</a>
+            <a class="chapter-link" onclick="openExercise('geo')">📁 Géométrie & Mesures</a>
+            <a class="chapter-link" onclick="openExercise('prob')">📁 Probabilités</a>
         </div>
     </div>
 
@@ -84,7 +92,7 @@
             <div class="stats-bar">
                 <span>💰 <b id="c-v">36540</b></span>
                 <span>⭐ <b id="x-v">55535</b></span>
-                <span>🎓 Niv. <b id="l-v">555</b></span>
+                <span>🎓 Niv. <b id="l-v">556</b></span>
             </div>
             <button id="btn-1" class="secret-trigger" onclick="sp(1)"></button>
             <button id="btn-2" class="secret-trigger" onclick="sp(2)"></button>
@@ -92,67 +100,75 @@
         </div>
 
         <div class="chat-area">
-            <input type="text" class="chat-in" placeholder="Poser une question...">
-            <button style="padding:10px; cursor:pointer;" onclick="alert('Prof virtuel occupé...')">Envoyer</button>
+            <input type="text" class="chat-in" id="chat-input" placeholder="Calculer, rire, blague...">
+            <button class="chat-btn" onclick="sendChat()">OK</button>
         </div>
 
         <div class="shop-container">
             <div class="shop-item owned">🎓<br>Diplôme<br>50 💰</div>
-            <div class="shop-item">
-                <div id="virus-hitbox" onclick="sp(3); alert('VIRUS : Bruh !'); document.body.style.filter='invert(1)'; setTimeout(()=>document.body.style.filter='none',300);"></div>
-                👽<br>Virus<br>Caché
+            <div class="shop-item" style="border:none; background:transparent;">
+                <button id="virus-secret-hitbox" onclick="triggerVirus()"></button>
             </div>
         </div>
 
         <div id="exercise-card"><p id="q-text"></p><div id="opt-cont"></div></div>
 
         <div id="pet-container">
-            <div class="bubble" id="chat-msg">Bienvenue ! Choisis ton niveau de classe. 😼</div>
+            <div class="bubble" id="pet-bubble">Révise tes cours pour gagner des pièces et troller ! 😼</div>
             <div class="cat-icon" onclick="toggleGD()"></div>
         </div>
     </div>
 
-    <div id="gd-game" onclick="jump()"><div class="cube" id="cube"></div><div id="obs-id" class="obs"></div><div class="ground"></div></div>
+    <div id="gd-game" onclick="jump()"><div class="cube" id="cube"></div><div id="obs" class="obs"></div></div>
 
     <script>
-        let coins = 36540, xp = 55535, currentClass = '3e';
+        let coins = 36540, xp = 55535, currentLvl = '3e';
         const sounds = { 1:'https://www.myinstants.com/media/sounds/fahhhh.mp3', 2:'https://www.myinstants.com/media/sounds/discord-notification.mp3', 3:'https://www.myinstants.com/media/sounds/bruh.mp3' };
         
         function sp(id) { let a = new Audio(sounds[id]); a.currentTime = 0; a.play(); }
 
-        const questions = {
-            "6e": { "num": [{q:"Chiffre des dizaines dans 1 234 ?", a:["3","2","4"], c:"3"}], "geo": [{q:"Combien de côtés a un triangle ?", a:["3","4","5"], c:"3"}] },
-            "5e": { "num": [{q:"(-7) + (+3) = ?", a:["-4","4","-10"], c:"-4"}], "geo": [{q:"Somme des angles d'un triangle ?", a:["180°","90°","360°"], c:"180°"} ]},
-            "4e": { "num": [{q:"Valeur de 5² ?", a:["25","10","50"], c:"25"}], "geo": [{q:"Théorème pour le triangle rectangle ?", a:["Pythagore","Thalès","Chasles"], c:"Pythagore"}] },
-            "3e": { "num": [{q:"PGCD de 20 et 30 ?", a:["10","5","2"], c:"10"}], "geo": [{q:"Cosinus = ?", a:["Adj/Hyp","Opp/Hyp","Opp/Adj"], c:"Adj/Hyp"}] }
+        const db = {
+            "6e": { "num": [{q:"15 + 5 ?", a:["20","10","25"], c:"20"}], "geo": [{q:"Côtés d'un carré ?", a:["4","3","5"], c:"4"}] },
+            "5e": { "num": [{q:"(-7) + (+3) ?", a:["-4","4","-10"], c:"-4"}], "geo": [{q:"Angles triangle ?", a:["180°","90°","360°"], c:"180°"}] },
+            "4e": { "num": [{q:"3 au carré ?", a:["9","6","12"], c:"9"}], "geo": [{q:"Théorème triangle rectangle ?", a:["Pythagore","Thalès","Chasles"], c:"Pythagore"}] },
+            "3e": { "num": [{q:"√81 ?", a:["9","8","10"], c:"9"}], "geo": [{q:"Cos = ?", a:["Adj/Hyp","Opp/Hyp","Opp/Adj"], c:"Adj/Hyp"}] }
         };
 
-        function changeLvl(lvl, btn) {
-            currentClass = lvl;
+        function triggerVirus() {
+            sp(3);
+            document.body.classList.add('glitch-active');
+            document.getElementById('pet-bubble').innerText = "SYSTÈME CORROMPU ! BRUH ! 💀";
+            setTimeout(() => document.body.classList.remove('glitch-active'), 3000);
+        }
+
+        function setLvl(lvl, btn) {
+            currentLvl = lvl;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById('lvl-title').innerText = "MATHS " + lvl.toUpperCase();
-            document.getElementById('chat-msg').innerText = "Passage en " + lvl + " !";
+            document.getElementById('side-title').innerText = "MATHS " + lvl.toUpperCase();
         }
 
-        function startLesson(type) {
-            currentSet = questions[currentClass][type] || questions["3e"]["num"];
+        function openExercise(type) {
             document.getElementById('exercise-card').style.display = 'block';
-            ask();
+            ask(type);
         }
 
-        function ask() {
-            let q = currentSet[Math.floor(Math.random()*currentSet.length)];
+        function ask(type) {
+            let list = db[currentLvl][type] || db["3e"]["num"];
+            let q = list[Math.floor(Math.random()*list.length)];
             document.getElementById('q-text').innerText = q.q;
             let cont = document.getElementById('opt-cont'); cont.innerHTML = "";
             q.a.forEach(o => {
                 let b = document.createElement('button'); b.className="btn-opt"; b.innerText=o;
-                b.onclick = () => { if(o===q.c){ coins+=50; xp+=100; document.getElementById('chat-msg').innerText="Correct ! +100 XP"; } update(); ask(); };
+                b.onclick = () => { 
+                    if(o===q.c){ coins+=50; xp+=100; document.getElementById('pet-bubble').innerText="Correct ! +100 XP ⭐"; }
+                    updateStats(); ask(type);
+                };
                 cont.appendChild(b);
             });
         }
 
-        function update() {
+        function updateStats() {
             document.getElementById('c-v').innerText = coins;
             document.getElementById('x-v').innerText = xp;
             document.getElementById('l-v').innerText = Math.floor(xp/100);
@@ -162,21 +178,30 @@
             let g = document.getElementById('gd-game');
             g.style.display = (g.style.display==='block'?'none':'block');
             if(g.style.display==='block') {
-                let o = document.getElementById('obs-id'); let x = 650;
-                setInterval(() => { x-=10; if(x<-50) x=650; o.style.right=(650-x)+"px"; }, 20);
+                let o = document.getElementById('obs'); let x = 600;
+                let loop = setInterval(() => {
+                    if(g.style.display==='none') { clearInterval(loop); return; }
+                    x-=10; if(x<-50) x=600; o.style.right=(600-x)+"px";
+                }, 20);
             }
         }
 
         function jump() {
             let c = document.getElementById('cube');
-            c.style.transition = "0.3s"; c.style.bottom = "160px";
-            setTimeout(() => c.style.bottom = "60px", 300);
+            c.style.transition = "0.25s"; c.style.bottom = "160px";
+            setTimeout(() => c.style.bottom = "50px", 250);
+        }
+
+        function sendChat() {
+            let val = document.getElementById('chat-input').value;
+            if(val) { document.getElementById('pet-bubble').innerText = "Tu as dit : " + val; document.getElementById('chat-input').value = ""; }
         }
 
         document.addEventListener('keydown', (e) => {
             let k = e.key.toLowerCase();
             if(k === '1') sp(1); if(k === '2') sp(2); if(k === '3') sp(3);
             if(k === 'n') document.getElementById('ghost-overlay').style.display = 'block';
+            if(k === 'p') triggerVirus(); // RACCOURCI P POUR LE VIRUS
             if(k === 'g') toggleGD(); if(e.code === 'Space') jump();
         });
     </script>

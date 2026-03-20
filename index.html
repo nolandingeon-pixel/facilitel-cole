@@ -9,6 +9,8 @@
 :root{--primary:#7c3aed;--pl:#a855f7;--orange:#f97316;--ol:#fb923c;--bg:#f1f5f9;--sw:270px;--text:#1e293b;--muted:#64748b;--green:#22c55e;--red:#ef4444;--gold:#f59e0b;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;}
+
+/* LOGIN */
 #login-screen{position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#7c3aed,#a855f7 40%,#f97316);display:flex;align-items:center;justify-content:center;}
 .login-box{background:#fff;border-radius:28px;padding:40px 45px;width:410px;max-width:95vw;box-shadow:0 30px 80px rgba(0,0,0,0.25);}
 .login-logo{text-align:center;margin-bottom:28px;}
@@ -20,10 +22,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .fg input:focus{border-color:var(--primary);}
 .btn-p{width:100%;padding:13px;background:linear-gradient(135deg,var(--primary),var(--pl));color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px;}
 #login-err{color:var(--red);font-size:13px;text-align:center;margin-top:10px;font-weight:700;min-height:18px;}
+
+/* LOADING */
 #loading-screen{position:fixed;inset:0;z-index:99998;background:linear-gradient(135deg,#7c3aed,#f97316);display:none;align-items:center;justify-content:center;flex-direction:column;color:#fff;}
 #loading-screen h2{font-size:22px;font-weight:900;margin-top:16px;}
 .spinner{width:48px;height:48px;border:5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* MODALS */
 .modal-bg{position:fixed;inset:0;z-index:90000;display:none;background:rgba(0,0,0,.6);backdrop-filter:blur(5px);align-items:center;justify-content:center;}
 .modal-box{background:#fff;border-radius:24px;padding:32px;width:520px;max-width:95vw;max-height:88vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.3);position:relative;}
 .modal-box h2{font-size:20px;font-weight:900;color:var(--primary);margin-bottom:4px;}
@@ -68,16 +74,22 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .msg-input-row{display:flex;gap:8px;}
 .msg-input-row input{flex:1;padding:10px 14px;border:2px solid #e2e8f0;border-radius:12px;font-family:'Nunito',sans-serif;font-size:13px;outline:none;}
 .msg-send{padding:10px 16px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;}
+
+/* GHOST & VIRUS */
 #ghost-overlay{position:fixed;inset:0;z-index:100000;display:none;background:#fff;}
 #ghost-overlay img{width:100%;height:100%;object-fit:contain;}
 #terror-overlay{position:fixed;inset:0;z-index:200000;display:none;background:#000;color:#fff;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:none;}
 .red-header{background:#f00;width:100%;padding:20px;font-weight:bold;font-size:30px;position:absolute;top:0;animation:blink .5s infinite;}
 .virus-msg{width:80%;text-align:left;background:rgba(255,255,255,.1);padding:30px;border-radius:10px;border-left:10px solid red;}
 .virus-msg h2{color:#ff4d4d;margin-top:0;}
-#timer{font-size:40px;font-weight:bold;color:#f00;}
+#v-timer{font-size:40px;font-weight:bold;color:#f00;}
 @keyframes blink{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
+
+/* APP */
 #app{display:none;flex-direction:row;height:100vh;}
 #app.visible{display:flex;}
+
+/* SIDEBAR */
 #sidebar{width:var(--sw);background:#fff;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid #e2e8f0;overflow-y:auto;}
 .sb-header{padding:20px 18px 14px;border-bottom:1px solid #f1f5f9;}
 .sb-logo{font-size:16px;font-weight:900;color:var(--primary);margin-bottom:12px;}
@@ -102,6 +114,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .u-name{font-weight:800;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .u-lvl{font-size:10px;color:var(--muted);font-weight:600;}
 .btn-logout{padding:5px 7px;background:none;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;}
+
+/* MAIN */
 #main-content{flex:1;display:flex;flex-direction:column;align-items:center;padding:22px 18px;overflow-y:auto;gap:14px;}
 .stats-bar{display:flex;gap:10px;width:100%;max-width:620px;position:relative;}
 .stat-card{flex:1;background:#fff;border-radius:14px;padding:12px 15px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 10px rgba(0,0,0,.06);border:1px solid #f1f5f9;}
@@ -115,7 +129,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .act-btn.orange{background:linear-gradient(135deg,var(--orange),var(--ol));color:#fff;}
 .act-btn.gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#fff;}
 .act-btn.teal{background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#fff;}
+.act-btn.cards{background:linear-gradient(135deg,#ec4899,#f43f5e);color:#fff;}
 .badge{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+
+/* MASCOTTE */
 .chat-mascotte{background:#fff;border-radius:20px;padding:18px;width:100%;max-width:620px;border:1px solid #e2e8f0;}
 .chat-mascotte-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
 .mascotte-avatar{width:40px;height:40px;background:linear-gradient(135deg,#f97316,#fb923c);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
@@ -128,6 +145,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .chat-send{padding:11px 18px;background:linear-gradient(135deg,var(--primary),var(--pl));color:#fff;border:none;border-radius:13px;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;}
 .chat-accessories{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
 .acc-btn{padding:5px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;cursor:pointer;}
+
+/* FICHE & EXERCICES */
 #fiche-card{background:#fff;padding:24px;border-radius:20px;border:2px solid var(--ol);width:100%;max-width:620px;display:none;text-align:left;max-height:50vh;overflow-y:auto;}
 #fiche-card h2{color:var(--orange);margin-top:0;font-size:18px;font-weight:900;}
 #fiche-card h3{color:var(--primary);font-size:14px;margin:12px 0 5px;}
@@ -143,6 +162,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .btn-opt.wrong{background:#fee2e2;border-color:var(--red);color:#991b1b;}
 #feedback{font-size:13px;margin-top:8px;font-weight:700;min-height:16px;}
 #score-display{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;}
+
+/* GD */
 #gd-game{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:640px;height:360px;background:linear-gradient(180deg,#050520 0%,#0d0d4a 55%,#333 55%,#2a2a2a 100%);border:3px solid #0ff;z-index:15000;display:none;border-radius:20px;overflow:hidden;}
 #gd-ui{position:absolute;top:10px;left:0;right:0;display:flex;justify-content:space-between;padding:0 16px;z-index:5;}
 #gd-level-txt{color:#aff;font-size:12px;font-family:monospace;}
@@ -160,20 +181,103 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 #gd-go button{margin-top:12px;padding:11px 30px;background:#0f0;border:none;border-radius:12px;color:#000;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;}
 #gd-close{position:absolute;top:8px;right:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:16px;cursor:pointer;border-radius:50%;width:30px;height:30px;z-index:10;}
 #gd-hint{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.35);font-size:11px;font-family:monospace;white-space:nowrap;}
+@keyframes gdJump{0%{bottom:50px}45%{bottom:180px}100%{bottom:50px}}
+.gd-jumping{animation:gdJump .52s cubic-bezier(.25,.46,.45,.94) forwards;}
+
+/* PET */
 #pet-container{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;align-items:flex-end;z-index:1000;}
 .bubble{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:10px 15px;margin-bottom:8px;font-size:12px;font-weight:600;max-width:180px;}
 .cat-icon{width:85px;height:85px;background:url('https://cdn-icons-png.flaticon.com/512/616/616430.png') no-repeat center/contain;cursor:pointer;}
-@keyframes gdJump{0%{bottom:50px}45%{bottom:180px}100%{bottom:50px}}
-.gd-jumping{animation:gdJump .52s cubic-bezier(.25,.46,.45,.94) forwards;}
+
+/* ═══════════════════════════════════════
+   SYSTÈME DE CARTES À COLLECTIONNER
+═══════════════════════════════════════ */
+#cards-screen{position:fixed;inset:0;z-index:50000;display:none;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);flex-direction:column;align-items:center;justify-content:flex-start;overflow-y:auto;padding:30px 20px;}
+.cards-header{width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;}
+.cards-header h1{color:#fff;font-size:28px;font-weight:900;}
+.cards-header p{color:rgba(255,255,255,.6);font-size:13px;margin-top:4px;}
+.cards-tabs{display:flex;gap:10px;}
+.ctab{padding:10px 20px;border:2px solid rgba(255,255,255,.2);border-radius:12px;background:transparent;color:rgba(255,255,255,.6);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
+.ctab.active{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.5);}
+.cards-close{padding:10px 20px;background:#ef4444;border:none;border-radius:12px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;cursor:pointer;}
+
+/* PANEL BOOSTERS */
+#booster-panel{width:100%;max-width:900px;display:none;}
+.booster-info{background:rgba(255,255,255,.08);border-radius:20px;padding:25px;margin-bottom:25px;color:#fff;text-align:center;}
+.booster-info h2{font-size:22px;margin-bottom:8px;}
+.booster-info p{color:rgba(255,255,255,.7);font-size:14px;}
+.booster-pts{font-size:36px;font-weight:900;color:#fbbf24;margin:10px 0;}
+.booster-cards{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-bottom:25px;}
+.booster-card-slot{width:120px;height:180px;border-radius:16px;border:3px solid rgba(255,255,255,.3);background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;overflow:hidden;transition:.3s;}
+.booster-card-slot.revealed{border-color:transparent;}
+.btn-open-booster{padding:15px 40px;background:linear-gradient(135deg,#ec4899,#f43f5e);border:none;border-radius:16px;color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:18px;cursor:pointer;margin-bottom:20px;transition:.2s;}
+.btn-open-booster:hover{transform:scale(1.05);}
+.btn-open-booster:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+#booster-question{background:rgba(255,255,255,.1);border-radius:20px;padding:25px;margin-bottom:20px;display:none;}
+#booster-question h3{color:#fff;font-size:18px;margin-bottom:15px;}
+.bq-opt{display:block;width:100%;padding:12px 18px;margin:8px 0;border:2px solid rgba(255,255,255,.2);border-radius:12px;background:rgba(255,255,255,.05);color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer;text-align:left;}
+.bq-opt:hover{background:rgba(255,255,255,.15);}
+.bq-opt.correct{background:rgba(34,197,94,.3);border-color:#22c55e;}
+.bq-opt.wrong{background:rgba(239,68,68,.3);border-color:#ef4444;}
+#booster-feedback{color:#fff;font-size:14px;font-weight:700;margin-top:10px;min-height:20px;text-align:center;}
+
+/* PANEL POKEDEX */
+#pokedex-panel{width:100%;max-width:900px;display:none;}
+.pokedex-stats{display:flex;gap:15px;margin-bottom:25px;flex-wrap:wrap;}
+.pdex-stat{background:rgba(255,255,255,.08);border-radius:14px;padding:15px 20px;color:#fff;flex:1;min-width:120px;}
+.pdex-stat-val{font-size:28px;font-weight:900;color:#fbbf24;}
+.pdex-stat-label{font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;}
+.pokedex-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.pf-btn{padding:7px 14px;border:2px solid rgba(255,255,255,.2);border-radius:10px;background:transparent;color:rgba(255,255,255,.6);font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}
+.pf-btn.active{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.5);}
+.pokedex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:15px;}
+
+/* CARTES */
+.card{width:130px;height:190px;border-radius:16px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;cursor:pointer;transition:transform .2s;box-shadow:0 8px 25px rgba(0,0,0,.4);}
+.card:hover{transform:translateY(-5px) scale(1.03);}
+.card.common{background:linear-gradient(135deg,#374151,#4b5563);border:2px solid #6b7280;}
+.card.rare{background:linear-gradient(135deg,#1e3a8a,#2563eb);border:2px solid #60a5fa;}
+.card.epic{background:linear-gradient(135deg,#4c1d95,#7c3aed);border:2px solid #a78bfa;}
+.card.legendary{background:linear-gradient(135deg,#78350f,#d97706);border:2px solid #fbbf24;animation:legendaryGlow 2s infinite;}
+@keyframes legendaryGlow{0%,100%{box-shadow:0 0 15px rgba(251,191,36,.5)}50%{box-shadow:0 0 30px rgba(251,191,36,.9)}}
+.card.locked{background:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.2);}
+.card-emoji{font-size:36px;margin:5px 0;}
+.card-name{color:#fff;font-size:11px;font-weight:800;text-align:center;line-height:1.2;}
+.card-rarity{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;border-radius:20px;margin-top:4px;}
+.card.common .card-rarity{background:rgba(107,114,128,.4);color:#d1d5db;}
+.card.rare .card-rarity{background:rgba(37,99,235,.4);color:#93c5fd;}
+.card.epic .card-rarity{background:rgba(124,58,237,.4);color:#c4b5fd;}
+.card.legendary .card-rarity{background:rgba(217,119,6,.4);color:#fde68a;}
+.card-matiere{font-size:9px;color:rgba(255,255,255,.5);margin-top:2px;}
+.card.locked .card-emoji{filter:blur(3px);opacity:.3;}
+.card.locked .card-name{color:rgba(255,255,255,.2);}
+.card-count{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;font-size:10px;font-weight:900;padding:2px 6px;border-radius:20px;}
+
+/* ANIMATION OUVERTURE BOOSTER */
+#booster-opening{position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,.95);display:none;flex-direction:column;align-items:center;justify-content:center;}
+.open-cards{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;max-width:700px;}
+.open-card{width:140px;height:200px;border-radius:18px;padding:15px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;opacity:0;transform:scale(0.5) rotateY(180deg);transition:all .6s cubic-bezier(.34,1.56,.64,1);}
+.open-card.show{opacity:1;transform:scale(1) rotateY(0deg);}
+.open-card-emoji{font-size:48px;}
+.open-card-name{color:#fff;font-size:13px;font-weight:900;text-align:center;}
+.open-card-rarity{font-size:11px;font-weight:700;text-transform:uppercase;padding:4px 10px;border-radius:20px;}
+#open-title{color:#fff;font-size:32px;font-weight:900;margin-bottom:30px;text-align:center;}
+#open-btn{margin-top:30px;padding:15px 40px;background:linear-gradient(135deg,var(--primary),var(--pl));border:none;border-radius:16px;color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;cursor:pointer;}
 </style>
 </head>
 <body>
+
+<!-- GHOST & VIRUS -->
 <div id="ghost-overlay" onclick="this.style.display='none'"><img src="https://i.ibb.co/XkyYmGz/pronote-mockup.png"></div>
 <div id="terror-overlay">
     <div class="red-header">WINDOWS SECURITY - CRITICAL THREAT DETECTED</div>
-    <div class="virus-msg"><h2>SYSTEM LOCKDOWN ACTIVATED</h2><p>Your computer has been infected by the <b>K-Virus</b>.</p><hr style="margin:12px 0;border-color:#444"><p>TIME BEFORE TOTAL DESTRUCTION:</p><div id="timer">00:59:59</div><p style="color:#666;font-size:11px;margin-top:20px;">Press 'K' to authorize recovery.</p></div>
+    <div class="virus-msg"><h2>SYSTEM LOCKDOWN ACTIVATED</h2><p>Your computer has been infected by the <b>K-Virus</b>.</p><hr style="margin:12px 0;border-color:#444"><p>TIME BEFORE TOTAL DESTRUCTION:</p><div id="v-timer">00:59:59</div><p style="color:#666;font-size:11px;margin-top:20px;">Press 'K' to authorize recovery.</p></div>
 </div>
+
+<!-- LOADING -->
 <div id="loading-screen"><div class="spinner"></div><h2>Chargement...</h2></div>
+
+<!-- LOGIN -->
 <div id="login-screen">
     <div class="login-box">
         <div class="login-logo"><h1>🎓 Facilitel-Cole</h1><p>Portail éducatif du collège</p></div>
@@ -183,6 +287,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         <div id="login-err"></div>
     </div>
 </div>
+
+<!-- ADMIN -->
 <div class="modal-bg" id="admin-screen">
     <div class="modal-box">
         <button class="modal-close" onclick="closeAdmin()">✕</button>
@@ -208,6 +314,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         </div>
     </div>
 </div>
+
+<!-- LEADERBOARD -->
 <div class="modal-bg" id="lb-screen">
     <div class="modal-box">
         <button class="modal-close" onclick="document.getElementById('lb-screen').style.display='none'">✕</button>
@@ -215,6 +323,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         <div id="lb-content"></div>
     </div>
 </div>
+
+<!-- AMIS -->
 <div class="modal-bg" id="friends-screen">
     <div class="modal-box">
         <button class="modal-close" onclick="document.getElementById('friends-screen').style.display='none'">✕</button>
@@ -227,6 +337,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         <div class="msec"><h3>✅ Mes amis</h3><div id="friends-list"></div></div>
     </div>
 </div>
+
+<!-- MESSAGES -->
 <div class="modal-bg" id="msg-screen">
     <div class="modal-box">
         <button class="modal-close" onclick="document.getElementById('msg-screen').style.display='none'">✕</button>
@@ -238,6 +350,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         </div>
     </div>
 </div>
+
+<!-- PIÈCES -->
 <div class="modal-bg" id="coins-screen">
     <div class="modal-box" style="max-width:380px">
         <button class="modal-close" onclick="document.getElementById('coins-screen').style.display='none'">✕</button>
@@ -248,6 +362,86 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         </div>
     </div>
 </div>
+
+<!-- CARTES - ÉCRAN PRINCIPAL -->
+<div id="cards-screen">
+    <div class="cards-header">
+        <div>
+            <h1>🎴 Cartes Facilitel</h1>
+            <p>Ouvre des boosters · Collectionne des cartes · Reviens chaque jour !</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <div class="cards-tabs">
+                <button class="ctab active" onclick="showCardsTab('boosters',this)">📦 Boosters</button>
+                <button class="ctab" onclick="showCardsTab('pokedex',this)">📖 Collection</button>
+            </div>
+            <button class="cards-close" onclick="toggleCards()">✕ Fermer (F2)</button>
+        </div>
+    </div>
+
+    <!-- BOOSTERS -->
+    <div id="booster-panel">
+        <div class="booster-info">
+            <h2>📦 Ouvre un Booster</h2>
+            <p>Réponds à une question pour gagner des points et ouvrir un booster de 3 cartes !</p>
+            <div class="booster-pts">🪙 <span id="booster-pts-display">0</span> points</div>
+            <p style="font-size:12px;color:rgba(255,255,255,.5)">100 points = 1 booster · Bonne réponse = +30pts · Mauvaise = +10pts</p>
+        </div>
+
+        <div id="booster-question">
+            <h3 id="bq-title">Question</h3>
+            <div id="bq-opts"></div>
+            <div id="booster-feedback"></div>
+        </div>
+
+        <div style="text-align:center;margin-bottom:20px;">
+            <button class="btn-open-booster" id="open-booster-btn" onclick="tryOpenBooster()">
+                📦 Ouvrir un Booster (100 pts)
+            </button>
+            <br>
+            <button style="padding:12px 25px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.3);border-radius:12px;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer;margin-top:10px;" onclick="askBoosterQuestion()">
+                ❓ Gagner des points (+30 si bonne réponse)
+            </button>
+        </div>
+
+        <div class="booster-cards" id="last-booster">
+            <div style="color:rgba(255,255,255,.4);font-size:14px;text-align:center;width:100%;padding:20px">
+                Ouvre ton premier booster pour voir tes cartes ici !
+            </div>
+        </div>
+    </div>
+
+    <!-- POKEDEX -->
+    <div id="pokedex-panel">
+        <div class="pokedex-stats">
+            <div class="pdex-stat"><div class="pdex-stat-val" id="pdex-total">0</div><div class="pdex-stat-label">Cartes obtenues</div></div>
+            <div class="pdex-stat"><div class="pdex-stat-val" id="pdex-unique">0</div><div class="pdex-stat-label">Cartes uniques</div></div>
+            <div class="pdex-stat"><div class="pdex-stat-val" id="pdex-legendary">0</div><div class="pdex-stat-label">Légendaires</div></div>
+            <div class="pdex-stat"><div class="pdex-stat-val" id="pdex-pct">0%</div><div class="pdex-stat-label">Complétude</div></div>
+        </div>
+        <div class="pokedex-filters">
+            <button class="pf-btn active" onclick="filterCards('all',this)">Toutes</button>
+            <button class="pf-btn" onclick="filterCards('common',this)">⚪ Communes</button>
+            <button class="pf-btn" onclick="filterCards('rare',this)">🔵 Rares</button>
+            <button class="pf-btn" onclick="filterCards('epic',this)">🟣 Épiques</button>
+            <button class="pf-btn" onclick="filterCards('legendary',this)">🟡 Légendaires</button>
+            <button class="pf-btn" onclick="filterCards('maths',this)">📐 Maths</button>
+            <button class="pf-btn" onclick="filterCards('francais',this)">📝 Français</button>
+            <button class="pf-btn" onclick="filterCards('histoire',this)">🌍 Histoire</button>
+            <button class="pf-btn" onclick="filterCards('svt',this)">🔬 SVT</button>
+        </div>
+        <div class="pokedex-grid" id="pokedex-grid"></div>
+    </div>
+</div>
+
+<!-- ANIMATION OUVERTURE -->
+<div id="booster-opening">
+    <div id="open-title">✨ Nouveau Booster !</div>
+    <div class="open-cards" id="open-cards-container"></div>
+    <button id="open-btn" onclick="closeBoosterOpening()">Ajouter à ma collection →</button>
+</div>
+
+<!-- APP PRINCIPALE -->
 <div id="app">
     <div id="sidebar">
         <div class="sb-header">
@@ -275,6 +469,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
             </div>
         </div>
     </div>
+
     <div id="main-content">
         <div class="stats-bar">
             <div class="stat-card"><span class="stat-icon">💰</span><div><div class="stat-label">Pièces</div><div class="stat-val" id="c-v">0</div></div></div>
@@ -287,7 +482,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         <div class="action-row">
             <button class="act-btn gold" onclick="openLB()">🏆 Classement</button>
             <button class="act-btn teal" onclick="openFriends()">👫 Amis <span class="badge" id="friend-badge" style="display:none">0</span></button>
-            <button class="act-btn orange" onclick="toggleGD()">🎮 Géo-Dash</button>
+            <button class="act-btn cards" onclick="toggleCards()">🎴 Cartes <span id="card-count-badge" style="font-size:11px;opacity:.8"></span></button>
         </div>
         <div class="chat-mascotte">
             <div class="chat-mascotte-header">
@@ -301,9 +496,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
                 <button class="acc-btn" onclick="setMood('😤','Au travail !')">😤</button>
                 <button class="acc-btn" onclick="setMood('🥳','Fête !')">🥳</button>
                 <button class="acc-btn" onclick="addMascotMsg('💡 Fais tes fiches avant les exercices !')">💡 Astuce</button>
+                <button class="acc-btn" onclick="toggleCards()">🎴 Cartes</button>
             </div>
             <div class="mascotte-msgs" id="mascotte-msgs">
-                <div class="mascotte-msg">Bienvenue ! 😸 Clique sur une matière pour commencer.</div>
+                <div class="mascotte-msg">Bienvenue ! 😸 Appuie sur F2 pour ouvrir tes cartes !</div>
             </div>
             <div class="chat-input-row">
                 <input type="text" id="chat-input" placeholder="Parle à Minou..." onkeydown="if(event.key==='Enter')sendChat()">
@@ -320,23 +516,26 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
             <div id="feedback"></div>
         </div>
         <div id="pet-container">
-            <div class="bubble">Clique pour jouer ! 🎮</div>
+            <div class="bubble">F2 pour les cartes ! 🎴</div>
             <div class="cat-icon" onclick="toggleGD()"></div>
         </div>
     </div>
 </div>
+
+<!-- GD -->
 <div id="gd-game">
     <button id="gd-close" onclick="closeGD()">✕</button>
     <div id="gd-ui"><span id="gd-level-txt">NIV 1</span><span id="gd-score-txt">0</span></div>
     <div id="gd-pb"></div><div id="cube"></div><div id="gd-ground"></div>
-    <div id="gd-hint">CLIC ou ESPACE pour sauter</div>
+    <div id="gd-hint">G pour sauter</div>
     <div id="gd-go"><h2>💀 GAME OVER</h2><p id="go-score">Score : 0</p><p id="go-best">🏆 Meilleur : 0</p><button onclick="restartGD()">🔄 Rejouer</button></div>
-                </div>
-    <script>
+</div>
+
+<script>
 // ══════════════════════════════════════════
 // ⚙️ CONFIGURATION — REMPLIS CES 2 LIGNES
-const JSONBIN_KEY = '$2a$10$NFg8c4mMj2piBEHOvNq47unOV3bHJgbuICjypg/dbkYibb0gW1HTa';
-const JSONBIN_ID  = '69bc7303b7ec241ddc843972';
+const JSONBIN_KEY = 'METS_TA_CLE_ICI';
+const JSONBIN_ID  = 'METS_TON_BIN_ID_ICI';
 // ══════════════════════════════════════════
 
 const API='https://api.jsonbin.io/v3/b/'+JSONBIN_ID;
@@ -350,6 +549,7 @@ function notif(text,color='var(--primary)'){const n=document.createElement('div'
 function showLoader(){document.getElementById('loading-screen').style.display='flex';}
 function hideLoader(){document.getElementById('loading-screen').style.display='none';}
 
+// ── CONNEXION ──
 async function doLogin(){
     const pseudo=document.getElementById('lp').value.trim();
     const pw=document.getElementById('lpw').value;
@@ -361,17 +561,23 @@ async function doLogin(){
     if(DB.users[pseudo].pw!==pw){err.innerText='❌ Mot de passe incorrect.';return;}
     currentUser=pseudo;err.innerText='';launchApp();
 }
+
 function logout(){currentUser=null;if(pollInterval)clearInterval(pollInterval);document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';document.getElementById('lp').value='';document.getElementById('lpw').value='';}
+
 function launchApp(){
     document.getElementById('login-screen').style.display='none';
     document.getElementById('admin-screen').style.display='none';
     document.getElementById('app').style.display='flex';
-    const u=DB.users[currentUser]||{};coins=u.coins||0;xp=u.xp||0;
+    const u=DB.users[currentUser]||{};
+    coins=u.coins||0;xp=u.xp||0;
+    if(!u.cards)u.cards={};
+    if(!u.boosterPts)u.boosterPts=0;
     document.getElementById('u-name').innerText=currentUser;
     document.getElementById('u-avatar').innerText=currentUser[0].toUpperCase();
-    updateStats();buildSidebar();
+    updateStats();buildSidebar();updateBoosterPts();updateCardBadge();
     pollInterval=setInterval(pollServer,3000);
 }
+
 async function pollServer(){
     await dbRead();
     const entry=DB.sounds[currentUser];
@@ -387,11 +593,26 @@ async function pollServer(){
     badge.style.display=reqs>0?'flex':'none';badge.innerText=reqs;
     if(DB.users[currentUser]){coins=DB.users[currentUser].coins||0;xp=DB.users[currentUser].xp||0;updateStats();}
 }
-function updateStats(){document.getElementById('c-v').innerText=coins;document.getElementById('x-v').innerText=xp;const lvl=Math.floor(xp/500)+1;document.getElementById('l-v').innerText=lvl;document.getElementById('u-lvl').innerText='Niv. '+lvl;}
-async function saveUserData(){if(!currentUser||!DB.users[currentUser])return;DB.users[currentUser].coins=coins;DB.users[currentUser].xp=xp;await dbWrite();}
 
+function updateStats(){
+    document.getElementById('c-v').innerText=coins;
+    document.getElementById('x-v').innerText=xp;
+    const lvl=Math.floor(xp/500)+1;
+    document.getElementById('l-v').innerText=lvl;
+    document.getElementById('u-lvl').innerText='Niv. '+lvl;
+}
+
+async function saveUserData(){
+    if(!currentUser||!DB.users[currentUser])return;
+    DB.users[currentUser].coins=coins;
+    DB.users[currentUser].xp=xp;
+    await dbWrite();
+}
+
+// ── ADMIN ──
 async function openAdminPanel(){showLoader();await dbRead();hideLoader();document.getElementById('login-screen').style.display='none';document.getElementById('admin-screen').style.display='flex';refreshUserList();refreshSoundTargets();}
 function closeAdmin(){document.getElementById('admin-screen').style.display='none';document.getElementById('login-screen').style.display='flex';}
+
 async function createUser(){
     const pseudo=document.getElementById('new-pseudo').value.trim();
     const pw=document.getElementById('new-pw').value;
@@ -399,21 +620,26 @@ async function createUser(){
     if(!pseudo||!pw){msg.style.color='var(--red)';msg.innerText='⚠️ Remplis les deux champs !';return;}
     if(pseudo.toLowerCase()==='lapomme'){msg.style.color='var(--red)';msg.innerText='❌ Ce pseudo est réservé !';return;}
     if(DB.users[pseudo]){msg.style.color='var(--red)';msg.innerText='❌ Pseudo déjà pris !';return;}
-    DB.users[pseudo]={pw,coins:0,xp:0,friends:[],friendReqs:[]};
+    DB.users[pseudo]={pw,coins:0,xp:0,friends:[],friendReqs:[],cards:{},boosterPts:0};
     showLoader();await dbWrite();hideLoader();
     document.getElementById('new-pseudo').value='';document.getElementById('new-pw').value='';
     msg.style.color='var(--green)';msg.innerText='✅ Compte "'+pseudo+'" créé !';
     setTimeout(()=>msg.innerText='',3000);refreshUserList();refreshSoundTargets();
 }
+
 async function deleteUser(pseudo){if(!confirm('Supprimer '+pseudo+' ?'))return;delete DB.users[pseudo];showLoader();await dbWrite();hideLoader();refreshUserList();refreshSoundTargets();}
+
 function refreshUserList(){
     const keys=Object.keys(DB.users);document.getElementById('user-count').innerText=keys.length;
     const list=document.getElementById('user-list');list.innerHTML='';
     if(!keys.length){list.innerHTML='<div style="color:var(--muted);font-size:12px;padding:8px">Aucun compte.</div>';return;}
     keys.forEach(k=>{const u=DB.users[k];const lvl=Math.floor((u.xp||0)/500)+1;const d=document.createElement('div');d.className='uitem';d.innerHTML=`<div class="uitem-info">${k}<span>${u.xp||0} XP · Niv.${lvl}</span><span class="uitem-pw">🔑 ${u.pw}</span></div><button class="btn-danger" onclick="deleteUser('${k}')">🗑</button>`;list.appendChild(d);});
 }
+
 function refreshSoundTargets(){const sel=document.getElementById('sound-target');if(!sel)return;sel.innerHTML='<option value="">— Choisir un élève —</option>';Object.keys(DB.users).forEach(k=>{const o=document.createElement('option');o.value=k;o.innerText=k;sel.appendChild(o);});}
+
 async function changeAdminPw(){const nw=document.getElementById('new-admin-pw').value;if(!nw||nw.length<4){alert('Min 4 caractères !');return;}DB.adminPw=nw;showLoader();await dbWrite();hideLoader();document.getElementById('new-admin-pw').value='';notif('✅ Mot de passe admin changé !');}
+
 async function sendRemoteSound(soundId){
     const target=document.getElementById('sound-target').value;
     const msg=document.getElementById('sound-msg');
@@ -424,26 +650,329 @@ async function sendRemoteSound(soundId){
     msg.style.color='var(--green)';msg.innerText='🔊 "'+names[soundId]+'" envoyé à '+target+' !';
     setTimeout(()=>msg.innerText='',3000);
 }
+
+// ── LEADERBOARD ──
 async function openLB(){showLoader();await dbRead();hideLoader();const sorted=Object.entries(DB.users).sort((a,b)=>(b[1].xp||0)-(a[1].xp||0));const cont=document.getElementById('lb-content');cont.innerHTML='';if(!sorted.length){cont.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">Aucun élève.</p>';}else sorted.forEach(([name,data],i)=>{const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';const ri=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);const d=document.createElement('div');d.className='lb-item'+(name===currentUser?' me':'');d.innerHTML=`<div class="lb-rank ${rc}">${ri}</div><div class="lb-name">${name}${name===currentUser?' (toi)':''}<br><small style="color:var(--muted)">Niv.${Math.floor((data.xp||0)/500)+1}</small></div><div class="lb-xp">${data.xp||0} XP</div>`;cont.appendChild(d);});document.getElementById('lb-screen').style.display='flex';}
+
+// ── AMIS ──
 async function openFriends(){showLoader();await dbRead();hideLoader();const u=DB.users[currentUser]||{};const friends=u.friends||[];const reqs=u.friendReqs||[];document.getElementById('friends-sub').innerText=friends.length+' ami(s)';const ps=document.getElementById('pending-sec');const pl=document.getElementById('pending-list');if(reqs.length){ps.style.display='block';pl.innerHTML='';reqs.forEach(from=>{const d=document.createElement('div');d.className='friend-item';d.innerHTML=`<div class="f-avatar">${from[0].toUpperCase()}</div><div class="f-info"><div class="f-name">${from}</div><div class="f-status">veut être ton ami</div></div><div class="f-btns"><button class="btn-sm btn-accept" onclick="acceptFriend('${from}')">✅</button><button class="btn-sm btn-unfriend" onclick="rejectFriend('${from}')">❌</button></div>`;pl.appendChild(d);});}else ps.style.display='none';const fl=document.getElementById('friends-list');fl.innerHTML='';if(!friends.length){fl.innerHTML='<div style="color:var(--muted);font-size:13px;padding:10px;text-align:center">Pas encore d\'amis 😢</div>';}else friends.forEach(f=>{const fu=DB.users[f]||{};const lvl=Math.floor((fu.xp||0)/500)+1;const conv=getMsgKey(currentUser,f);const unread=(DB.messages[conv]||[]).filter(m=>m.to===currentUser&&!m.read).length;const d=document.createElement('div');d.className='friend-item';d.innerHTML=`<div class="f-avatar">${f[0].toUpperCase()}</div><div class="f-info"><div class="f-name">${f}${unread>0?` <span style="background:var(--red);color:#fff;border-radius:50%;padding:1px 6px;font-size:10px">${unread}</span>`:''}</div><div class="f-status">Niv.${lvl} · ${fu.xp||0} XP</div></div><div class="f-btns"><button class="btn-sm btn-msg" onclick="openChat('${f}')">💬</button><button class="btn-sm btn-coins" onclick="openSendCoins('${f}')">💰</button><button class="btn-sm btn-unfriend" onclick="removeFriend('${f}')">🗑</button></div>`;fl.appendChild(d);});document.getElementById('friends-screen').style.display='flex';}
+
 async function sendFriendReq(){const target=document.getElementById('friend-pseudo').value.trim();const msg=document.getElementById('friend-msg');if(!target){msg.style.color='var(--red)';msg.innerText='Entre un pseudo !';return;}if(target===currentUser){msg.style.color='var(--red)';msg.innerText='Tu ne peux pas t\'ajouter !';return;}showLoader();await dbRead();hideLoader();if(!DB.users[target]){msg.style.color='var(--red)';msg.innerText='❌ Introuvable.';return;}if((DB.users[currentUser].friends||[]).includes(target)){msg.style.color='var(--red)';msg.innerText='Déjà ami !';return;}if(!DB.users[target].friendReqs)DB.users[target].friendReqs=[];if(DB.users[target].friendReqs.includes(currentUser)){msg.style.color='var(--red)';msg.innerText='Demande déjà envoyée !';return;}DB.users[target].friendReqs.push(currentUser);showLoader();await dbWrite();hideLoader();document.getElementById('friend-pseudo').value='';msg.style.color='var(--green)';msg.innerText='✅ Demande envoyée à '+target+' !';setTimeout(()=>msg.innerText='',3000);}
 async function acceptFriend(from){if(!DB.users[currentUser].friends)DB.users[currentUser].friends=[];if(!DB.users[from].friends)DB.users[from].friends=[];DB.users[currentUser].friends.push(from);DB.users[from].friends.push(currentUser);DB.users[currentUser].friendReqs=(DB.users[currentUser].friendReqs||[]).filter(r=>r!==from);showLoader();await dbWrite();hideLoader();openFriends();}
 async function rejectFriend(from){DB.users[currentUser].friendReqs=(DB.users[currentUser].friendReqs||[]).filter(r=>r!==from);showLoader();await dbWrite();hideLoader();openFriends();}
 async function removeFriend(friend){if(!confirm('Supprimer '+friend+' ?'))return;DB.users[currentUser].friends=(DB.users[currentUser].friends||[]).filter(f=>f!==friend);if(DB.users[friend])DB.users[friend].friends=(DB.users[friend].friends||[]).filter(f=>f!==currentUser);showLoader();await dbWrite();hideLoader();openFriends();}
+
+// ── MESSAGES ──
 function getMsgKey(a,b){return[a,b].sort().join('__');}
 async function openChat(friend){activeFriendChat=friend;document.getElementById('msg-title').innerText='💬 '+friend;document.getElementById('msg-sub').innerText='Conversation privée';document.getElementById('friends-screen').style.display='none';showLoader();await dbRead();hideLoader();const conv=getMsgKey(currentUser,friend);(DB.messages[conv]||[]).forEach(m=>{if(m.to===currentUser)m.read=true;});await dbWrite();loadMsgs(friend);document.getElementById('msg-screen').style.display='flex';}
 function loadMsgs(friend){const conv=getMsgKey(currentUser,friend);const msgs=DB.messages[conv]||[];const list=document.getElementById('msg-list');list.innerHTML='';if(!msgs.length){list.innerHTML='<div style="color:var(--muted);font-size:12px;text-align:center;padding:15px">Pas encore de messages 👋</div>';return;}msgs.forEach(m=>{const d=document.createElement('div');const mine=m.from===currentUser;d.className='msg-bubble '+(m.type==='system'?'system':mine?'mine':'theirs');if(!mine&&m.type!=='system')d.innerHTML=`<div class="msg-sender">${m.from}</div>${m.text}`;else d.innerText=m.text;list.appendChild(d);});list.scrollTop=list.scrollHeight;}
 async function sendMsg(){const input=document.getElementById('msg-input');const text=input.value.trim();if(!text||!activeFriendChat)return;const conv=getMsgKey(currentUser,activeFriendChat);if(!DB.messages[conv])DB.messages[conv]=[];DB.messages[conv].push({from:currentUser,to:activeFriendChat,text,time:Date.now(),read:false});input.value='';showLoader();await dbWrite();hideLoader();loadMsgs(activeFriendChat);}
+
+// ── PIÈCES ──
 function openSendCoins(friend){coinTarget=friend;document.getElementById('coins-to-txt').innerText='Envoyer des pièces à '+friend;document.getElementById('coins-amount').value='';document.getElementById('coins-msg').innerText='';document.getElementById('friends-screen').style.display='none';document.getElementById('coins-screen').style.display='flex';}
 async function sendCoins(){const amount=parseInt(document.getElementById('coins-amount').value);const msg=document.getElementById('coins-msg');if(!amount||amount<1){msg.style.color='var(--red)';msg.innerText='Montant invalide !';return;}if(amount>coins){msg.style.color='var(--red)';msg.innerText='Pas assez de pièces !';return;}coins-=amount;DB.users[currentUser].coins=coins;DB.users[coinTarget].coins=(DB.users[coinTarget].coins||0)+amount;const conv=getMsgKey(currentUser,coinTarget);if(!DB.messages[conv])DB.messages[conv]=[];DB.messages[conv].push({from:'système',to:coinTarget,text:'💰 '+currentUser+' t\'a envoyé '+amount+' pièces !',time:Date.now(),read:false,type:'system'});showLoader();await dbWrite();hideLoader();updateStats();msg.style.color='var(--green)';msg.innerText='✅ '+amount+' pièces envoyées !';setTimeout(()=>document.getElementById('coins-screen').style.display='none',2000);}
+
+// ── SONS ──
 const sounds={1:'https://www.myinstants.com/media/sounds/fahhhh.mp3',2:'https://www.myinstants.com/media/sounds/discord-notification.mp3',3:'https://www.myinstants.com/media/sounds/security-alarm.mp3',4:'https://www.myinstants.com/media/sounds/ta-da.mp3',5:'https://www.myinstants.com/media/sounds/dramatic-chipmunk.mp3'};
 function sp(id){const a=new Audio(sounds[id]);a.currentTime=0;a.play();}
+
+// ── VIRUS ──
 function startVirus(){sp(3);document.documentElement.requestFullscreen();document.getElementById('terror-overlay').style.display='flex';window.onkeydown=e=>{if(e.key.toLowerCase()==='k')stopVirus();e.preventDefault();return false;};}
 function stopVirus(){document.getElementById('terror-overlay').style.display='none';document.exitFullscreen();window.onkeydown=mainKeys;}
-const mascReplies={bonjour:['Bonjour ! 😸','Salut ! 🐱','Hello ! 😻'],aide:['Clique sur une fiche ! 📄','Regarde la sidebar !','Je suis là ! 😸'],nul:['Tu vas y arriver ! 💪','Essaie encore ! 🎯','Tout le monde progresse ! ⭐'],merci:['Avec plaisir ! 😸','🥰 Merci !','Tu es génial(e) !'],default:['Intéressant ! 🤔','Regarde ta fiche ! 📄','Demande à ton prof ! 😄','Continue ! 💪']};
+
+// ── MASCOTTE ──
+const mascReplies={bonjour:['Bonjour ! 😸','Salut ! 🐱','Hello ! 😻'],aide:['Clique sur une fiche ! 📄','Regarde la sidebar !','Je suis là ! 😸'],carte:['Appuie sur F2 pour voir tes cartes ! 🎴','Tu as des boosters à ouvrir ? 📦','Collecte toutes les légendaires ! 🟡'],nul:['Tu vas y arriver ! 💪','Essaie encore ! 🎯','Tout le monde progresse ! ⭐'],merci:['Avec plaisir ! 😸','🥰 Merci !','Tu es génial(e) !'],default:['Intéressant ! 🤔','Regarde ta fiche ! 📄','Demande à ton prof ! 😄','Continue ! 💪','F2 pour tes cartes ! 🎴']};
 function addMascotMsg(text){const list=document.getElementById('mascotte-msgs');const d=document.createElement('div');d.className='mascotte-msg';d.innerText=text;list.appendChild(d);list.scrollTop=list.scrollHeight;if(list.children.length>8)list.removeChild(list.children[0]);}
-function sendChat(){const val=document.getElementById('chat-input').value.trim();if(!val)return;const low=val.toLowerCase();let arr;if(low.includes('bonjour')||low.includes('salut'))arr=mascReplies.bonjour;else if(low.includes('aide')||low.includes('help'))arr=mascReplies.aide;else if(low.includes('nul')||low.includes('comprends pas'))arr=mascReplies.nul;else if(low.includes('merci')||low.includes('bravo'))arr=mascReplies.merci;else arr=mascReplies.default;addMascotMsg('Tu : '+val);setTimeout(()=>addMascotMsg('Minou : '+arr[Math.floor(Math.random()*arr.length)]),400);document.getElementById('chat-input').value='';}
+function sendChat(){const val=document.getElementById('chat-input').value.trim();if(!val)return;const low=val.toLowerCase();let arr;if(low.includes('bonjour')||low.includes('salut'))arr=mascReplies.bonjour;else if(low.includes('carte')||low.includes('booster'))arr=mascReplies.carte;else if(low.includes('aide')||low.includes('help'))arr=mascReplies.aide;else if(low.includes('nul')||low.includes('comprends pas'))arr=mascReplies.nul;else if(low.includes('merci')||low.includes('bravo'))arr=mascReplies.merci;else arr=mascReplies.default;addMascotMsg('Tu : '+val);setTimeout(()=>addMascotMsg('Minou : '+arr[Math.floor(Math.random()*arr.length)]),400);document.getElementById('chat-input').value='';}
 function setMood(emoji,msg){document.getElementById('mood').innerText=emoji;addMascotMsg('Minou : '+msg);}
+
+// ═══════════════════════════════════════════════════════════
+// SYSTÈME DE CARTES À COLLECTIONNER
+// ═══════════════════════════════════════════════════════════
+
+// Toutes les cartes disponibles
+const ALL_CARDS = [
+    // MATHS - COMMUNES
+    {id:'m1',name:'Pythagore',emoji:'📐',rarity:'common',matiere:'maths',desc:'Le célèbre théorème'},
+    {id:'m2',name:'Fraction',emoji:'½',rarity:'common',matiere:'maths',desc:'1/2 + 1/4 = 3/4'},
+    {id:'m3',name:'Triangle',emoji:'🔺',rarity:'common',matiere:'maths',desc:'3 côtés, 180°'},
+    {id:'m4',name:'Calcul',emoji:'🔢',rarity:'common',matiere:'maths',desc:'Maître du calcul'},
+    {id:'m5',name:'Équation',emoji:'⚖️',rarity:'common',matiere:'maths',desc:'2x + 5 = 15'},
+    // MATHS - RARES
+    {id:'m6',name:'Thalès',emoji:'📏',rarity:'rare',matiere:'maths',desc:'Droites parallèles'},
+    {id:'m7',name:'Probabilité',emoji:'🎲',rarity:'rare',matiere:'maths',desc:'P(6) = 1/6'},
+    {id:'m8',name:'Fonction',emoji:'📈',rarity:'rare',matiere:'maths',desc:'f(x) = 2x + 1'},
+    // MATHS - ÉPIQUES
+    {id:'m9',name:'Pi',emoji:'🥧',rarity:'epic',matiere:'maths',desc:'3.14159...'},
+    {id:'m10',name:'Génie Maths',emoji:'🧮',rarity:'epic',matiere:'maths',desc:'Maître absolu'},
+    // MATHS - LÉGENDAIRE
+    {id:'m11',name:'Einstein',emoji:'🌟',rarity:'legendary',matiere:'maths',desc:'E = mc²'},
+
+    // FRANÇAIS - COMMUNES
+    {id:'f1',name:'Verbe',emoji:'✍️',rarity:'common',matiere:'francais',desc:'Action ou état'},
+    {id:'f2',name:'Nom',emoji:'🏷️',rarity:'common',matiere:'francais',desc:'Désigne les choses'},
+    {id:'f3',name:'Adjectif',emoji:'🎨',rarity:'common',matiere:'francais',desc:'Qualifie le nom'},
+    {id:'f4',name:'Virgule',emoji:'，',rarity:'common',matiere:'francais',desc:'Petite pause'},
+    {id:'f5',name:'Phrase',emoji:'💬',rarity:'common',matiere:'francais',desc:'Sujet + Verbe'},
+    // FRANÇAIS - RARES
+    {id:'f6',name:'Métaphore',emoji:'🦋',rarity:'rare',matiere:'francais',desc:'Figure de style'},
+    {id:'f7',name:'Imparfait',emoji:'⏳',rarity:'rare',matiere:'francais',desc:'Habitude passée'},
+    {id:'f8',name:'Argumentation',emoji:'🗣️',rarity:'rare',matiere:'francais',desc:'Thèse + Arguments'},
+    // FRANÇAIS - ÉPIQUES
+    {id:'f9',name:'Hyperbole',emoji:'💥',rarity:'epic',matiere:'francais',desc:'Exagération !'},
+    {id:'f10',name:'Poète',emoji:'🪶',rarity:'epic',matiere:'francais',desc:'Maître des mots'},
+    // FRANÇAIS - LÉGENDAIRE
+    {id:'f11',name:'Victor Hugo',emoji:'📖',rarity:'legendary',matiere:'francais',desc:'Les Misérables'},
+
+    // HISTOIRE - COMMUNES
+    {id:'h1',name:'Préhistoire',emoji:'🦕',rarity:'common',matiere:'histoire',desc:'~3M ans av. J-C'},
+    {id:'h2',name:'Médiéval',emoji:'🏰',rarity:'common',matiere:'histoire',desc:'Moyen Âge'},
+    {id:'h3',name:'Révolution',emoji:'🗽',rarity:'common',matiere:'histoire',desc:'1789'},
+    {id:'h4',name:'Guerre',emoji:'⚔️',rarity:'common',matiere:'histoire',desc:'Conflits mondiaux'},
+    {id:'h5',name:'Lascaux',emoji:'🦬',rarity:'common',matiere:'histoire',desc:'Peintures rupestres'},
+    // HISTOIRE - RARES
+    {id:'h6',name:'De Gaulle',emoji:'🎖️',rarity:'rare',matiere:'histoire',desc:'Appel du 18 juin'},
+    {id:'h7',name:'Mahomet',emoji:'🌙',rarity:'rare',matiere:'histoire',desc:'622 - Hégire'},
+    {id:'h8',name:'Louis XVI',emoji:'👑',rarity:'rare',matiere:'histoire',desc:'Révolution fr.'},
+    // HISTOIRE - ÉPIQUES
+    {id:'h9',name:'Napoléon',emoji:'🎩',rarity:'epic',matiere:'histoire',desc:'Empereur des Français'},
+    {id:'h10',name:'Bastille',emoji:'🏯',rarity:'epic',matiere:'histoire',desc:'14 juillet 1789'},
+    // HISTOIRE - LÉGENDAIRE
+    {id:'h11',name:'Jeanne d\'Arc',emoji:'⚜️',rarity:'legendary',matiere:'histoire',desc:'Héroïne de France'},
+
+    // SVT - COMMUNES
+    {id:'s1',name:'Cellule',emoji:'🔬',rarity:'common',matiere:'svt',desc:'Unité du vivant'},
+    {id:'s2',name:'ADN',emoji:'🧬',rarity:'common',matiere:'svt',desc:'Information génétique'},
+    {id:'s3',name:'Plante',emoji:'🌱',rarity:'common',matiere:'svt',desc:'Photosynthèse'},
+    {id:'s4',name:'Chlorophylle',emoji:'🍃',rarity:'common',matiere:'svt',desc:'Couleur verte'},
+    {id:'s5',name:'Chromosome',emoji:'🔩',rarity:'common',matiere:'svt',desc:'46 chez l\'humain'},
+    // SVT - RARES
+    {id:'s6',name:'Ovule',emoji:'🥚',rarity:'rare',matiere:'svt',desc:'Cellule reproductrice'},
+    {id:'s7',name:'Gène',emoji:'🧪',rarity:'rare',matiere:'svt',desc:'Segment d\'ADN'},
+    {id:'s8',name:'Fœtus',emoji:'👶',rarity:'rare',matiere:'svt',desc:'~9 mois'},
+    // SVT - ÉPIQUES
+    {id:'s9',name:'Darwin',emoji:'🐢',rarity:'epic',matiere:'svt',desc:'Évolution des espèces'},
+    {id:'s10',name:'Neurone',emoji:'⚡',rarity:'epic',matiere:'svt',desc:'Cellule nerveuse'},
+    // SVT - LÉGENDAIRE
+    {id:'s11',name:'ADN Légendaire',emoji:'🌈',rarity:'legendary',matiere:'svt',desc:'La vie elle-même'},
+];
+
+// Questions pour gagner des points de booster
+const BOOSTER_QUESTIONS = [
+    {q:'2x + 5 = 15, x = ?',o:['3','5','7','10'],b:1,matiere:'maths'},
+    {q:'Pythagore : 3² + 4² = ?',o:['25','20','30','16'],b:0,matiere:'maths'},
+    {q:'1/2 + 1/4 = ?',o:['2/6','3/4','1/2','1/4'],b:1,matiere:'maths'},
+    {q:'f(x) = 2x, f(5) = ?',o:['7','10','12','5'],b:1,matiere:'maths'},
+    {q:'Prise de la Bastille ?',o:['1788','1789','1790','1791'],b:1,matiere:'histoire'},
+    {q:'L\'Hégire a lieu en ?',o:['610','622','632','711'],b:1,matiere:'histoire'},
+    {q:'Louis XVI exécuté en ?',o:['1789','1791','1793','1795'],b:2,matiere:'histoire'},
+    {q:'"La mer rugit" = figure de style ?',o:['Métaphore','Comparaison','Personnification','Hyperbole'],b:2,matiere:'francais'},
+    {q:'Temps qui exprime une habitude passée ?',o:['Passé simple','Imparfait','Présent','Futur'],b:1,matiere:'francais'},
+    {q:'"Car" est un connecteur de ?',o:['Conséquence','Opposition','Cause','Addition'],b:2,matiere:'francais'},
+    {q:'ADN se trouve dans le ?',o:['Cytoplasme','Membrane','Noyau','Paroi'],b:2,matiere:'svt'},
+    {q:'Photosynthèse produit du ?',o:['CO₂','Azote','Glucose','Nitrate'],b:2,matiere:'svt'},
+    {q:'Chromosomes dans une cellule humaine ?',o:['23','44','46','48'],b:2,matiere:'svt'},
+    {q:'Fécondation = Ovule + ?',o:['Noyau','Spermatozoïde','Chromosome','ADN'],b:1,matiere:'svt'},
+    {q:'20% de 80 = ?',o:['12','14','16','20'],b:2,matiere:'maths'},
+];
+
+let boosterPts = 0;
+let currentBoosterQ = null;
+let pendingCards = [];
+let cardFilter = 'all';
+
+function updateBoosterPts(){
+    if(!currentUser||!DB.users[currentUser])return;
+    boosterPts = DB.users[currentUser].boosterPts || 0;
+    document.getElementById('booster-pts-display').innerText = boosterPts;
+    const btn = document.getElementById('open-booster-btn');
+    btn.disabled = boosterPts < 100;
+    btn.innerText = boosterPts >= 100 ? '📦 Ouvrir un Booster (100 pts)' : `📦 Booster (${boosterPts}/100 pts)`;
+}
+
+function updateCardBadge(){
+    if(!currentUser||!DB.users[currentUser])return;
+    const cards = DB.users[currentUser].cards || {};
+    const total = Object.values(cards).reduce((a,b)=>a+b,0);
+    document.getElementById('card-count-badge').innerText = total > 0 ? `· ${total} cartes` : '';
+}
+
+function toggleCards(){
+    const s = document.getElementById('cards-screen');
+    if(s.style.display==='flex'){s.style.display='none';}
+    else{s.style.display='flex';updateBoosterPts();renderPokedex();}
+}
+
+function showCardsTab(tab, btn){
+    document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('booster-panel').style.display = tab==='boosters'?'block':'none';
+    document.getElementById('pokedex-panel').style.display = tab==='pokedex'?'block':'none';
+    if(tab==='pokedex') renderPokedex();
+}
+
+// Ouvrir l'écran des cartes par défaut sur boosters
+document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('booster-panel').style.display='block';
+    document.getElementById('pokedex-panel').style.display='none';
+});
+
+function askBoosterQuestion(){
+    const q = BOOSTER_QUESTIONS[Math.floor(Math.random()*BOOSTER_QUESTIONS.length)];
+    currentBoosterQ = q;
+    const panel = document.getElementById('booster-question');
+    panel.style.display = 'block';
+    document.getElementById('bq-title').innerText = '❓ ' + q.q;
+    document.getElementById('booster-feedback').innerText = '';
+    const opts = document.getElementById('bq-opts');
+    opts.innerHTML = '';
+    q.o.forEach((opt,i)=>{
+        const btn = document.createElement('button');
+        btn.className = 'bq-opt';
+        btn.innerText = opt;
+        btn.onclick = () => answerBoosterQ(i, btn);
+        opts.appendChild(btn);
+    });
+}
+
+async function answerBoosterQ(chosen, btn){
+    const q = currentBoosterQ;
+    if(!q)return;
+    document.querySelectorAll('.bq-opt').forEach(b=>b.disabled=true);
+    const isCorrect = chosen === q.b;
+    const pts = isCorrect ? 30 : 10;
+    document.querySelectorAll('.bq-opt')[q.b].classList.add('correct');
+    if(!isCorrect) btn.classList.add('wrong');
+    document.getElementById('booster-feedback').innerText = isCorrect ? `✅ Bonne réponse ! +${pts} points` : `❌ Mauvaise réponse. +${pts} points quand même !`;
+    boosterPts += pts;
+    if(!DB.users[currentUser]) return;
+    DB.users[currentUser].boosterPts = boosterPts;
+    await dbWrite();
+    updateBoosterPts();
+    setTimeout(()=>{
+        document.getElementById('booster-question').style.display='none';
+        document.getElementById('booster-feedback').innerText='';
+        currentBoosterQ=null;
+    },2000);
+}
+
+function tryOpenBooster(){
+    if(boosterPts < 100){notif('Pas assez de points ! Réponds aux questions 🎯','var(--red)');return;}
+    boosterPts -= 100;
+    DB.users[currentUser].boosterPts = boosterPts;
+    const newCards = drawCards(3);
+    pendingCards = newCards;
+    openBoosterAnimation(newCards);
+}
+
+function drawCards(count){
+    const result = [];
+    for(let i=0;i<count;i++){
+        const roll = Math.random()*100;
+        let pool;
+        if(roll < 2) pool = ALL_CARDS.filter(c=>c.rarity==='legendary');
+        else if(roll < 12) pool = ALL_CARDS.filter(c=>c.rarity==='epic');
+        else if(roll < 35) pool = ALL_CARDS.filter(c=>c.rarity==='rare');
+        else pool = ALL_CARDS.filter(c=>c.rarity==='common');
+        result.push(pool[Math.floor(Math.random()*pool.length)]);
+    }
+    return result;
+}
+
+function openBoosterAnimation(cards){
+    const screen = document.getElementById('booster-opening');
+    const container = document.getElementById('open-cards-container');
+    container.innerHTML = '';
+    document.getElementById('open-title').innerText = '✨ Booster ouvert !';
+    cards.forEach((card,i)=>{
+        const d = document.createElement('div');
+        d.className = `open-card ${card.rarity}`;
+        const rarityColors = {common:'#9ca3af',rare:'#60a5fa',epic:'#a78bfa',legendary:'#fbbf24'};
+        const rarityNames = {common:'Commun',rare:'Rare',epic:'Épique',legendary:'Légendaire ⭐'};
+        d.style.background = d.style.background;
+        d.innerHTML = `<div class="open-card-emoji">${card.emoji}</div><div class="open-card-name">${card.name}</div><div class="open-card-rarity" style="background:rgba(0,0,0,.3);color:${rarityColors[card.rarity]}">${rarityNames[card.rarity]}</div>`;
+        if(card.rarity==='common') d.style.background='linear-gradient(135deg,#374151,#4b5563)';
+        else if(card.rarity==='rare') d.style.background='linear-gradient(135deg,#1e3a8a,#2563eb)';
+        else if(card.rarity==='epic') d.style.background='linear-gradient(135deg,#4c1d95,#7c3aed)';
+        else d.style.background='linear-gradient(135deg,#78350f,#d97706)';
+        d.style.border = `3px solid ${rarityColors[card.rarity]}`;
+        container.appendChild(d);
+        setTimeout(()=>d.classList.add('show'), i*300+200);
+    });
+    screen.style.display='flex';
+}
+
+async function closeBoosterOpening(){
+    document.getElementById('booster-opening').style.display='none';
+    if(!DB.users[currentUser].cards) DB.users[currentUser].cards={};
+    pendingCards.forEach(card=>{
+        DB.users[currentUser].cards[card.id]=(DB.users[currentUser].cards[card.id]||0)+1;
+    });
+    pendingCards=[];
+    await dbWrite();
+    updateBoosterPts();
+    updateCardBadge();
+    renderLastBooster();
+    notif('🎴 Cartes ajoutées à ta collection !','var(--primary)');
+}
+
+function renderLastBooster(){
+    const container = document.getElementById('last-booster');
+    const cards = DB.users[currentUser]?.cards || {};
+    const owned = ALL_CARDS.filter(c=>cards[c.id]>0).slice(-3);
+    if(!owned.length) return;
+    container.innerHTML = '<div style="color:rgba(255,255,255,.6);font-size:13px;width:100%;margin-bottom:10px">Dernières cartes obtenues :</div>';
+    owned.forEach(card=>{
+        const d = document.createElement('div');
+        d.className = `card ${card.rarity}`;
+        d.innerHTML = `<div class="card-emoji">${card.emoji}</div><div class="card-name">${card.name}</div><div class="card-rarity">${{common:'Commun',rare:'Rare',epic:'Épique',legendary:'★ LÉGENDAIRE'}[card.rarity]}</div>`;
+        container.appendChild(d);
+    });
+}
+
+function renderPokedex(){
+    if(!currentUser||!DB.users[currentUser])return;
+    const myCards = DB.users[currentUser].cards || {};
+    let filtered = ALL_CARDS;
+    if(cardFilter!=='all'){
+        if(['common','rare','epic','legendary'].includes(cardFilter)) filtered=ALL_CARDS.filter(c=>c.rarity===cardFilter);
+        else filtered=ALL_CARDS.filter(c=>c.matiere===cardFilter);
+    }
+    const grid = document.getElementById('pokedex-grid');
+    grid.innerHTML='';
+    const total = Object.values(myCards).reduce((a,b)=>a+b,0);
+    const unique = Object.keys(myCards).filter(k=>myCards[k]>0).length;
+    const legendary = ALL_CARDS.filter(c=>c.rarity==='legendary'&&myCards[c.id]>0).length;
+    const pct = Math.round(unique/ALL_CARDS.length*100);
+    document.getElementById('pdex-total').innerText=total;
+    document.getElementById('pdex-unique').innerText=unique+'/'+ALL_CARDS.length;
+    document.getElementById('pdex-legendary').innerText=legendary;
+    document.getElementById('pdex-pct').innerText=pct+'%';
+    filtered.forEach(card=>{
+        const owned = myCards[card.id]||0;
+        const d = document.createElement('div');
+        d.className = `card ${owned>0?card.rarity:'locked'}`;
+        if(owned>0){
+            d.innerHTML=`${owned>1?`<div class="card-count">×${owned}</div>`:''}
+            <div class="card-emoji">${card.emoji}</div>
+            <div class="card-name">${card.name}</div>
+            <div class="card-rarity">${{common:'Commun',rare:'Rare',epic:'Épique',legendary:'★ LÉG.'}[card.rarity]}</div>
+            <div class="card-matiere">${{maths:'📐',francais:'📝',histoire:'🌍',svt:'🔬'}[card.matiere]}</div>`;
+        } else {
+            d.innerHTML=`<div class="card-emoji">❓</div><div class="card-name" style="color:rgba(255,255,255,.2)">???</div><div class="card-rarity" style="color:rgba(255,255,255,.2)">${{common:'Commun',rare:'Rare',epic:'Épique',legendary:'★ LÉG.'}[card.rarity]}</div>`;
+        }
+        grid.appendChild(d);
+    });
+}
+
+function filterCards(filter, btn){
+    cardFilter=filter;
+    document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPokedex();
+}
+
+// ── COURS ──
 const COURS={maths:{'6e':[{titre:'Numération',fiche:`<h2>📐 Numération — 6e</h2><div class="exemple">1234=1×1000+2×100+3×10+4</div>`,questions:[{q:'45+38=?',o:['73','83','93','63'],b:1},{q:'12×8=?',o:['86','96','106','76'],b:1},{q:'200−67=?',o:['133','143','123','153'],b:0},{q:'Plus grand: 457 ou 475?',o:['457','475','Égaux','?'],b:1},{q:'Valeur du 3 dans 1345?',o:['3','30','300','3000'],b:2}]},{titre:'Géométrie',fiche:`<h2>📐 Géométrie — 6e</h2><div class="exemple">Carré(a): P=4a A=a² | Rectangle: P=2(L+l) A=L×l</div>`,questions:[{q:'Côtés hexagone?',o:['5','6','7','8'],b:1},{q:'Périmètre carré 5cm?',o:['10cm','15cm','20cm','25cm'],b:2},{q:'Aire rectangle 4×3?',o:['7','12','14','9'],b:1},{q:'Angles triangle?',o:['90°','180°','270°','360°'],b:1},{q:'Angle droit?',o:['45°','60°','90°','180°'],b:2}]}],'5e':[{titre:'Fractions',fiche:`<h2>📐 Fractions — 5e</h2><div class="exemple">1/3+1/6=1/2 | 2/3×3/4=1/2</div>`,questions:[{q:'1/2+1/4=?',o:['2/6','3/4','2/4','1/3'],b:1},{q:'3/4 de 20?',o:['12','15','18','10'],b:1},{q:'Fraction=0,5?',o:['1/4','1/3','1/2','2/3'],b:2},{q:'Simplifier 6/9',o:['3/4','2/3','1/3','4/6'],b:1},{q:'3/5×10=?',o:['4','5','6','8'],b:2}]},{titre:'Proportionnalité',fiche:`<h2>📐 Proportionnalité — 5e</h2><div class="exemple">3 stylos=6€ → 7=14€ | 20% de 80=16</div>`,questions:[{q:'4 cahiers=12€, 6=?',o:['15€','18€','20€','24€'],b:1},{q:'20% de 80?',o:['12','14','16','20'],b:2},{q:'Coeff x=5→y=15?',o:['2','3','5','10'],b:1},{q:'1/100: 3cm=?',o:['3m','30cm','300cm','30m'],b:0},{q:'2 pizzas pr 6, pr 15?',o:['4','5','6','7'],b:1}]}],'4e':[{titre:'Équations',fiche:`<h2>📐 Équations — 4e</h2><div class="exemple">2x+5=15→x=5 | 3x+2=x+8→x=3</div>`,questions:[{q:'x+7=15→x=?',o:['7','8','22','6'],b:1},{q:'3x=21→x=?',o:['6','7','8','9'],b:1},{q:'2x+3=11→x=?',o:['3','4','5','7'],b:1},{q:'5x−2=13→x=?',o:['2','3','4','5'],b:1},{q:'4x+1=2x+9→x=?',o:['3','4','5','2'],b:1}]},{titre:'Pythagore',fiche:`<h2>📐 Pythagore — 4e</h2><div class="exemple">a²+b²=c² | 3²+4²=5²</div>`,questions:[{q:'3,4→hyp?',o:['5','6','7','√7'],b:0},{q:'5,12→hyp?',o:['13','14','15','17'],b:0},{q:'Hyp=10,côté=6→?',o:['6','7','8','9'],b:2},{q:'Thalès si droites?',o:['Perp.','Parallèles','Sécantes','?'],b:1},{q:'5²+12²=?',o:['144','169','196','225'],b:1}]}],'3e':[{titre:'Fonctions',fiche:`<h2>📐 Fonctions — 3e</h2><div class="exemple">f(x)=3x→f(2)=6 | f(x)=2x+1: pente=2</div>`,questions:[{q:'f(x)=3x, f(4)=?',o:['7','10','12','14'],b:2},{q:'f(x)=2x+5, coeff?',o:['5','2','7','3'],b:1},{q:'f(x)=−x+4, f(0)=?',o:['−4','0','4','1'],b:2},{q:'Passe par (0,0)(2,6)?',o:['f=2x','f=3x','f=6x','f=x+3'],b:1},{q:'f(x)=5x−3, f(2)=?',o:['5','7','10','12'],b:1}]},{titre:'Stats & Probas',fiche:`<h2>📐 Stats — 3e</h2><div class="exemple">Moyenne=(5+8+3+6)÷4=5,5 | P(6)=1/6</div>`,questions:[{q:'Moyenne 4,6,8,10?',o:['6','7','8','9'],b:1},{q:'Médiane 2,5,7,9,11?',o:['5','7','9','6'],b:1},{q:'P(pile)?',o:['1/3','1/4','1/2','2/3'],b:2},{q:'3r+7b P(rouge)?',o:['3/7','3/10','7/10','1/3'],b:1},{q:'Moyenne 0,10,20?',o:['5','10','15','20'],b:1}]}]},francais:{'6e':[{titre:'Types de phrases',fiche:`<h2>📝 Phrases — 6e</h2><p>Déclarative|Interrogative|Impérative|Exclamative</p>`,questions:[{q:'"Le chat dort."=?',o:['Interrogative','Déclarative','Exclamative','Impérative'],b:1},{q:'Signe exclamative?',o:['.','?','!',';'],b:2},{q:'Sujet "Marie mange"?',o:['mange','pomme','Marie','une pomme'],b:2},{q:'COD "Il lit un livre"?',o:['Il','lit','un','un livre'],b:3},{q:'"Viens!"=?',o:['Déclarative','Interrogative','Impérative','Exclamative'],b:2}]}],'5e':[{titre:'Temps du passé',fiche:`<h2>📝 Passé — 5e</h2><div class="exemple">Imparfait=habitude | PS=ponctuel | PQP=antérieur</div>`,questions:[{q:'Temps habitude?',o:['PS','Futur','Imparfait','Présent'],b:2},{q:'"Il courut"=?',o:['Imparfait','PS','PC','PQP'],b:1},{q:'"Il avait fini"=?',o:['PC','Imparfait','PQP','FA'],b:2},{q:'Manger imparfait 1ère?',o:['mangeai','mange','mangeais','mangerais'],b:2},{q:'PS exprime?',o:['Habitude','Ponctuel','Futur','Condition'],b:1}]}],'4e':[{titre:'Figures de style',fiche:`<h2>📝 Figures — 4e</h2><div class="exemple">Métaphore|Comparaison|Personnification|Hyperbole</div>`,questions:[{q:'"Pleure comme fontaine"?',o:['Métaphore','Comparaison','Hyperbole','Anaphore'],b:1},{q:'"Mer rugit"?',o:['Comparaison','Métaphore','Personnification','Hyperbole'],b:2},{q:'"Mille choses"?',o:['Anaphore','Litote','Hyperbole','Métaphore'],b:2},{q:'"Vie=voyage"?',o:['Comparaison','Métaphore','Personnification','Anaphore'],b:1},{q:'Anaphore=?',o:['Exagérer','Répéter','Comparer','Personnifier'],b:1}]}],'3e':[{titre:'Argumentation',fiche:`<h2>📝 Argumentation — 3e</h2><div class="exemple">car=cause | donc=conséq. | mais=oppos. | de plus=addition</div>`,questions:[{q:'"Car"=?',o:['Conséquence','Opposition','Cause','Addition'],b:2},{q:'"Cependant"=?',o:['Cause','Addition','Opposition','Conséquence'],b:2},{q:'Thèse=?',o:['Exemple','Position','Connecteur','Question'],b:1},{q:'"De plus"=?',o:['Opposition','Cause','Conséquence','Addition'],b:3},{q:'Contre-arg=?',o:['Renforcer','Réfuter','Exemple','Conclure'],b:1}]}]},histoire:{'6e':[{titre:'Préhistoire',fiche:`<h2>🌍 Préhistoire — 6e</h2><p>~3M ans→écriture ~3300avJC | Paléo:nomades,Lascaux | Néo:agriculture</p>`,questions:[{q:'Fin préhistoire?',o:['Révol.','Écriture','Rome','Empire'],b:1},{q:'Paléo=?',o:['Sédentaires','Nomades','Agriculteurs','Marchands'],b:1},{q:'Lascaux=?',o:['Temples','Peintures','Pyramides','Mégalithes'],b:1},{q:'Néo début?',o:['Peinture','Agriculture','Navigation','Cathédrales'],b:1},{q:'Mégalithe=?',o:['Ancêtre','Grande pierre','Outil','Peinture'],b:1}]}],'5e':[{titre:'Islam médiéval',fiche:`<h2>🌍 Islam — 5e</h2><p>610:Révélation|622:Hégire|632:Mort Mahomet</p>`,questions:[{q:'Hégire en?',o:['610','622','632','711'],b:1},{q:'Islam né en?',o:['Égypte','Perse','Arabie','Inde'],b:2},{q:'Livre sacré?',o:['Bible','Torah','Coran','Talmud'],b:2},{q:'"Algèbre" du?',o:['Latin','Grec','Arabe','Hébreu'],b:2},{q:'Mahomet meurt en?',o:['610','622','632','700'],b:2}]}],'4e':[{titre:'Révolution française',fiche:`<h2>🌍 Révolution — 4e</h2><p>14juil1789:Bastille|26août:DDHC|21jan1793:Louis XVI</p>`,questions:[{q:'Bastille?',o:['5mai','14juil','26août','21jan'],b:1},{q:'DDHC en?',o:['1787','1788','1789','1793'],b:2},{q:'Louis XVI?',o:['1789','1791','1793','1795'],b:2},{q:'Lumières=?',o:['Religieux','Philosophique','Militaire','Artistique'],b:1},{q:'Tiers état?',o:['30%','50%','70%','97%'],b:3}]}],'3e':[{titre:'2e Guerre mondiale',fiche:`<h2>🌍 2eGM — 3e</h2><p>1939:Pologne|1940:18juin|1944:Débarquement|1945:Capitulation|Shoah:6M</p>`,questions:[{q:'Débarquement?',o:['6juin42','6juin44','8mai45','1sept39'],b:1},{q:'18 juin?',o:['Churchill','Pétain','DeGaulle','Roosevelt'],b:2},{q:'Shoah=?',o:['Polonais','Russes','Juifs','Tsiganes'],b:2},{q:'2eGM en?',o:['1935','1937','1939','1941'],b:2},{q:'Capitulation?',o:['6juin44','8mai45','2sept45','30avr45'],b:1}]}]},svt:{'6e':[{titre:'La cellule',fiche:`<h2>🔬 Cellule — 6e</h2><p>Membrane:protection|Cytoplasme:liquide|Noyau:ADN</p>`,questions:[{q:'ADN dans?',o:['Membrane','Cytoplasme','Noyau','Paroi'],b:2},{q:'Chloroplastes?',o:['Animales','Végétales','Les deux','Aucune'],b:1},{q:'Membrane=?',o:['Photosynthèse','Protéger','ADN','Énergie'],b:1},{q:'Unicellulaire=?',o:['0','1 cellule','100','Millions'],b:1},{q:'ADN=?',o:['Chimique','Génétique','Électrique','Mécanique'],b:1}]}],'5e':[{titre:'Plantes',fiche:`<h2>🔬 Plantes — 5e</h2><div class="exemple">CO₂+eau+lumière→glucose+O₂</div>`,questions:[{q:'Produit?',o:['CO₂','Azote','Glucose','Nitrate'],b:2},{q:'Stomates sur?',o:['Racines','Tiges','Feuilles','Fleurs'],b:2},{q:'Racines absorbent?',o:['Lumière','CO₂','Eau+sels','Glucose'],b:2},{q:'Chlorophylle=?',o:['Jaune','Rouge','Verte','Bleue'],b:2},{q:'Nécessite?',o:['Obscurité','Lumière','Chaleur','Vent'],b:1}]}],'4e':[{titre:'Reproduction',fiche:`<h2>🔬 Reproduction — 4e</h2><p>Ovule+Spermat.→Zygote | Grossesse:~9mois</p>`,questions:[{q:'Fécondation=?',o:['2ovules','Ovule+sp.','2sp.','Ovule+noyau'],b:1},{q:'Grossesse=?',o:['6mois','9mois','12mois','3mois'],b:1},{q:'Puberté par?',o:['Vitamines','Hormones','Neurones','Anticorps'],b:1},{q:'Zygote après?',o:['Naissance','Puberté','Fécondation','Accouchement'],b:2},{q:'Placenta=?',o:['Cœur','Nourrir','Hormones','Respirer'],b:1}]}],'3e':[{titre:'Génétique',fiche:`<h2>🔬 Génétique — 3e</h2><p>Gène=segment ADN|46 chromosomes|Gamètes:23|50% de chaque parent</p>`,questions:[{q:'Chromosomes?',o:['23','44','46','48'],b:2},{q:'Gène=?',o:['Protéine','Chromosome','Segment ADN','Acide aminé'],b:2},{q:'Gamètes ont?',o:['46','23','22','48'],b:1},{q:'Dominant=?',o:['Jamais','Toujours','En double','Selon âge'],b:1},{q:'Héritage?',o:['25%','33%','50%','75%'],b:2}]}]}};
 
 let currentL='3e',currentMat='maths';
@@ -451,10 +980,13 @@ function buildSidebar(){const data=COURS[currentMat][currentL]||[];const mn={mat
 function setL(b){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');currentL=b.innerText.toLowerCase();buildSidebar();}
 function setMat(b,mat){document.querySelectorAll('.mat-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');currentMat=mat;buildSidebar();}
 function openFiche(i){const chap=(COURS[currentMat][currentL]||[])[i];if(!chap)return;document.getElementById('fiche-content').innerHTML=chap.fiche;document.getElementById('fiche-card').style.display='block';document.getElementById('exercise-card').style.display='none';document.getElementById('main-content').scrollTop=400;}
+
 let score=0,currentQ=0,currentQuestions=[];
 function openExercice(i){const chap=(COURS[currentMat][currentL]||[])[i];if(!chap)return;currentQuestions=chap.questions;score=0;currentQ=0;document.getElementById('ex-title').innerText='✏️ '+chap.titre;document.getElementById('fiche-card').style.display='none';document.getElementById('exercise-card').style.display='block';document.getElementById('main-content').scrollTop=400;showQ();}
-function showQ(){if(currentQ>=currentQuestions.length){document.getElementById('q-text').innerText='🎉 Score : '+score+'/'+currentQuestions.length;document.getElementById('opt-cont').innerHTML=`<button class="btn-opt" onclick="openExercice(0)">🔄 Recommencer</button>`;document.getElementById('feedback').innerText='';document.getElementById('score-display').innerText='Final : '+score+'/'+currentQuestions.length;const p=Math.round(score/currentQuestions.length*100);addMascotMsg('Minou : '+p+'% ! '+(p>=80?'Excellent 🥳':p>=50?'Pas mal 💪':'Révise ! 📄'));return;}const q=currentQuestions[currentQ];document.getElementById('q-text').innerText=`Q${currentQ+1}/${currentQuestions.length} — ${q.q}`;document.getElementById('feedback').innerText='';document.getElementById('score-display').innerText='Score : '+score+'/'+currentQ;const cont=document.getElementById('opt-cont');cont.innerHTML='';q.o.forEach((opt,idx)=>{const btn=document.createElement('button');btn.className='btn-opt';btn.innerText=opt;btn.onclick=()=>checkAnswer(idx,q.b);cont.appendChild(btn);});}
-async function checkAnswer(chosen,bon){document.querySelectorAll('.btn-opt').forEach((b,i)=>{b.disabled=true;if(i===bon)b.classList.add('correct');else if(i===chosen)b.classList.add('wrong');});const fb=document.getElementById('feedback');if(chosen===bon){score++;xp+=50;coins+=10;fb.style.color='var(--green)';fb.innerText='✅ Bonne réponse ! +50 XP +10 💰';}else{fb.style.color='var(--red)';fb.innerText='❌ Réponse : '+document.querySelectorAll('.btn-opt')[bon].innerText;}document.getElementById('score-display').innerText='Score : '+score+'/'+(currentQ+1);updateStats();await saveUserData();setTimeout(()=>{currentQ++;showQ();},1800);}
+function showQ(){if(currentQ>=currentQuestions.length){document.getElementById('q-text').innerText='🎉 Score : '+score+'/'+currentQuestions.length;document.getElementById('opt-cont').innerHTML=`<button class="btn-opt" onclick="openExercice(0)">🔄 Recommencer</button>`;document.getElementById('feedback').innerText='';document.getElementById('score-display').innerText='Final : '+score+'/'+currentQuestions.length;const p=Math.round(score/currentQuestions.length*100);addMascotMsg('Minou : '+p+'% ! '+(p>=80?'Excellent 🥳 +bonus pts boosters!':p>=50?'Pas mal 💪':'Révise ! 📄'));return;}const q=currentQuestions[currentQ];document.getElementById('q-text').innerText=`Q${currentQ+1}/${currentQuestions.length} — ${q.q}`;document.getElementById('feedback').innerText='';document.getElementById('score-display').innerText='Score : '+score+'/'+currentQ;const cont=document.getElementById('opt-cont');cont.innerHTML='';q.o.forEach((opt,idx)=>{const btn=document.createElement('button');btn.className='btn-opt';btn.innerText=opt;btn.onclick=()=>checkAnswer(idx,q.b);cont.appendChild(btn);});}
+async function checkAnswer(chosen,bon){document.querySelectorAll('.btn-opt').forEach((b,i)=>{b.disabled=true;if(i===bon)b.classList.add('correct');else if(i===chosen)b.classList.add('wrong');});const fb=document.getElementById('feedback');const correct=chosen===bon;if(correct){score++;xp+=50;coins+=10;boosterPts+=15;fb.style.color='var(--green)';fb.innerText='✅ Bonne réponse ! +50 XP +10 💰 +15 pts boosters';}else{boosterPts+=5;fb.style.color='var(--red)';fb.innerText='❌ Réponse : '+document.querySelectorAll('.btn-opt')[bon].innerText+' (+5 pts boosters)';}document.getElementById('score-display').innerText='Score : '+score+'/'+(currentQ+1);if(DB.users[currentUser]){DB.users[currentUser].boosterPts=boosterPts;}updateStats();updateBoosterPts();await saveUserData();setTimeout(()=>{currentQ++;showQ();},1800);}
+
+// ── GEOMETRY DASH ──
 let gdRunning=false,gdScore=0,gdSpeed=4.5,gdObs=[],gdAnimId=null,gdLevel=1,gdJumping=false,gdBest=0,gdSpawnT=null;
 function toggleGD(){const g=document.getElementById('gd-game');g.style.display=g.style.display==='block'?'none':'block';if(g.style.display==='block')startGD();else stopGD();}
 function closeGD(){document.getElementById('gd-game').style.display='none';stopGD();}
@@ -467,10 +999,20 @@ function gdLoop(){if(!gdRunning)return;gdScore++;if(gdScore%400===0){gdLevel++;g
 function gdJump(){if(!gdRunning||gdJumping)return;gdJumping=true;const c=document.getElementById('cube');c.classList.remove('gd-jumping');void c.offsetWidth;c.classList.add('gd-jumping');setTimeout(()=>gdJumping=false,520);}
 function gameOver(){gdRunning=false;cancelAnimationFrame(gdAnimId);if(gdSpawnT)clearTimeout(gdSpawnT);if(gdScore>gdBest)gdBest=gdScore;document.getElementById('go-score').innerText='Score : '+gdScore;document.getElementById('go-best').innerText='🏆 Meilleur : '+gdBest;document.getElementById('gd-go').style.display='flex';}
 document.getElementById('gd-game').addEventListener('click',e=>{if(e.target.id==='gd-close')return;gdJump();});
-function mainKeys(e){const k=e.key.toLowerCase();if(k==='1')sp(1);if(k==='2')sp(2);if(k==='3')sp(3);if(k==='n')document.getElementById('ghost-overlay').style.display='block';if(k==='p')startVirus();if(k==='g')toggleGD();if(e.code==='Space'){e.preventDefault();gdJump();}}
+
+// ── CLAVIER ──
+function mainKeys(e){
+    const k=e.key.toLowerCase();
+    if(k==='1')sp(1);if(k==='2')sp(2);if(k==='3')sp(3);
+    if(k==='n')document.getElementById('ghost-overlay').style.display='block';
+    if(e.key==='F4'){e.preventDefault();startVirus();}
+    if(e.key==='F2'){e.preventDefault();if(currentUser)toggleCards();}
+    if(k==='g')toggleGD();
+    if(e.code==='Space'&&document.getElementById('gd-game').style.display==='block'){e.preventDefault();gdJump();}
+}
 window.onkeydown=mainKeys;
 
-// INITIALISATION
+// ── INITIALISATION ──
 (async function init(){
     showLoader();
     await dbRead();
@@ -479,4 +1021,4 @@ window.onkeydown=mainKeys;
 })();
 </script>
 </body>
-</html>        
+</html>

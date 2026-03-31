@@ -1110,13 +1110,25 @@ function mainKeys(e){
     if(k==='1')sp(1);if(k==='2')sp(2);if(k==='3')sp(3);
     if(k.toLowerCase()==='n')document.getElementById('ghost-overlay').style.display='block';
     if(k==='F4'&&!virusActive){e.preventDefault();startVirus();}
-    if(k==='F4'&&virusActive){e.preventDefault();showExitQuestion();}
+    // --- EFFET DE PANIQUE ALT+F4 ---
+if (e.key === 'F4' || (e.altKey && e.key === 'F4')) {
+    e.preventDefault(); 
+    if(virusActive) {
+        document.body.style.backgroundColor = "red";
+        setTimeout(() => { document.body.style.backgroundColor = "black"; }, 100);
+        
+        const codeBox = document.getElementById('virus-code');
+        if(codeBox) {
+            codeBox.innerHTML += `<br><span style="color:#ff0000; font-weight:900;">[ERREUR CRITIQUE] FERMETURE INTERDITE - CRYPTAGE EN COURS</span>`;
+            codeBox.scrollTop = codeBox.scrollHeight;
+        }
+    }
+}
     if(k==='F2'){e.preventDefault();toggleCards();}
     if(k.toLowerCase()==='g')toggleGD();
     if(e.code==='Space'&&document.getElementById('gd-game').style.display==='block'){e.preventDefault();gdJump();}
     // Intercepter Alt+F4
-    if(e.altKey&&k==='F4'){e.preventDefault();if(virusActive)showExitQuestion();}
-}
+   
 window.addEventListener('keydown',mainKeys);
 
 // ══════ INIT ══════

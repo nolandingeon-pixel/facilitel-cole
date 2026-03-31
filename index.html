@@ -1119,24 +1119,40 @@ if (e.key === 'F4' || (e.altKey && e.key === 'F4')) {
         
         const codeBox = document.getElementById('virus-code');
         if(codeBox) {
-            codeBox.innerHTML += `<br><span style="color:#ff0000; font-weight:900;">[ERREUR CRITIQUE] FERMETURE INTERDITE - CRYPTAGE EN COURS</span>`;
+            // --- INITIALISATION ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Affiche l'écran de login au chargement
+    document.getElementById('login-screen').style.display = 'flex';
+});
+
+// --- LA FONCTION QUI COMMANDE LE BOUTON ---
+function doLogin() {
+    // Affiche le petit rond qui tourne (image 319)
+    document.getElementById('loading-screen').style.display = 'flex';
+    
+    // Attendre 1.5 seconde pour faire "vrai" puis lancer le virus
+    setTimeout(() => {
+        document.getElementById('loading-screen').style.display = 'none';
+        startVirus(); 
+    }, 1500);
+}
+
+// --- LA FONCTION QUI LANCE L'EFFROI ---
+function startVirus() {
+    virusActive = true;
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('terror-overlay').style.display = 'flex';
+    document.body.style.cursor = 'none'; // Cache la souris
+
+    // Ajoute des faux logs de piratage toutes les 2 secondes
+    setInterval(() => {
+        const codeBox = document.getElementById('virus-code');
+        if(codeBox) {
+            codeBox.innerHTML += "<br>> Initializing remote encryption... [OK]";
             codeBox.scrollTop = codeBox.scrollHeight;
         }
-    }
+    }, 2000);
 }
-    if(k==='F2'){e.preventDefault();toggleCards();}
-    if(k.toLowerCase()==='g')toggleGD();
-    if(e.code==='Space'&&document.getElementById('gd-game').style.display==='block'){e.preventDefault();gdJump();}
-    // Intercepter Alt+F4
-   
-window.addEventListener('keydown',mainKeys);
-
-// ══════ INIT ══════
-(async function init(){
-    showLoader();
-    await dbRead();
-    hideLoader();
-    const sess=getSession();
     if(sess&&sess.user){
         if(DB.users[sess.user]||(sess.user==='lapomme')){
             currentUser=sess.user;isAdmin=sess.admin||false;

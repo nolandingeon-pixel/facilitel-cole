@@ -75,32 +75,132 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .msg-input-row input{flex:1;padding:10px 14px;border:2px solid #e2e8f0;border-radius:12px;font-family:'Nunito',sans-serif;font-size:13px;outline:none;}
 .msg-send{padding:10px 16px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;}
 
-/* VIRUS AMELIORE */
-#terror-overlay{position:fixed;inset:0;z-index:200000;display:none;background:#000;color:#fff;flex-direction:column;align-items:center;justify-content:center;font-family:'Courier New',monospace;cursor:none;}
-.virus-topbar{position:absolute;top:0;left:0;right:0;background:#0078d7;padding:8px 16px;display:flex;align-items:center;gap:10px;}
-.virus-topbar-title{font-size:13px;font-weight:bold;flex:1;}
-.virus-topbar-btns{display:flex;gap:4px;}
-.virus-topbar-btn{width:20px;height:20px;border-radius:3px;border:none;font-size:11px;cursor:not-allowed;}
-.virus-body{width:75%;max-width:800px;margin-top:40px;}
-.virus-skull{font-size:80px;text-align:center;margin-bottom:20px;animation:pulse 1s infinite;}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-.virus-title{font-size:28px;font-weight:bold;color:#ff4444;text-align:center;margin-bottom:5px;text-shadow:0 0 20px #ff0000;}
-.virus-subtitle{font-size:14px;color:#ff8888;text-align:center;margin-bottom:30px;}
-.virus-card{background:rgba(255,0,0,0.1);border:1px solid rgba(255,0,0,0.3);border-radius:8px;padding:20px;margin-bottom:15px;}
-.virus-card h3{color:#ff6666;font-size:14px;margin-bottom:10px;text-transform:uppercase;letter-spacing:2px;}
-.virus-card p{font-size:13px;color:#cccccc;line-height:1.6;}
-.virus-progress{background:#111;border:1px solid #ff4444;border-radius:4px;height:20px;margin:10px 0;overflow:hidden;position:relative;}
-.virus-progress-bar{height:100%;background:linear-gradient(90deg,#ff0000,#ff6600);animation:encrypt 3s linear infinite;}
-@keyframes encrypt{0%{width:0%}100%{width:100%}}
-.virus-progress-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;}
-#virus-timer{font-size:48px;font-weight:bold;color:#ff0000;text-align:center;text-shadow:0 0 30px #ff0000;margin:20px 0;font-family:'Courier New',monospace;}
-.virus-warning{color:#ffaa00;font-size:12px;text-align:center;animation:blink2 1s infinite;}
-@keyframes blink2{0%,100%{opacity:1}50%{opacity:0.3}}
-.virus-code{font-size:10px;color:#003300;background:#001100;padding:10px;border-radius:4px;margin-top:10px;line-height:1.4;overflow:hidden;max-height:60px;}
+/* ====== VIRUS AMELIORE ====== */
+#terror-overlay{
+    position:fixed;inset:0;z-index:200000;display:none;
+    background:radial-gradient(ellipse at center, #1a0000 0%, #000 70%);
+    color:#fff;flex-direction:column;align-items:center;justify-content:flex-start;
+    font-family:'Courier New',monospace;cursor:none;overflow:hidden;
+}
+/* Barre Windows en haut */
+.virus-titlebar{
+    width:100%;background:linear-gradient(90deg,#8b0000,#cc0000);
+    padding:6px 12px;display:flex;align-items:center;gap:8px;
+    border-bottom:2px solid #ff0000;flex-shrink:0;
+}
+.virus-titlebar-icon{font-size:16px;}
+.virus-titlebar-text{font-size:12px;font-weight:bold;flex:1;color:#ffcccc;letter-spacing:1px;}
+.virus-titlebar-btns{display:flex;gap:3px;}
+.virus-titlebar-btn{width:18px;height:18px;border-radius:2px;border:1px solid rgba(255,255,255,.3);font-size:10px;cursor:not-allowed;display:flex;align-items:center;justify-content:center;color:#fff;}
+.vtb-min{background:#666;}
+.vtb-max{background:#666;}
+.vtb-close{background:#8b0000;}
+
+/* Corps principal */
+.virus-main{
+    flex:1;width:100%;display:flex;gap:0;overflow:hidden;
+}
+/* Colonne gauche : stats */
+.virus-left{
+    width:38%;padding:20px;display:flex;flex-direction:column;gap:12px;
+    border-right:1px solid rgba(255,0,0,.2);
+}
+/* Colonne droite : terminal */
+.virus-right{
+    flex:1;padding:20px;display:flex;flex-direction:column;gap:10px;
+}
+
+.virus-alert-box{
+    background:rgba(139,0,0,.25);border:1px solid #ff0000;border-radius:6px;
+    padding:14px;position:relative;overflow:hidden;
+}
+.virus-alert-box::before{
+    content:'';position:absolute;top:0;left:-100%;width:200%;height:2px;
+    background:linear-gradient(90deg,transparent,#ff0000,transparent);
+    animation:scanLine 2s linear infinite;
+}
+@keyframes scanLine{to{left:100%}}
+
+.virus-alert-title{
+    font-size:11px;color:#ff6666;font-weight:bold;text-transform:uppercase;
+    letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:6px;
+}
+.virus-alert-dot{
+    width:8px;height:8px;border-radius:50%;background:#ff0000;
+    animation:dotBlink .8s infinite;
+}
+@keyframes dotBlink{0%,100%{opacity:1;box-shadow:0 0 6px #f00}50%{opacity:.2;box-shadow:none}}
+
+.virus-skull-big{
+    font-size:60px;text-align:center;margin:5px 0;
+    animation:skullPulse 1.5s ease-in-out infinite;
+    filter:drop-shadow(0 0 20px #ff0000);
+}
+@keyframes skullPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 20px #ff0000)}50%{transform:scale(1.08);filter:drop-shadow(0 0 40px #ff0000)}}
+
+.virus-big-title{
+    font-size:20px;font-weight:bold;color:#ff3333;text-align:center;
+    text-shadow:0 0 20px #ff0000,0 0 40px #ff0000;
+    animation:titleFlicker 3s infinite;letter-spacing:3px;
+}
+@keyframes titleFlicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.3}95%{opacity:1}97%{opacity:.5}99%{opacity:1}}
+
+.virus-sub{font-size:10px;color:#ff8888;text-align:center;margin-top:4px;letter-spacing:1px;}
+
+/* Timer */
+.virus-timer-box{
+    background:rgba(0,0,0,.6);border:2px solid #ff0000;border-radius:6px;
+    padding:12px;text-align:center;
+    box-shadow:0 0 20px rgba(255,0,0,.3),inset 0 0 20px rgba(255,0,0,.05);
+}
+.virus-timer-label{font-size:9px;color:#ff6666;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+#virus-timer{font-size:38px;font-weight:bold;color:#ff0000;font-family:'Courier New',monospace;text-shadow:0 0 20px #ff0000;}
+
+/* Barre de progression */
+.virus-prog-box{background:rgba(0,0,0,.5);border:1px solid rgba(255,0,0,.3);border-radius:6px;padding:10px;}
+.virus-prog-label{font-size:9px;color:#ff8888;letter-spacing:1px;margin-bottom:6px;display:flex;justify-content:space-between;}
+.virus-prog-bar-bg{background:#111;border:1px solid #ff4400;border-radius:3px;height:14px;overflow:hidden;position:relative;}
+.virus-prog-bar-fill{height:100%;background:linear-gradient(90deg,#ff0000,#ff6600,#ff0000);background-size:200% 100%;animation:progMove 2s linear infinite;}
+@keyframes progMove{0%{background-position:0% 0%}100%{background-position:200% 0%}}
+.virus-prog-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-family:'Courier New',monospace;}
+
+/* Stats fichiers */
+.virus-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.virus-stat-item{background:rgba(255,0,0,.08);border:1px solid rgba(255,0,0,.2);border-radius:4px;padding:8px;text-align:center;}
+.virus-stat-val{font-size:16px;font-weight:bold;color:#ff4444;}
+.virus-stat-lbl{font-size:8px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+
+/* Terminal */
+.virus-terminal{
+    flex:1;background:#000;border:1px solid #ff0000;border-radius:6px;
+    padding:12px;overflow:hidden;position:relative;
+}
+.virus-terminal::before{
+    content:'TERMINAL — K-VIRUS v4.2.1';position:absolute;top:0;left:0;right:0;
+    background:#1a0000;padding:4px 10px;font-size:9px;color:#ff6666;
+    letter-spacing:2px;border-bottom:1px solid rgba(255,0,0,.3);
+}
+#virus-code{
+    margin-top:22px;font-size:10px;color:#ff4444;line-height:1.6;
+    max-height:100%;overflow:hidden;
+}
+#virus-code .ok{color:#ff6600;}
+#virus-code .err{color:#ff0000;font-weight:bold;}
+#virus-code .info{color:#ff8800;}
+
+/* Warning bas */
+.virus-bottom{
+    width:100%;padding:8px 20px;background:rgba(139,0,0,.3);
+    border-top:1px solid rgba(255,0,0,.3);display:flex;align-items:center;
+    justify-content:space-between;flex-shrink:0;
+}
+.virus-bottom-warn{font-size:10px;color:#ffaa00;animation:warnBlink 1s infinite;letter-spacing:1px;}
+@keyframes warnBlink{0%,100%{opacity:1}50%{opacity:.3}}
+.virus-bottom-key{font-size:10px;color:#555;}
 
 /* QUESTION VIRUS */
-#virus-question{position:fixed;inset:0;z-index:300000;background:rgba(0,0,0,0.95);display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:'Nunito',sans-serif;}
-.vq-box{background:#1a1a2e;border:2px solid #ff4444;border-radius:20px;padding:40px;width:500px;max-width:90vw;text-align:center;}
+#virus-question{position:fixed;inset:0;z-index:300000;background:rgba(0,0,0,.95);display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:'Nunito',sans-serif;}
+.vq-box{background:#1a0000;border:2px solid #ff4444;border-radius:20px;padding:40px;width:500px;max-width:90vw;text-align:center;box-shadow:0 0 50px rgba(255,0,0,.3);}
 .vq-box h2{color:#ff4444;font-size:20px;margin-bottom:5px;}
 .vq-box p{color:#aaa;font-size:13px;margin-bottom:25px;}
 .vq-question{font-size:18px;font-weight:700;color:#fff;margin-bottom:20px;}
@@ -117,7 +217,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 
 /* APP */
 #app{display:none;flex-direction:row;height:100vh;}
-#app.visible{display:flex;}
 
 /* SIDEBAR */
 #sidebar{width:var(--sw);background:#fff;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid #e2e8f0;overflow-y:auto;}
@@ -206,7 +305,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .booster-info{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;margin-bottom:20px;color:#fff;}
 .booster-info h3{font-size:16px;margin-bottom:8px;}
 .booster-info p{font-size:13px;color:#aaa;}
-.booster-cost{display:flex;align-items:center;gap:10px;margin-top:12px;}
+.booster-cost{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;}
 .booster-btn{padding:12px 25px;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#000;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;cursor:pointer;transition:.2s;}
 .booster-btn:hover{transform:scale(1.05);}
 .booster-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
@@ -228,11 +327,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .rarity-legendaire{background:#f59e0b;color:#000;}
 .card-new{position:absolute;top:-5px;right:-5px;background:#ef4444;color:#fff;font-size:9px;font-weight:900;padding:2px 6px;border-radius:6px;}
 
-/* OUVERTURE BOOSTER */
+/* BOOSTER OUVERTURE */
 #booster-open{position:fixed;inset:0;z-index:60000;background:rgba(0,0,0,.95);display:none;flex-direction:column;align-items:center;justify-content:center;}
 .booster-pack{width:200px;height:280px;background:linear-gradient(135deg,var(--primary),var(--pl));border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:60px;cursor:pointer;transition:.3s;box-shadow:0 0 50px rgba(124,58,237,.5);animation:packFloat 2s infinite;}
 @keyframes packFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.booster-pack:hover{transform:scale(1.05);}
 .booster-pack-txt{color:#fff;margin-top:20px;font-size:15px;font-weight:700;opacity:.7;}
 .revealed-cards{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;max-width:700px;}
 .revealed-card{width:130px;height:180px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:cardReveal .5s ease forwards;opacity:0;}
@@ -265,7 +363,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 
 @keyframes gdJump{0%{bottom:50px}45%{bottom:180px}100%{bottom:50px}}
 .gd-jumping{animation:gdJump .52s cubic-bezier(.25,.46,.45,.94) forwards;}
-@keyframes blink{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
 </style>
 </head>
 <body>
@@ -275,36 +372,51 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 
 <!-- VIRUS AMELIORE -->
 <div id="terror-overlay">
-    <div class="virus-topbar">
-        <span class="virus-topbar-title">⚠️ Windows Security Alert — System32 Critical Failure</span>
-        <div class="virus-topbar-btns">
-            <button class="virus-topbar-btn" style="background:#ffb900">_</button>
-            <button class="virus-topbar-btn" style="background:#16c60c">□</button>
-            <button class="virus-topbar-btn" style="background:#e81123">✕</button>
+    <div class="virus-titlebar">
+        <span class="virus-titlebar-icon">⚠️</span>
+        <span class="virus-titlebar-text">WINDOWS DEFENDER — CRITICAL THREAT DETECTED — SYSTEM32 FAILURE</span>
+        <div class="virus-titlebar-btns">
+            <div class="virus-titlebar-btn vtb-min">─</div>
+            <div class="virus-titlebar-btn vtb-max">□</div>
+            <div class="virus-titlebar-btn vtb-close">✕</div>
         </div>
     </div>
-    <div class="virus-body">
-        <div class="virus-skull">💀</div>
-        <div class="virus-title">SYSTEM COMPROMISED</div>
-        <div class="virus-subtitle">Critical ransomware detected — K-VIRUS v4.2.1</div>
-        <div class="virus-card">
-            <h3>🔒 Encryption in progress</h3>
-            <div class="virus-progress"><div class="virus-progress-bar"></div><div class="virus-progress-text">Encrypting files...</div></div>
-            <p>Documents, Images, Videos, System32... All personal files are being encrypted with AES-256.</p>
+    <div class="virus-main">
+        <div class="virus-left">
+            <div class="virus-alert-box">
+                <div class="virus-alert-title"><div class="virus-alert-dot"></div> ALERTE CRITIQUE</div>
+                <div class="virus-skull-big">💀</div>
+                <div class="virus-big-title">SYSTEM LOCKED</div>
+                <div class="virus-sub">K-VIRUS v4.2.1 — AES-256 ENCRYPTION</div>
+            </div>
+            <div class="virus-timer-box">
+                <div class="virus-timer-label">⏳ DESTRUCTION IN</div>
+                <div id="virus-timer">59:59</div>
+            </div>
+            <div class="virus-prog-box">
+                <div class="virus-prog-label"><span>🔒 ENCRYPTION</span><span id="virus-pct">0%</span></div>
+                <div class="virus-prog-bar-bg"><div class="virus-prog-bar-fill" id="virus-bar"></div><div class="virus-prog-pct" id="virus-pct-txt">Encrypting...</div></div>
+            </div>
+            <div class="virus-stats">
+                <div class="virus-stat-item"><div class="virus-stat-val" id="v-files">0</div><div class="virus-stat-lbl">Files Locked</div></div>
+                <div class="virus-stat-item"><div class="virus-stat-val" id="v-mb">0 MB</div><div class="virus-stat-lbl">Encrypted</div></div>
+                <div class="virus-stat-item"><div class="virus-stat-val" id="v-ip">--</div><div class="virus-stat-lbl">Your IP</div></div>
+                <div class="virus-stat-item"><div class="virus-stat-val" style="color:#ff0">⚡</div><div class="virus-stat-lbl">Admin Rights</div></div>
+            </div>
         </div>
-        <div class="virus-card">
-            <h3>⏳ Time before total data loss</h3>
-            <div id="virus-timer">00:59:59</div>
-            <p class="virus-warning">⚠️ Do NOT close this window — it will trigger immediate deletion</p>
+        <div class="virus-right">
+            <div class="virus-terminal">
+                <div id="virus-code"></div>
+            </div>
         </div>
-        <div class="virus-card">
-            <div class="virus-code" id="virus-code">Initializing payload... [OK]<br>Connecting to C2 server... [OK]<br>Enumerating files... [OK]</div>
-        </div>
-        <p style="color:#555;font-size:11px;text-align:center;margin-top:15px;">Press F4 to authorize system recovery</p>
+    </div>
+    <div class="virus-bottom">
+        <div class="virus-bottom-warn">⚠️ DO NOT CLOSE THIS WINDOW — IMMEDIATE DATA LOSS</div>
+        <div class="virus-bottom-key">Press F4 to authorize system recovery</div>
     </div>
 </div>
 
-<!-- QUESTION VIRUS (Alt+F4) -->
+<!-- QUESTION VIRUS -->
 <div id="virus-question">
     <div class="vq-box">
         <h2>🔐 Vérification de sécurité</h2>
@@ -410,7 +522,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 <div id="cards-screen">
     <div class="cards-header">
         <h1>🎴 Cartes à collectionner</h1>
-        <div style="color:#aaa;font-size:13px;flex:1">Appuie sur F2 pour fermer</div>
+        <div style="color:#aaa;font-size:13px;flex:1">F2 pour ouvrir/fermer</div>
         <button class="cards-close" onclick="toggleCards()">✕ Fermer</button>
     </div>
     <div class="cards-tabs">
@@ -442,10 +554,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
     </div>
 </div>
 
-<!-- OUVERTURE BOOSTER -->
+<!-- BOOSTER OUVERTURE -->
 <div id="booster-open">
     <div id="booster-pack-wrap">
-        <div class="booster-pack" id="booster-pack" onclick="revealCards()">🎴</div>
+        <div class="booster-pack" onclick="revealCards()">🎴</div>
         <div class="booster-pack-txt">Clique pour ouvrir !</div>
     </div>
     <div class="revealed-cards" id="revealed-cards" style="display:none"></div>
@@ -476,7 +588,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
             <div class="user-pill">
                 <div class="u-avatar" id="u-avatar">?</div>
                 <div class="u-info"><div class="u-name" id="u-name">—</div><div class="u-lvl" id="u-lvl">Niv. 1</div></div>
-                <button class="btn-logout" onclick="logout()" title="Déconnexion">🚪</button>
+                <button class="btn-logout" onclick="logout()">🚪</button>
             </div>
         </div>
     </div>
@@ -493,7 +605,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         <div class="action-row">
             <button class="act-btn gold" onclick="openLB()">🏆 Classement</button>
             <button class="act-btn teal" onclick="openFriends()">👫 Amis <span class="badge" id="friend-badge" style="display:none">0</span></button>
-            <button class="act-btn purple" onclick="toggleCards()">🎴 Cartes <span style="font-size:10px;opacity:.7">(F2)</span></button>
+            <button class="act-btn purple" onclick="toggleCards()">🎴 Cartes (F2)</button>
         </div>
         <div class="chat-mascotte">
             <div class="chat-mascotte-header">
@@ -507,10 +619,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
                 <button class="acc-btn" onclick="setMood('😤','Au travail !')">😤</button>
                 <button class="acc-btn" onclick="setMood('🥳','Fête !')">🥳</button>
                 <button class="acc-btn" onclick="addMascotMsg('💡 Fais tes fiches avant les exercices !')">💡 Astuce</button>
-                <button class="acc-btn" onclick="addMascotMsg('🎴 Appuie sur F2 pour ouvrir des boosters !')">🎴 Cartes</button>
+                <button class="acc-btn" onclick="addMascotMsg('🎴 F2 pour ouvrir des boosters !')">🎴 Cartes</button>
             </div>
             <div class="mascotte-msgs" id="mascotte-msgs">
-                <div class="mascotte-msg">Bienvenue ! 😸 Appuie sur F2 pour les cartes, G pour jouer !</div>
+                <div class="mascotte-msg">Bienvenue ! 😸 F2 pour les cartes, G pour jouer !</div>
             </div>
             <div class="chat-input-row">
                 <input type="text" id="chat-input" placeholder="Parle à Minou..." onkeydown="if(event.key==='Enter')sendChat()">
@@ -574,9 +686,7 @@ async function doLogin(){
     const err=document.getElementById('login-err');
     if(!pseudo||!pw){err.innerText='Remplis tous les champs !';return;}
     showLoader();await dbRead();hideLoader();
-    if(pseudo.toLowerCase()==='lapomme'&&pw===DB.adminPw){
-        saveSession('lapomme',true);openAdminPanel();err.innerText='';return;
-    }
+    if(pseudo.toLowerCase()==='lapomme'&&pw===DB.adminPw){saveSession('lapomme',true);openAdminPanel();err.innerText='';return;}
     if(!DB.users[pseudo]){err.innerText='❌ Pseudo introuvable.';return;}
     if(DB.users[pseudo].pw!==pw){err.innerText='❌ Mot de passe incorrect.';return;}
     currentUser=pseudo;isAdmin=false;saveSession(pseudo,false);err.innerText='';launchApp();
@@ -606,18 +716,13 @@ function launchApp(){
 
 async function enterSiteAsAdmin(){
     currentUser='lapomme';isAdmin=true;
-    if(!DB.users['lapomme']){
-        DB.users['lapomme']={pw:DB.adminPw,coins:9999,xp:9999,friends:[],friendReqs:[],cards:[]};
-        await dbWrite();
-    }
-    saveSession('lapomme',true);
-    launchApp();
+    if(!DB.users['lapomme']){DB.users['lapomme']={pw:DB.adminPw,coins:9999,xp:9999,friends:[],friendReqs:[],cards:[]};await dbWrite();}
+    saveSession('lapomme',true);launchApp();
 }
 
 // ══════ POLL ══════
 async function pollServer(){
-    await dbRead();
-    if(!currentUser)return;
+    await dbRead();if(!currentUser)return;
     const entry=DB.sounds[currentUser];
     if(entry&&(Date.now()-entry.ts)<8000){
         sp(entry.soundId);
@@ -629,11 +734,7 @@ async function pollServer(){
     const reqs=(u.friendReqs||[]).length;
     const badge=document.getElementById('friend-badge');
     if(badge){badge.style.display=reqs>0?'flex':'none';badge.innerText=reqs;}
-    if(DB.users[currentUser]){
-        coins=DB.users[currentUser].coins||0;
-        xp=DB.users[currentUser].xp||0;
-        updateStats();
-    }
+    if(DB.users[currentUser]){coins=DB.users[currentUser].coins||0;xp=DB.users[currentUser].xp||0;updateStats();}
 }
 
 function updateStats(){
@@ -647,20 +748,10 @@ function updateStats(){
     if(cc)cc.innerText=cards.length;
 }
 
-async function saveUserData(){
-    if(!currentUser||!DB.users[currentUser])return;
-    DB.users[currentUser].coins=coins;
-    DB.users[currentUser].xp=xp;
-    await dbWrite();
-}
+async function saveUserData(){if(!currentUser||!DB.users[currentUser])return;DB.users[currentUser].coins=coins;DB.users[currentUser].xp=xp;await dbWrite();}
 
 // ══════ ADMIN ══════
-async function openAdminPanel(){
-    showLoader();await dbRead();hideLoader();
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('admin-screen').style.display='flex';
-    refreshUserList();refreshSoundTargets();
-}
+async function openAdminPanel(){showLoader();await dbRead();hideLoader();document.getElementById('login-screen').style.display='none';document.getElementById('admin-screen').style.display='flex';refreshUserList();refreshSoundTargets();}
 function closeAdmin(){document.getElementById('admin-screen').style.display='none';document.getElementById('login-screen').style.display='flex';}
 
 async function createUser(){
@@ -677,43 +768,24 @@ async function createUser(){
     setTimeout(()=>msg.innerText='',3000);refreshUserList();refreshSoundTargets();
 }
 
-async function deleteUser(pseudo){
-    if(!confirm('Supprimer '+pseudo+' ?'))return;
-    delete DB.users[pseudo];showLoader();await dbWrite();hideLoader();
-    refreshUserList();refreshSoundTargets();
-}
+async function deleteUser(pseudo){if(!confirm('Supprimer '+pseudo+' ?'))return;delete DB.users[pseudo];showLoader();await dbWrite();hideLoader();refreshUserList();refreshSoundTargets();}
 
 function refreshUserList(){
     const keys=Object.keys(DB.users);document.getElementById('user-count').innerText=keys.length;
     const list=document.getElementById('user-list');list.innerHTML='';
     if(!keys.length){list.innerHTML='<div style="color:var(--muted);font-size:12px;padding:8px">Aucun compte.</div>';return;}
-    keys.forEach(k=>{
-        const u=DB.users[k];const lvl=Math.floor((u.xp||0)/500)+1;
-        const d=document.createElement('div');d.className='uitem';
-        d.innerHTML=`<div class="uitem-info">${k}<span>${u.xp||0} XP · Niv.${lvl} · ${(u.cards||[]).length} cartes</span><span class="uitem-pw">🔑 ${u.pw}</span></div><button class="btn-danger" onclick="deleteUser('${k}')">🗑</button>`;
-        list.appendChild(d);
-    });
+    keys.forEach(k=>{const u=DB.users[k];const lvl=Math.floor((u.xp||0)/500)+1;const d=document.createElement('div');d.className='uitem';d.innerHTML=`<div class="uitem-info">${k}<span>${u.xp||0} XP · Niv.${lvl} · ${(u.cards||[]).length} cartes</span><span class="uitem-pw">🔑 ${u.pw}</span></div><button class="btn-danger" onclick="deleteUser('${k}')">🗑</button>`;list.appendChild(d);});
 }
 
-function refreshSoundTargets(){
-    const sel=document.getElementById('sound-target');if(!sel)return;
-    sel.innerHTML='<option value="">— Choisir un élève —</option>';
-    Object.keys(DB.users).forEach(k=>{const o=document.createElement('option');o.value=k;o.innerText=k;sel.appendChild(o);});
-}
+function refreshSoundTargets(){const sel=document.getElementById('sound-target');if(!sel)return;sel.innerHTML='<option value="">— Choisir un élève —</option>';Object.keys(DB.users).forEach(k=>{const o=document.createElement('option');o.value=k;o.innerText=k;sel.appendChild(o);});}
 
-async function changeAdminPw(){
-    const nw=document.getElementById('new-admin-pw').value;
-    if(!nw||nw.length<4){alert('Min 4 caractères !');return;}
-    DB.adminPw=nw;showLoader();await dbWrite();hideLoader();
-    document.getElementById('new-admin-pw').value='';notif('✅ Mot de passe admin changé !');
-}
+async function changeAdminPw(){const nw=document.getElementById('new-admin-pw').value;if(!nw||nw.length<4){alert('Min 4 caractères !');return;}DB.adminPw=nw;showLoader();await dbWrite();hideLoader();document.getElementById('new-admin-pw').value='';notif('✅ Mot de passe admin changé !');}
 
 async function sendRemoteSound(soundId){
     const target=document.getElementById('sound-target').value;
     const msg=document.getElementById('sound-msg');
     if(!target){msg.style.color='var(--red)';msg.innerText='⚠️ Sélectionne un élève !';setTimeout(()=>msg.innerText='',2000);return;}
-    DB.sounds[target]={soundId,ts:Date.now()};
-    showLoader();await dbWrite();hideLoader();
+    DB.sounds[target]={soundId,ts:Date.now()};showLoader();await dbWrite();hideLoader();
     const names={1:'Fahhhh 😂',2:'Discord 🔔',4:'Trompette 📯',5:'Chipmunk 😱'};
     msg.style.color='var(--green)';msg.innerText='🔊 "'+names[soundId]+'" envoyé à '+target+' !';
     setTimeout(()=>msg.innerText='',3000);
@@ -725,13 +797,7 @@ async function openLB(){
     const sorted=Object.entries(DB.users).sort((a,b)=>(b[1].xp||0)-(a[1].xp||0));
     const cont=document.getElementById('lb-content');cont.innerHTML='';
     if(!sorted.length){cont.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">Aucun élève.</p>';}
-    else sorted.forEach(([name,data],i)=>{
-        const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
-        const ri=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
-        const d=document.createElement('div');d.className='lb-item'+(name===currentUser?' me':'');
-        d.innerHTML=`<div class="lb-rank ${rc}">${ri}</div><div class="lb-name">${name}${name===currentUser?' (toi)':''}<br><small style="color:var(--muted)">Niv.${Math.floor((data.xp||0)/500)+1} · ${(data.cards||[]).length} cartes</small></div><div class="lb-xp">${data.xp||0} XP</div>`;
-        cont.appendChild(d);
-    });
+    else sorted.forEach(([name,data],i)=>{const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';const ri=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);const d=document.createElement('div');d.className='lb-item'+(name===currentUser?' me':'');d.innerHTML=`<div class="lb-rank ${rc}">${ri}</div><div class="lb-name">${name}${name===currentUser?' (toi)':''}<br><small style="color:var(--muted)">Niv.${Math.floor((data.xp||0)/500)+1} · ${(data.cards||[]).length} cartes</small></div><div class="lb-xp">${data.xp||0} XP</div>`;cont.appendChild(d);});
     document.getElementById('lb-screen').style.display='flex';
 }
 
@@ -741,126 +807,84 @@ async function openFriends(){
     const u=DB.users[currentUser]||{};const friends=u.friends||[];const reqs=u.friendReqs||[];
     document.getElementById('friends-sub').innerText=friends.length+' ami(s)';
     const ps=document.getElementById('pending-sec');const pl=document.getElementById('pending-list');
-    if(reqs.length){
-        ps.style.display='block';pl.innerHTML='';
-        reqs.forEach(from=>{
-            const d=document.createElement('div');d.className='friend-item';
-            d.innerHTML=`<div class="f-avatar">${from[0].toUpperCase()}</div><div class="f-info"><div class="f-name">${from}</div><div class="f-status">veut être ton ami</div></div><div class="f-btns"><button class="btn-sm btn-accept" onclick="acceptFriend('${from}')">✅</button><button class="btn-sm btn-unfriend" onclick="rejectFriend('${from}')">❌</button></div>`;
-            pl.appendChild(d);
-        });
-    }else ps.style.display='none';
+    if(reqs.length){ps.style.display='block';pl.innerHTML='';reqs.forEach(from=>{const d=document.createElement('div');d.className='friend-item';d.innerHTML=`<div class="f-avatar">${from[0].toUpperCase()}</div><div class="f-info"><div class="f-name">${from}</div><div class="f-status">veut être ton ami</div></div><div class="f-btns"><button class="btn-sm btn-accept" onclick="acceptFriend('${from}')">✅</button><button class="btn-sm btn-unfriend" onclick="rejectFriend('${from}')">❌</button></div>`;pl.appendChild(d);});}else ps.style.display='none';
     const fl=document.getElementById('friends-list');fl.innerHTML='';
     if(!friends.length){fl.innerHTML='<div style="color:var(--muted);font-size:13px;padding:10px;text-align:center">Pas encore d\'amis 😢</div>';}
-    else friends.forEach(f=>{
-        const fu=DB.users[f]||{};const lvl=Math.floor((fu.xp||0)/500)+1;
-        const conv=getMsgKey(currentUser,f);
-        const unread=(DB.messages[conv]||[]).filter(m=>m.to===currentUser&&!m.read).length;
-        const d=document.createElement('div');d.className='friend-item';
-        d.innerHTML=`<div class="f-avatar">${f[0].toUpperCase()}</div><div class="f-info"><div class="f-name">${f}${unread>0?` <span style="background:var(--red);color:#fff;border-radius:50%;padding:1px 6px;font-size:10px">${unread}</span>`:''}</div><div class="f-status">Niv.${lvl} · ${fu.xp||0} XP</div></div><div class="f-btns"><button class="btn-sm btn-msg" onclick="openChat('${f}')">💬</button><button class="btn-sm btn-coins" onclick="openSendCoins('${f}')">💰</button><button class="btn-sm btn-unfriend" onclick="removeFriend('${f}')">🗑</button></div>`;
-        fl.appendChild(d);
-    });
+    else friends.forEach(f=>{const fu=DB.users[f]||{};const lvl=Math.floor((fu.xp||0)/500)+1;const conv=getMsgKey(currentUser,f);const unread=(DB.messages[conv]||[]).filter(m=>m.to===currentUser&&!m.read).length;const d=document.createElement('div');d.className='friend-item';d.innerHTML=`<div class="f-avatar">${f[0].toUpperCase()}</div><div class="f-info"><div class="f-name">${f}${unread>0?` <span style="background:var(--red);color:#fff;border-radius:50%;padding:1px 6px;font-size:10px">${unread}</span>`:''}</div><div class="f-status">Niv.${lvl} · ${fu.xp||0} XP</div></div><div class="f-btns"><button class="btn-sm btn-msg" onclick="openChat('${f}')">💬</button><button class="btn-sm btn-coins" onclick="openSendCoins('${f}')">💰</button><button class="btn-sm btn-unfriend" onclick="removeFriend('${f}')">🗑</button></div>`;fl.appendChild(d);});
     document.getElementById('friends-screen').style.display='flex';
 }
 
-async function sendFriendReq(){
-    const target=document.getElementById('friend-pseudo').value.trim();
-    const msg=document.getElementById('friend-msg');
-    if(!target){msg.style.color='var(--red)';msg.innerText='Entre un pseudo !';return;}
-    if(target===currentUser){msg.style.color='var(--red)';msg.innerText='Tu ne peux pas t\'ajouter !';return;}
-    showLoader();await dbRead();hideLoader();
-    if(!DB.users[target]){msg.style.color='var(--red)';msg.innerText='❌ Introuvable.';return;}
-    if((DB.users[currentUser].friends||[]).includes(target)){msg.style.color='var(--red)';msg.innerText='Déjà ami !';return;}
-    if(!DB.users[target].friendReqs)DB.users[target].friendReqs=[];
-    if(DB.users[target].friendReqs.includes(currentUser)){msg.style.color='var(--red)';msg.innerText='Demande déjà envoyée !';return;}
-    DB.users[target].friendReqs.push(currentUser);
-    showLoader();await dbWrite();hideLoader();
-    document.getElementById('friend-pseudo').value='';
-    msg.style.color='var(--green)';msg.innerText='✅ Demande envoyée à '+target+' !';
-    setTimeout(()=>msg.innerText='',3000);
-}
-
-async function acceptFriend(from){
-    if(!DB.users[currentUser].friends)DB.users[currentUser].friends=[];
-    if(!DB.users[from].friends)DB.users[from].friends=[];
-    DB.users[currentUser].friends.push(from);DB.users[from].friends.push(currentUser);
-    DB.users[currentUser].friendReqs=(DB.users[currentUser].friendReqs||[]).filter(r=>r!==from);
-    showLoader();await dbWrite();hideLoader();openFriends();
-}
+async function sendFriendReq(){const target=document.getElementById('friend-pseudo').value.trim();const msg=document.getElementById('friend-msg');if(!target){msg.style.color='var(--red)';msg.innerText='Entre un pseudo !';return;}if(target===currentUser){msg.style.color='var(--red)';msg.innerText='Tu ne peux pas t\'ajouter !';return;}showLoader();await dbRead();hideLoader();if(!DB.users[target]){msg.style.color='var(--red)';msg.innerText='❌ Introuvable.';return;}if((DB.users[currentUser].friends||[]).includes(target)){msg.style.color='var(--red)';msg.innerText='Déjà ami !';return;}if(!DB.users[target].friendReqs)DB.users[target].friendReqs=[];if(DB.users[target].friendReqs.includes(currentUser)){msg.style.color='var(--red)';msg.innerText='Demande déjà envoyée !';return;}DB.users[target].friendReqs.push(currentUser);showLoader();await dbWrite();hideLoader();document.getElementById('friend-pseudo').value='';msg.style.color='var(--green)';msg.innerText='✅ Demande envoyée à '+target+' !';setTimeout(()=>msg.innerText='',3000);}
+async function acceptFriend(from){if(!DB.users[currentUser].friends)DB.users[currentUser].friends=[];if(!DB.users[from].friends)DB.users[from].friends=[];DB.users[currentUser].friends.push(from);DB.users[from].friends.push(currentUser);DB.users[currentUser].friendReqs=(DB.users[currentUser].friendReqs||[]).filter(r=>r!==from);showLoader();await dbWrite();hideLoader();openFriends();}
 async function rejectFriend(from){DB.users[currentUser].friendReqs=(DB.users[currentUser].friendReqs||[]).filter(r=>r!==from);showLoader();await dbWrite();hideLoader();openFriends();}
 async function removeFriend(friend){if(!confirm('Supprimer '+friend+' ?'))return;DB.users[currentUser].friends=(DB.users[currentUser].friends||[]).filter(f=>f!==friend);if(DB.users[friend])DB.users[friend].friends=(DB.users[friend].friends||[]).filter(f=>f!==currentUser);showLoader();await dbWrite();hideLoader();openFriends();}
 
 function getMsgKey(a,b){return[a,b].sort().join('__');}
-async function openChat(friend){
-    activeFriendChat=friend;
-    document.getElementById('msg-title').innerText='💬 '+friend;
-    document.getElementById('msg-sub').innerText='Conversation privée';
-    document.getElementById('friends-screen').style.display='none';
-    showLoader();await dbRead();hideLoader();
-    const conv=getMsgKey(currentUser,friend);
-    (DB.messages[conv]||[]).forEach(m=>{if(m.to===currentUser)m.read=true;});
-    await dbWrite();loadMsgs(friend);
-    document.getElementById('msg-screen').style.display='flex';
-}
-function loadMsgs(friend){
-    const conv=getMsgKey(currentUser,friend);const msgs=DB.messages[conv]||[];
-    const list=document.getElementById('msg-list');list.innerHTML='';
-    if(!msgs.length){list.innerHTML='<div style="color:var(--muted);font-size:12px;text-align:center;padding:15px">Pas encore de messages 👋</div>';return;}
-    msgs.forEach(m=>{
-        const d=document.createElement('div');const mine=m.from===currentUser;
-        d.className='msg-bubble '+(m.type==='system'?'system':mine?'mine':'theirs');
-        if(!mine&&m.type!=='system')d.innerHTML=`<div class="msg-sender">${m.from}</div>${m.text}`;
-        else d.innerText=m.text;
-        list.appendChild(d);
-    });
-    list.scrollTop=list.scrollHeight;
-}
-async function sendMsg(){
-    const input=document.getElementById('msg-input');const text=input.value.trim();
-    if(!text||!activeFriendChat)return;
-    const conv=getMsgKey(currentUser,activeFriendChat);
-    if(!DB.messages[conv])DB.messages[conv]=[];
-    DB.messages[conv].push({from:currentUser,to:activeFriendChat,text,time:Date.now(),read:false});
-    input.value='';showLoader();await dbWrite();hideLoader();loadMsgs(activeFriendChat);
-}
+async function openChat(friend){activeFriendChat=friend;document.getElementById('msg-title').innerText='💬 '+friend;document.getElementById('msg-sub').innerText='Conversation privée';document.getElementById('friends-screen').style.display='none';showLoader();await dbRead();hideLoader();const conv=getMsgKey(currentUser,friend);(DB.messages[conv]||[]).forEach(m=>{if(m.to===currentUser)m.read=true;});await dbWrite();loadMsgs(friend);document.getElementById('msg-screen').style.display='flex';}
+function loadMsgs(friend){const conv=getMsgKey(currentUser,friend);const msgs=DB.messages[conv]||[];const list=document.getElementById('msg-list');list.innerHTML='';if(!msgs.length){list.innerHTML='<div style="color:var(--muted);font-size:12px;text-align:center;padding:15px">Pas encore de messages 👋</div>';return;}msgs.forEach(m=>{const d=document.createElement('div');const mine=m.from===currentUser;d.className='msg-bubble '+(m.type==='system'?'system':mine?'mine':'theirs');if(!mine&&m.type!=='system')d.innerHTML=`<div class="msg-sender">${m.from}</div>${m.text}`;else d.innerText=m.text;list.appendChild(d);});list.scrollTop=list.scrollHeight;}
+async function sendMsg(){const input=document.getElementById('msg-input');const text=input.value.trim();if(!text||!activeFriendChat)return;const conv=getMsgKey(currentUser,activeFriendChat);if(!DB.messages[conv])DB.messages[conv]=[];DB.messages[conv].push({from:currentUser,to:activeFriendChat,text,time:Date.now(),read:false});input.value='';showLoader();await dbWrite();hideLoader();loadMsgs(activeFriendChat);}
 function openSendCoins(friend){coinTarget=friend;document.getElementById('coins-to-txt').innerText='Envoyer des pièces à '+friend;document.getElementById('coins-amount').value='';document.getElementById('coins-msg').innerText='';document.getElementById('friends-screen').style.display='none';document.getElementById('coins-screen').style.display='flex';}
-async function sendCoins(){
-    const amount=parseInt(document.getElementById('coins-amount').value);
-    const msg=document.getElementById('coins-msg');
-    if(!amount||amount<1){msg.style.color='var(--red)';msg.innerText='Montant invalide !';return;}
-    if(amount>coins){msg.style.color='var(--red)';msg.innerText='Pas assez de pièces !';return;}
-    coins-=amount;DB.users[currentUser].coins=coins;DB.users[coinTarget].coins=(DB.users[coinTarget].coins||0)+amount;
-    const conv=getMsgKey(currentUser,coinTarget);
-    if(!DB.messages[conv])DB.messages[conv]=[];
-    DB.messages[conv].push({from:'système',to:coinTarget,text:'💰 '+currentUser+' t\'a envoyé '+amount+' pièces !',time:Date.now(),read:false,type:'system'});
-    showLoader();await dbWrite();hideLoader();updateStats();
-    msg.style.color='var(--green)';msg.innerText='✅ '+amount+' pièces envoyées !';
-    setTimeout(()=>document.getElementById('coins-screen').style.display='none',2000);
-}
+async function sendCoins(){const amount=parseInt(document.getElementById('coins-amount').value);const msg=document.getElementById('coins-msg');if(!amount||amount<1){msg.style.color='var(--red)';msg.innerText='Montant invalide !';return;}if(amount>coins){msg.style.color='var(--red)';msg.innerText='Pas assez de pièces !';return;}coins-=amount;DB.users[currentUser].coins=coins;DB.users[coinTarget].coins=(DB.users[coinTarget].coins||0)+amount;const conv=getMsgKey(currentUser,coinTarget);if(!DB.messages[conv])DB.messages[conv]=[];DB.messages[conv].push({from:'système',to:coinTarget,text:'💰 '+currentUser+' t\'a envoyé '+amount+' pièces !',time:Date.now(),read:false,type:'system'});showLoader();await dbWrite();hideLoader();updateStats();msg.style.color='var(--green)';msg.innerText='✅ '+amount+' pièces envoyées !';setTimeout(()=>document.getElementById('coins-screen').style.display='none',2000);}
 
 // ══════ SONS ══════
 const sounds={1:'https://www.myinstants.com/media/sounds/fahhhh.mp3',2:'https://www.myinstants.com/media/sounds/discord-notification.mp3',3:'https://www.myinstants.com/media/sounds/security-alarm.mp3',4:'https://www.myinstants.com/media/sounds/ta-da.mp3',5:'https://www.myinstants.com/media/sounds/dramatic-chipmunk.mp3'};
 function sp(id){const a=new Audio(sounds[id]);a.currentTime=0;a.play();}
 
-// ══════ VIRUS ══════
-let virusActive=false,virusTimerInterval=null,virusCodeInterval=null;
-const virusCodes=['[ENCRYPT] C:\\Users\\Documents\\*.docx','[ENCRYPT] C:\\Users\\Photos\\*.jpg','[ENCRYPT] C:\\Windows\\System32\\...','[LOCK] MBR overwritten','[SEND] IP: 192.168.'+Math.floor(Math.random()*255)+'.'+Math.floor(Math.random()*255),'[ENCRYPT] C:\\Users\\Downloads\\*'];
-let virusCodeIdx=0;
+// ══════ VIRUS AMELIORE ══════
+let virusActive=false,virusTimerInterval=null,virusCodeInterval=null,virusStatsInterval=null;
+const virusLogs=[
+    {t:'info',m:'[INIT] K-Virus v4.2.1 loaded successfully'},
+    {t:'ok',m:'[CONN] C2 server 185.220.101.47 connected'},
+    {t:'ok',m:'[PRIV] Administrator privileges acquired'},
+    {t:'info',m:'[SCAN] Enumerating C:\\Users\\...'},
+    {t:'err',m:'[CRYPT] AES-256 key generated: 7f3a9b2c...'},
+    {t:'ok',m:'[LOCK] C:\\Users\\Documents\\rapport.docx'},
+    {t:'ok',m:'[LOCK] C:\\Users\\Photos\\vacances2024\\'},
+    {t:'err',m:'[LOCK] C:\\Windows\\System32\\drivers\\'},
+    {t:'info',m:'[DATA] Uploading to remote server...'},
+    {t:'ok',m:'[LOCK] C:\\Users\\Downloads\\*.zip'},
+    {t:'err',m:'[CRYPT] Encrypting MBR sector 0...'},
+    {t:'info',m:'[NET] Scanning LAN for other targets...'},
+    {t:'ok',m:'[LOCK] C:\\Users\\Desktop\\*.* — DONE'},
+    {t:'err',m:'[WARN] Recovery tools detected — blocking...'},
+    {t:'ok',m:'[SEND] Credentials exported to C2'},
+];
+let virusLogIdx=0,virusFilesCount=0,virusMB=0;
 
 function startVirus(){
     virusActive=true;sp(3);
     document.documentElement.requestFullscreen().catch(()=>{});
     document.getElementById('terror-overlay').style.display='flex';
+    document.getElementById('virus-code').innerHTML='';
+    virusLogIdx=0;virusFilesCount=0;virusMB=0;
+    // Générer une IP aléatoire
+    document.getElementById('v-ip').innerText='192.168.'+Math.floor(Math.random()*255)+'.'+Math.floor(Math.random()*255);
+    // Timer
     let secs=3599;
     virusTimerInterval=setInterval(()=>{
         secs--;if(secs<0)secs=3599;
         const m=Math.floor(secs/60);const s=secs%60;
         document.getElementById('virus-timer').innerText=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
     },1000);
+    // Logs terminal
     virusCodeInterval=setInterval(()=>{
+        if(virusLogIdx>=virusLogs.length)virusLogIdx=0;
+        const log=virusLogs[virusLogIdx];
         const code=document.getElementById('virus-code');
-        code.innerHTML+=virusCodes[virusCodeIdx%virusCodes.length]+'<br>';
-        virusCodeIdx++;code.scrollTop=code.scrollHeight;
-    },800);
+        const line=document.createElement('div');
+        line.className=log.t;
+        line.innerText=log.m;
+        code.appendChild(line);
+        if(code.children.length>20)code.removeChild(code.children[0]);
+        virusLogIdx++;
+    },700);
+    // Stats fichiers
+    virusStatsInterval=setInterval(()=>{
+        virusFilesCount+=Math.floor(Math.random()*50+10);
+        virusMB+=Math.floor(Math.random()*20+5);
+        document.getElementById('v-files').innerText=virusFilesCount.toLocaleString();
+        document.getElementById('v-mb').innerText=virusMB+' MB';
+    },500);
 }
 
 function stopVirus(){
@@ -869,16 +893,19 @@ function stopVirus(){
     document.getElementById('virus-question').style.display='none';
     if(virusTimerInterval)clearInterval(virusTimerInterval);
     if(virusCodeInterval)clearInterval(virusCodeInterval);
+    if(virusStatsInterval)clearInterval(virusStatsInterval);
     document.exitFullscreen().catch(()=>{});
 }
 
-// QUESTION pour quitter avec Alt+F4
+// Question Alt+F4
 const exitQuestions=[
     {q:'Combien font 7 × 8 ?',o:['54','56','48','64'],b:1},
-    {q:'Quelle est la capitale de la France ?',o:['Lyon','Marseille','Paris','Bordeaux'],b:2},
-    {q:'2x + 4 = 10, x = ?',o:['2','3','4','5'],b:1},
-    {q:'Quel est le symbole chimique de l\'eau ?',o:['O2','CO2','H2O','NaCl'],b:2},
-    {q:'Combien font 15 × 4 ?',o:['45','50','60','65'],b:2},
+    {q:'Capitale de la France ?',o:['Lyon','Marseille','Paris','Bordeaux'],b:2},
+    {q:'2x + 4 = 10 → x = ?',o:['2','3','4','5'],b:1},
+    {q:'Symbole chimique de l\'eau ?',o:['O2','CO2','H2O','NaCl'],b:2},
+    {q:'15 × 4 = ?',o:['45','50','60','65'],b:2},
+    {q:'Somme des angles d\'un triangle ?',o:['90°','120°','180°','360°'],b:2},
+    {q:'√64 = ?',o:['6','7','8','9'],b:2},
 ];
 let currentExitQ=null;
 
@@ -895,16 +922,14 @@ function showExitQuestion(){
 }
 
 function checkExitAnswer(chosen,btn){
-    const btns=document.querySelectorAll('.vq-opt');
-    btns.forEach(b=>b.disabled=true);
+    const btns=document.querySelectorAll('.vq-opt');btns.forEach(b=>b.disabled=true);
     if(chosen===currentExitQ.b){
         btn.classList.add('correct');
         document.getElementById('vq-feedback').style.color='#22c55e';
         document.getElementById('vq-feedback').innerText='✅ Bonne réponse ! Tu peux partir 😄';
         setTimeout(()=>stopVirus(),1500);
     }else{
-        btn.classList.add('wrong');
-        btns[currentExitQ.b].classList.add('correct');
+        btn.classList.add('wrong');btns[currentExitQ.b].classList.add('correct');
         document.getElementById('vq-feedback').style.color='#ef4444';
         document.getElementById('vq-feedback').innerText='❌ Mauvaise réponse ! Réessaie...';
         setTimeout(()=>{btns.forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong');});document.getElementById('vq-feedback').innerText='';},2000);
@@ -915,180 +940,35 @@ function checkExitAnswer(chosen,btn){
 const COURS={maths:{'6e':[{titre:'Numération',fiche:`<h2>📐 Numération — 6e</h2><div class="exemple">1234=1×1000+2×100+3×10+4</div>`,questions:[{q:'45+38=?',o:['73','83','93','63'],b:1},{q:'12×8=?',o:['86','96','106','76'],b:1},{q:'200−67=?',o:['133','143','123','153'],b:0},{q:'Plus grand: 457 ou 475?',o:['457','475','Égaux','?'],b:1},{q:'Valeur du 3 dans 1345?',o:['3','30','300','3000'],b:2}]},{titre:'Géométrie',fiche:`<h2>📐 Géométrie — 6e</h2><div class="exemple">Carré(a): P=4a A=a² | Rectangle: P=2(L+l) A=L×l</div>`,questions:[{q:'Côtés hexagone?',o:['5','6','7','8'],b:1},{q:'Périmètre carré 5cm?',o:['10cm','15cm','20cm','25cm'],b:2},{q:'Aire rectangle 4×3?',o:['7','12','14','9'],b:1},{q:'Angles triangle?',o:['90°','180°','270°','360°'],b:1},{q:'Angle droit?',o:['45°','60°','90°','180°'],b:2}]}],'5e':[{titre:'Fractions',fiche:`<h2>📐 Fractions — 5e</h2><div class="exemple">1/3+1/6=1/2 | 2/3×3/4=1/2</div>`,questions:[{q:'1/2+1/4=?',o:['2/6','3/4','2/4','1/3'],b:1},{q:'3/4 de 20?',o:['12','15','18','10'],b:1},{q:'Fraction=0,5?',o:['1/4','1/3','1/2','2/3'],b:2},{q:'Simplifier 6/9',o:['3/4','2/3','1/3','4/6'],b:1},{q:'3/5×10=?',o:['4','5','6','8'],b:2}]},{titre:'Proportionnalité',fiche:`<h2>📐 Proportionnalité — 5e</h2><div class="exemple">3 stylos=6€ → 7=14€ | 20% de 80=16</div>`,questions:[{q:'4 cahiers=12€, 6=?',o:['15€','18€','20€','24€'],b:1},{q:'20% de 80?',o:['12','14','16','20'],b:2},{q:'Coeff x=5→y=15?',o:['2','3','5','10'],b:1},{q:'1/100: 3cm=?',o:['3m','30cm','300cm','30m'],b:0},{q:'2 pizzas pr 6, pr 15?',o:['4','5','6','7'],b:1}]}],'4e':[{titre:'Équations',fiche:`<h2>📐 Équations — 4e</h2><div class="exemple">2x+5=15→x=5 | 3x+2=x+8→x=3</div>`,questions:[{q:'x+7=15→x=?',o:['7','8','22','6'],b:1},{q:'3x=21→x=?',o:['6','7','8','9'],b:1},{q:'2x+3=11→x=?',o:['3','4','5','7'],b:1},{q:'5x−2=13→x=?',o:['2','3','4','5'],b:1},{q:'4x+1=2x+9→x=?',o:['3','4','5','2'],b:1}]},{titre:'Pythagore',fiche:`<h2>📐 Pythagore — 4e</h2><div class="exemple">a²+b²=c² | 3²+4²=5²</div>`,questions:[{q:'3,4→hyp?',o:['5','6','7','√7'],b:0},{q:'5,12→hyp?',o:['13','14','15','17'],b:0},{q:'Hyp=10,côté=6→?',o:['6','7','8','9'],b:2},{q:'Thalès si droites?',o:['Perp.','Parallèles','Sécantes','?'],b:1},{q:'5²+12²=?',o:['144','169','196','225'],b:1}]}],'3e':[{titre:'Fonctions',fiche:`<h2>📐 Fonctions — 3e</h2><div class="exemple">f(x)=3x→f(2)=6 | f(x)=2x+1: pente=2</div>`,questions:[{q:'f(x)=3x, f(4)=?',o:['7','10','12','14'],b:2},{q:'f(x)=2x+5, coeff?',o:['5','2','7','3'],b:1},{q:'f(x)=−x+4, f(0)=?',o:['−4','0','4','1'],b:2},{q:'Passe par (0,0)(2,6)?',o:['f=2x','f=3x','f=6x','f=x+3'],b:1},{q:'f(x)=5x−3, f(2)=?',o:['5','7','10','12'],b:1}]},{titre:'Stats & Probas',fiche:`<h2>📐 Stats — 3e</h2><div class="exemple">Moyenne=(5+8+3+6)÷4=5,5 | P(6)=1/6</div>`,questions:[{q:'Moyenne 4,6,8,10?',o:['6','7','8','9'],b:1},{q:'Médiane 2,5,7,9,11?',o:['5','7','9','6'],b:1},{q:'P(pile)?',o:['1/3','1/4','1/2','2/3'],b:2},{q:'3r+7b P(rouge)?',o:['3/7','3/10','7/10','1/3'],b:1},{q:'Moyenne 0,10,20?',o:['5','10','15','20'],b:1}]}]},francais:{'6e':[{titre:'Types de phrases',fiche:`<h2>📝 Phrases — 6e</h2><p>Déclarative|Interrogative|Impérative|Exclamative</p>`,questions:[{q:'"Le chat dort."=?',o:['Interrogative','Déclarative','Exclamative','Impérative'],b:1},{q:'Signe exclamative?',o:['.','?','!',';'],b:2},{q:'Sujet "Marie mange"?',o:['mange','pomme','Marie','une pomme'],b:2},{q:'COD "Il lit un livre"?',o:['Il','lit','un','un livre'],b:3},{q:'"Viens!"=?',o:['Déclarative','Interrogative','Impérative','Exclamative'],b:2}]}],'5e':[{titre:'Temps du passé',fiche:`<h2>📝 Passé — 5e</h2><div class="exemple">Imparfait=habitude | PS=ponctuel | PQP=antérieur</div>`,questions:[{q:'Temps habitude?',o:['PS','Futur','Imparfait','Présent'],b:2},{q:'"Il courut"=?',o:['Imparfait','PS','PC','PQP'],b:1},{q:'"Il avait fini"=?',o:['PC','Imparfait','PQP','FA'],b:2},{q:'Manger imparfait 1ère?',o:['mangeai','mange','mangeais','mangerais'],b:2},{q:'PS exprime?',o:['Habitude','Ponctuel','Futur','Condition'],b:1}]}],'4e':[{titre:'Figures de style',fiche:`<h2>📝 Figures — 4e</h2><div class="exemple">Métaphore|Comparaison|Personnification|Hyperbole</div>`,questions:[{q:'"Pleure comme fontaine"?',o:['Métaphore','Comparaison','Hyperbole','Anaphore'],b:1},{q:'"Mer rugit"?',o:['Comparaison','Métaphore','Personnification','Hyperbole'],b:2},{q:'"Mille choses"?',o:['Anaphore','Litote','Hyperbole','Métaphore'],b:2},{q:'"Vie=voyage"?',o:['Comparaison','Métaphore','Personnification','Anaphore'],b:1},{q:'Anaphore=?',o:['Exagérer','Répéter','Comparer','Personnifier'],b:1}]}],'3e':[{titre:'Argumentation',fiche:`<h2>📝 Argumentation — 3e</h2><div class="exemple">car=cause | donc=conséq. | mais=oppos. | de plus=addition</div>`,questions:[{q:'"Car"=?',o:['Conséquence','Opposition','Cause','Addition'],b:2},{q:'"Cependant"=?',o:['Cause','Addition','Opposition','Conséquence'],b:2},{q:'Thèse=?',o:['Exemple','Position','Connecteur','Question'],b:1},{q:'"De plus"=?',o:['Opposition','Cause','Conséquence','Addition'],b:3},{q:'Contre-arg=?',o:['Renforcer','Réfuter','Exemple','Conclure'],b:1}]}]},histoire:{'6e':[{titre:'Préhistoire',fiche:`<h2>🌍 Préhistoire — 6e</h2><p>~3M ans→écriture ~3300avJC | Paléo:nomades,Lascaux | Néo:agriculture</p>`,questions:[{q:'Fin préhistoire?',o:['Révol.','Écriture','Rome','Empire'],b:1},{q:'Paléo=?',o:['Sédentaires','Nomades','Agriculteurs','Marchands'],b:1},{q:'Lascaux=?',o:['Temples','Peintures','Pyramides','Mégalithes'],b:1},{q:'Néo début?',o:['Peinture','Agriculture','Navigation','Cathédrales'],b:1},{q:'Mégalithe=?',o:['Ancêtre','Grande pierre','Outil','Peinture'],b:1}]}],'5e':[{titre:'Islam médiéval',fiche:`<h2>🌍 Islam — 5e</h2><p>610:Révélation|622:Hégire|632:Mort Mahomet</p>`,questions:[{q:'Hégire en?',o:['610','622','632','711'],b:1},{q:'Islam né en?',o:['Égypte','Perse','Arabie','Inde'],b:2},{q:'Livre sacré?',o:['Bible','Torah','Coran','Talmud'],b:2},{q:'"Algèbre" du?',o:['Latin','Grec','Arabe','Hébreu'],b:2},{q:'Mahomet meurt en?',o:['610','622','632','700'],b:2}]}],'4e':[{titre:'Révolution française',fiche:`<h2>🌍 Révolution — 4e</h2><p>14juil1789:Bastille|26août:DDHC|21jan1793:Louis XVI</p>`,questions:[{q:'Bastille?',o:['5mai','14juil','26août','21jan'],b:1},{q:'DDHC en?',o:['1787','1788','1789','1793'],b:2},{q:'Louis XVI?',o:['1789','1791','1793','1795'],b:2},{q:'Lumières=?',o:['Religieux','Philosophique','Militaire','Artistique'],b:1},{q:'Tiers état?',o:['30%','50%','70%','97%'],b:3}]}],'3e':[{titre:'2e Guerre mondiale',fiche:`<h2>🌍 2eGM — 3e</h2><p>1939:Pologne|1940:18juin|1944:Débarquement|1945:Capitulation|Shoah:6M</p>`,questions:[{q:'Débarquement?',o:['6juin42','6juin44','8mai45','1sept39'],b:1},{q:'18 juin?',o:['Churchill','Pétain','DeGaulle','Roosevelt'],b:2},{q:'Shoah=?',o:['Polonais','Russes','Juifs','Tsiganes'],b:2},{q:'2eGM en?',o:['1935','1937','1939','1941'],b:2},{q:'Capitulation?',o:['6juin44','8mai45','2sept45','30avr45'],b:1}]}]},svt:{'6e':[{titre:'La cellule',fiche:`<h2>🔬 Cellule — 6e</h2><p>Membrane:protection|Cytoplasme:liquide|Noyau:ADN</p>`,questions:[{q:'ADN dans?',o:['Membrane','Cytoplasme','Noyau','Paroi'],b:2},{q:'Chloroplastes?',o:['Animales','Végétales','Les deux','Aucune'],b:1},{q:'Membrane=?',o:['Photosynthèse','Protéger','ADN','Énergie'],b:1},{q:'Unicellulaire=?',o:['0','1 cellule','100','Millions'],b:1},{q:'ADN=?',o:['Chimique','Génétique','Électrique','Mécanique'],b:1}]}],'5e':[{titre:'Plantes',fiche:`<h2>🔬 Plantes — 5e</h2><div class="exemple">CO₂+eau+lumière→glucose+O₂</div>`,questions:[{q:'Produit?',o:['CO₂','Azote','Glucose','Nitrate'],b:2},{q:'Stomates sur?',o:['Racines','Tiges','Feuilles','Fleurs'],b:2},{q:'Racines absorbent?',o:['Lumière','CO₂','Eau+sels','Glucose'],b:2},{q:'Chlorophylle=?',o:['Jaune','Rouge','Verte','Bleue'],b:2},{q:'Nécessite?',o:['Obscurité','Lumière','Chaleur','Vent'],b:1}]}],'4e':[{titre:'Reproduction',fiche:`<h2>🔬 Reproduction — 4e</h2><p>Ovule+Spermat.→Zygote | Grossesse:~9mois</p>`,questions:[{q:'Fécondation=?',o:['2ovules','Ovule+sp.','2sp.','Ovule+noyau'],b:1},{q:'Grossesse=?',o:['6mois','9mois','12mois','3mois'],b:1},{q:'Puberté par?',o:['Vitamines','Hormones','Neurones','Anticorps'],b:1},{q:'Zygote après?',o:['Naissance','Puberté','Fécondation','Accouchement'],b:2},{q:'Placenta=?',o:['Cœur','Nourrir','Hormones','Respirer'],b:1}]}],'3e':[{titre:'Génétique',fiche:`<h2>🔬 Génétique — 3e</h2><p>Gène=segment ADN|46 chromosomes|Gamètes:23|50% de chaque parent</p>`,questions:[{q:'Chromosomes?',o:['23','44','46','48'],b:2},{q:'Gène=?',o:['Protéine','Chromosome','Segment ADN','Acide aminé'],b:2},{q:'Gamètes ont?',o:['46','23','22','48'],b:1},{q:'Dominant=?',o:['Jamais','Toujours','En double','Selon âge'],b:1},{q:'Héritage?',o:['25%','33%','50%','75%'],b:2}]}]}};
 
 let currentL='3e',currentMat='maths';
-function buildSidebar(){
-    const data=COURS[currentMat][currentL]||[];
-    const mn={maths:'Mathématiques',francais:'Français',histoire:'Histoire-Géo',svt:'SVT'};
-    document.getElementById('side-t').innerText=mn[currentMat]+' — '+currentL.toUpperCase();
-    const list=document.getElementById('chapter-list');list.innerHTML='';
-    data.forEach((chap,i)=>{
-        const d=document.createElement('div');d.className='chap-block';
-        d.innerHTML=`<div class="chap-name">📁 ${chap.titre}</div><div class="sub-btns"><button class="sub-btn" onclick="openFiche(${i})">📄 Fiche</button><button class="sub-btn" onclick="openExercice(${i})">✏️ Exos</button></div>`;
-        list.appendChild(d);
-    });
-}
+function buildSidebar(){const data=COURS[currentMat][currentL]||[];const mn={maths:'Mathématiques',francais:'Français',histoire:'Histoire-Géo',svt:'SVT'};document.getElementById('side-t').innerText=mn[currentMat]+' — '+currentL.toUpperCase();const list=document.getElementById('chapter-list');list.innerHTML='';data.forEach((chap,i)=>{const d=document.createElement('div');d.className='chap-block';d.innerHTML=`<div class="chap-name">📁 ${chap.titre}</div><div class="sub-btns"><button class="sub-btn" onclick="openFiche(${i})">📄 Fiche</button><button class="sub-btn" onclick="openExercice(${i})">✏️ Exos</button></div>`;list.appendChild(d);});}
 function setL(b){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');currentL=b.innerText.toLowerCase();buildSidebar();}
 function setMat(b,mat){document.querySelectorAll('.mat-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');currentMat=mat;buildSidebar();}
 function openFiche(i){const chap=(COURS[currentMat][currentL]||[])[i];if(!chap)return;document.getElementById('fiche-content').innerHTML=chap.fiche;document.getElementById('fiche-card').style.display='block';document.getElementById('exercise-card').style.display='none';document.getElementById('main-content').scrollTop=400;}
 
 let score=0,currentQ=0,currentQuestions=[];
 function openExercice(i){const chap=(COURS[currentMat][currentL]||[])[i];if(!chap)return;currentQuestions=chap.questions;score=0;currentQ=0;document.getElementById('ex-title').innerText='✏️ '+chap.titre;document.getElementById('fiche-card').style.display='none';document.getElementById('exercise-card').style.display='block';document.getElementById('main-content').scrollTop=400;showQ();}
-function showQ(){
-    if(currentQ>=currentQuestions.length){
-        document.getElementById('q-text').innerText='🎉 Score : '+score+'/'+currentQuestions.length;
-        document.getElementById('opt-cont').innerHTML=`<button class="btn-opt" onclick="openExercice(0)">🔄 Recommencer</button>`;
-        document.getElementById('feedback').innerText='';
-        document.getElementById('score-display').innerText='Final : '+score+'/'+currentQuestions.length;
-        const p=Math.round(score/currentQuestions.length*100);
-        addMascotMsg('Minou : '+p+'% ! '+(p>=80?'Excellent 🥳 +bonus booster !':p>=50?'Pas mal 💪':'Révise ! 📄'));
-        if(p>=80){coins+=20;xp+=100;saveUserData();}
-        return;
-    }
-    const q=currentQuestions[currentQ];
-    document.getElementById('q-text').innerText=`Q${currentQ+1}/${currentQuestions.length} — ${q.q}`;
-    document.getElementById('feedback').innerText='';
-    document.getElementById('score-display').innerText='Score : '+score+'/'+currentQ;
-    const cont=document.getElementById('opt-cont');cont.innerHTML='';
-    q.o.forEach((opt,idx)=>{
-        const btn=document.createElement('button');btn.className='btn-opt';btn.innerText=opt;
-        btn.onclick=()=>checkAnswer(idx,q.b);cont.appendChild(btn);
-    });
-}
-async function checkAnswer(chosen,bon){
-    document.querySelectorAll('.btn-opt').forEach((b,i)=>{b.disabled=true;if(i===bon)b.classList.add('correct');else if(i===chosen)b.classList.add('wrong');});
-    const fb=document.getElementById('feedback');
-    if(chosen===bon){score++;xp+=50;coins+=10;fb.style.color='var(--green)';fb.innerText='✅ Bonne réponse ! +50 XP +10 💰';}
-    else{fb.style.color='var(--red)';fb.innerText='❌ Réponse : '+document.querySelectorAll('.btn-opt')[bon].innerText;}
-    document.getElementById('score-display').innerText='Score : '+score+'/'+(currentQ+1);
-    updateStats();await saveUserData();
-    setTimeout(()=>{currentQ++;showQ();},1800);
-}
+function showQ(){if(currentQ>=currentQuestions.length){document.getElementById('q-text').innerText='🎉 Score : '+score+'/'+currentQuestions.length;document.getElementById('opt-cont').innerHTML=`<button class="btn-opt" onclick="openExercice(0)">🔄 Recommencer</button>`;document.getElementById('feedback').innerText='';document.getElementById('score-display').innerText='Final : '+score+'/'+currentQuestions.length;const p=Math.round(score/currentQuestions.length*100);addMascotMsg('Minou : '+p+'% ! '+(p>=80?'Excellent 🥳 +bonus !':p>=50?'Pas mal 💪':'Révise ! 📄'));if(p>=80){coins+=20;xp+=100;saveUserData();}return;}const q=currentQuestions[currentQ];document.getElementById('q-text').innerText=`Q${currentQ+1}/${currentQuestions.length} — ${q.q}`;document.getElementById('feedback').innerText='';document.getElementById('score-display').innerText='Score : '+score+'/'+currentQ;const cont=document.getElementById('opt-cont');cont.innerHTML='';q.o.forEach((opt,idx)=>{const btn=document.createElement('button');btn.className='btn-opt';btn.innerText=opt;btn.onclick=()=>checkAnswer(idx,q.b);cont.appendChild(btn);});}
+async function checkAnswer(chosen,bon){document.querySelectorAll('.btn-opt').forEach((b,i)=>{b.disabled=true;if(i===bon)b.classList.add('correct');else if(i===chosen)b.classList.add('wrong');});const fb=document.getElementById('feedback');if(chosen===bon){score++;xp+=50;coins+=10;fb.style.color='var(--green)';fb.innerText='✅ Bonne réponse ! +50 XP +10 💰';}else{fb.style.color='var(--red)';fb.innerText='❌ Réponse : '+document.querySelectorAll('.btn-opt')[bon].innerText;}document.getElementById('score-display').innerText='Score : '+score+'/'+(currentQ+1);updateStats();await saveUserData();setTimeout(()=>{currentQ++;showQ();},1800);}
 
 // ══════ MASCOTTE ══════
-const mascReplies={bonjour:['Bonjour ! 😸','Salut ! 🐱','Hello ! 😻'],aide:['Clique sur une fiche ! 📄','Regarde la sidebar !','Je suis là ! 😸'],nul:['Tu vas y arriver ! 💪','Essaie encore ! 🎯','Tout le monde progresse ! ⭐'],merci:['Avec plaisir ! 😸','🥰 Merci !','Tu es génial(e) !'],default:['Intéressant ! 🤔','Regarde ta fiche ! 📄','Demande à ton prof ! 😄','Continue ! 💪','Pense à ouvrir des boosters ! 🎴']};
+const mascReplies={bonjour:['Bonjour ! 😸','Salut ! 🐱','Hello ! 😻'],aide:['Clique sur une fiche ! 📄','Regarde la sidebar !','Je suis là ! 😸'],nul:['Tu vas y arriver ! 💪','Essaie encore ! 🎯','Tout le monde progresse ! ⭐'],merci:['Avec plaisir ! 😸','🥰 Merci !','Tu es génial(e) !'],default:['Intéressant ! 🤔','Regarde ta fiche ! 📄','Demande à ton prof ! 😄','Continue ! 💪','F2 pour les cartes ! 🎴']};
 function addMascotMsg(text){const list=document.getElementById('mascotte-msgs');const d=document.createElement('div');d.className='mascotte-msg';d.innerText=text;list.appendChild(d);list.scrollTop=list.scrollHeight;if(list.children.length>8)list.removeChild(list.children[0]);}
 function sendChat(){const val=document.getElementById('chat-input').value.trim();if(!val)return;const low=val.toLowerCase();let arr;if(low.includes('bonjour')||low.includes('salut'))arr=mascReplies.bonjour;else if(low.includes('aide')||low.includes('help'))arr=mascReplies.aide;else if(low.includes('nul')||low.includes('comprends pas'))arr=mascReplies.nul;else if(low.includes('merci')||low.includes('bravo'))arr=mascReplies.merci;else arr=mascReplies.default;addMascotMsg('Tu : '+val);setTimeout(()=>addMascotMsg('Minou : '+arr[Math.floor(Math.random()*arr.length)]),400);document.getElementById('chat-input').value='';}
 function setMood(emoji,msg){document.getElementById('mood').innerText=emoji;addMascotMsg('Minou : '+msg);}
 
 // ══════ CARTES ══════
-const TOUTES_CARTES=[
-    {id:'newton',nom:'Isaac Newton',emoji:'🍎',rarete:'legendaire',matiere:'maths'},
-    {id:'pythagore',nom:'Pythagore',emoji:'📐',rarete:'epique',matiere:'maths'},
-    {id:'einstein',nom:'Einstein',emoji:'⚛️',rarete:'legendaire',matiere:'svt'},
-    {id:'curie',nom:'Marie Curie',emoji:'☢️',rarete:'epique',matiere:'svt'},
-    {id:'napoleon',nom:'Napoléon',emoji:'👑',rarete:'epique',matiere:'histoire'},
-    {id:'charlemagne',nom:'Charlemagne',emoji:'⚔️',rarete:'rare',matiere:'histoire'},
-    {id:'moliere',nom:'Molière',emoji:'🎭',rarete:'rare',matiere:'francais'},
-    {id:'hugo',nom:'Victor Hugo',emoji:'📖',rarete:'epique',matiere:'francais'},
-    {id:'thales',nom:'Thalès',emoji:'📏',rarete:'rare',matiere:'maths'},
-    {id:'archimede',nom:'Archimède',emoji:'🛁',rarete:'rare',matiere:'maths'},
-    {id:'darwin',nom:'Darwin',emoji:'🐒',rarete:'epique',matiere:'svt'},
-    {id:'pasteur',nom:'Pasteur',emoji:'🔬',rarete:'rare',matiere:'svt'},
-    {id:'cleopatre',nom:'Cléopâtre',emoji:'🐍',rarete:'epique',matiere:'histoire'},
-    {id:'christophe',nom:'Christophe Colomb',emoji:'⛵',rarete:'rare',matiere:'histoire'},
-    {id:'shakespeare',nom:'Shakespeare',emoji:'🎩',rarete:'rare',matiere:'francais'},
-    {id:'descartes',nom:'Descartes',emoji:'💭',rarete:'rare',matiere:'maths'},
-    {id:'atom',nom:'Atome',emoji:'⚛️',rarete:'commun',matiere:'svt'},
-    {id:'adn',nom:'ADN',emoji:'🧬',rarete:'commun',matiere:'svt'},
-    {id:'triangle',nom:'Triangle rectangle',emoji:'📐',rarete:'commun',matiere:'maths'},
-    {id:'fraction',nom:'Fraction',emoji:'➗',rarete:'commun',matiere:'maths'},
-    {id:'bastille',nom:'Prise de la Bastille',emoji:'🏰',rarete:'commun',matiere:'histoire'},
-    {id:'rome',nom:'Rome antique',emoji:'🏛️',rarete:'commun',matiere:'histoire'},
-    {id:'virgule',nom:'Virgule',emoji:'✒️',rarete:'commun',matiere:'francais'},
-    {id:'metaphore',nom:'Métaphore',emoji:'🌊',rarete:'commun',matiere:'francais'},
-    {id:'cellule',nom:'Cellule vivante',emoji:'🦠',rarete:'commun',matiere:'svt'},
-    {id:'photosynthese',nom:'Photosynthèse',emoji:'🌱',rarete:'commun',matiere:'svt'},
-    {id:'equation',nom:'Équation',emoji:'🔢',rarete:'commun',matiere:'maths'},
-    {id:'probabilite',nom:'Probabilité',emoji:'🎲',rarete:'commun',matiere:'maths'},
-    {id:'ww2',nom:'2e Guerre mondiale',emoji:'🕊️',rarete:'rare',matiere:'histoire'},
-    {id:'islam',nom:'Islam médiéval',emoji:'🕌',rarete:'rare',matiere:'histoire'},
-];
+const TOUTES_CARTES=[{id:'newton',nom:'Isaac Newton',emoji:'🍎',rarete:'legendaire',matiere:'maths'},{id:'pythagore',nom:'Pythagore',emoji:'📐',rarete:'epique',matiere:'maths'},{id:'einstein',nom:'Einstein',emoji:'⚛️',rarete:'legendaire',matiere:'svt'},{id:'curie',nom:'Marie Curie',emoji:'☢️',rarete:'epique',matiere:'svt'},{id:'napoleon',nom:'Napoléon',emoji:'👑',rarete:'epique',matiere:'histoire'},{id:'charlemagne',nom:'Charlemagne',emoji:'⚔️',rarete:'rare',matiere:'histoire'},{id:'moliere',nom:'Molière',emoji:'🎭',rarete:'rare',matiere:'francais'},{id:'hugo',nom:'Victor Hugo',emoji:'📖',rarete:'epique',matiere:'francais'},{id:'thales',nom:'Thalès',emoji:'📏',rarete:'rare',matiere:'maths'},{id:'archimede',nom:'Archimède',emoji:'🛁',rarete:'rare',matiere:'maths'},{id:'darwin',nom:'Darwin',emoji:'🐒',rarete:'epique',matiere:'svt'},{id:'pasteur',nom:'Pasteur',emoji:'🔬',rarete:'rare',matiere:'svt'},{id:'cleopatre',nom:'Cléopâtre',emoji:'🐍',rarete:'epique',matiere:'histoire'},{id:'christophe',nom:'Christophe Colomb',emoji:'⛵',rarete:'rare',matiere:'histoire'},{id:'shakespeare',nom:'Shakespeare',emoji:'🎩',rarete:'rare',matiere:'francais'},{id:'descartes',nom:'Descartes',emoji:'💭',rarete:'rare',matiere:'maths'},{id:'atom',nom:'Atome',emoji:'⚛️',rarete:'commun',matiere:'svt'},{id:'adn',nom:'ADN',emoji:'🧬',rarete:'commun',matiere:'svt'},{id:'triangle',nom:'Triangle rectangle',emoji:'📐',rarete:'commun',matiere:'maths'},{id:'fraction',nom:'Fraction',emoji:'➗',rarete:'commun',matiere:'maths'},{id:'bastille',nom:'Prise de la Bastille',emoji:'🏰',rarete:'commun',matiere:'histoire'},{id:'rome',nom:'Rome antique',emoji:'🏛️',rarete:'commun',matiere:'histoire'},{id:'virgule',nom:'Virgule',emoji:'✒️',rarete:'commun',matiere:'francais'},{id:'metaphore',nom:'Métaphore',emoji:'🌊',rarete:'commun',matiere:'francais'},{id:'cellule',nom:'Cellule vivante',emoji:'🦠',rarete:'commun',matiere:'svt'},{id:'photosynthese',nom:'Photosynthèse',emoji:'🌱',rarete:'commun',matiere:'svt'},{id:'equation',nom:'Équation',emoji:'🔢',rarete:'commun',matiere:'maths'},{id:'probabilite',nom:'Probabilité',emoji:'🎲',rarete:'commun',matiere:'maths'},{id:'ww2',nom:'2e Guerre mondiale',emoji:'🕊️',rarete:'rare',matiere:'histoire'},{id:'islam',nom:'Islam médiéval',emoji:'🕌',rarete:'rare',matiere:'histoire'}];
 
-const RARETES_POOL={commun:60,rare:30,epique:9,legendaire:1};
-
-function tirerCarte(garantieMin=null){
-    const rand=Math.random()*100;
-    let rarete;
-    if(garantieMin==='rare'){rarete=rand<50?'rare':rand<80?'epique':'legendaire';}
-    else{rarete=rand<RARETES_POOL.commun?'commun':rand<RARETES_POOL.commun+RARETES_POOL.rare?'rare':rand<99?'epique':'legendaire';}
-    const pool=TOUTES_CARTES.filter(c=>c.rarete===rarete);
-    return pool[Math.floor(Math.random()*pool.length)];
-}
+function tirerCarte(garantieMin=null){const rand=Math.random()*100;let rarete;if(garantieMin==='rare'){rarete=rand<50?'rare':rand<80?'epique':'legendaire';}else{rarete=rand<60?'commun':rand<90?'rare':rand<99?'epique':'legendaire';}const pool=TOUTES_CARTES.filter(c=>c.rarete===rarete);return pool[Math.floor(Math.random()*pool.length)];}
 
 let cartesPendantes=[];
-
-function toggleCards(){
-    const s=document.getElementById('cards-screen');
-    s.style.display=s.style.display==='flex'?'none':'flex';
-    if(s.style.display==='flex'){showCardsTab('boosters');updateBoosterBtns();}
-}
-
-function showCardsTab(tab){
-    document.querySelectorAll('.cards-tab').forEach(t=>t.classList.remove('active'));
-    document.getElementById('cards-boosters').style.display=tab==='boosters'?'block':'none';
-    document.getElementById('cards-collection').style.display=tab==='collection'?'block':'none';
-    document.querySelectorAll('.cards-tab')[tab==='boosters'?0:1].classList.add('active');
-    if(tab==='collection')renderCollection();
-}
-
-function updateBoosterBtns(){
-    document.getElementById('booster-coins-btn').disabled=coins<50;
-    document.getElementById('booster-xp-btn').disabled=xp<200;
-    document.getElementById('booster-premium-btn').disabled=coins<150;
-}
-
-function openBooster(type){
-    let nb=3;let cartes=[];
-    if(type==='coins'){if(coins<50){notif('Pas assez de pièces !','#ef4444');return;}coins-=50;}
-    else if(type==='xp'){if(xp<200){notif('Pas assez de XP !','#ef4444');return;}xp-=200;}
-    else if(type==='premium'){if(coins<150){notif('Pas assez de pièces !','#ef4444');return;}coins-=150;nb=5;}
-    updateStats();
-    for(let i=0;i<nb;i++)cartes.push(tirerCarte(type==='premium'&&i===0?'rare':null));
-    cartesPendantes=cartes;
-    const bo=document.getElementById('booster-open');
-    const pack=document.getElementById('booster-pack-wrap');
-    const rev=document.getElementById('revealed-cards');
-    pack.style.display='flex';rev.style.display='none';rev.innerHTML='';
-    document.getElementById('booster-close').style.display='none';
-    bo.style.display='flex';
-}
-
-function revealCards(){
-    document.getElementById('booster-pack-wrap').style.display='none';
-    const rev=document.getElementById('revealed-cards');rev.style.display='flex';rev.innerHTML='';
-    cartesPendantes.forEach((c,i)=>{
-        const d=document.createElement('div');
-        d.className='revealed-card card-item '+c.rarete;
-        d.style.animationDelay=(i*0.2)+'s';
-        d.innerHTML=`<div class="card-emoji">${c.emoji}</div><div class="card-name">${c.nom}</div><div class="card-rarity rarity-${c.rarete}">${c.rarete.toUpperCase()}</div>`;
-        rev.appendChild(d);
-    });
-    document.getElementById('booster-close').style.display='block';
-}
-
-async function closeBoosterOpen(){
-    document.getElementById('booster-open').style.display='none';
-    if(!DB.users[currentUser].cards)DB.users[currentUser].cards=[];
-    cartesPendantes.forEach(c=>{
-        if(!DB.users[currentUser].cards.find(x=>x.id===c.id))
-            DB.users[currentUser].cards.push({...c,obtenue:Date.now(),nouvelle:true});
-    });
-    showLoader();await dbWrite();hideLoader();
-    updateStats();cartesPendantes=[];
-    notif('🎴 Cartes ajoutées à ta collection !','var(--primary)');
-}
-
-function renderCollection(){
-    const myCards=DB.users[currentUser]?.cards||[];
-    const grid=document.getElementById('card-grid');grid.innerHTML='';
-    document.getElementById('collection-info').innerText=myCards.length+' / '+TOUTES_CARTES.length+' cartes collectées';
-    TOUTES_CARTES.forEach(c=>{
-        const owned=myCards.find(m=>m.id===c.id);
-        const d=document.createElement('div');
-        d.className='card-item '+(owned?c.rarete:'locked');
-        d.innerHTML=`<div class="card-emoji">${owned?c.emoji:'❓'}</div><div class="card-name">${owned?c.nom:'???'}</div><div class="card-rarity rarity-${c.rarete}">${c.rarete.toUpperCase()}</div>${owned&&owned.nouvelle?'<div class="card-new">NEW</div>':''}`;
-        grid.appendChild(d);
-    });
-}
+function toggleCards(){const s=document.getElementById('cards-screen');s.style.display=s.style.display==='flex'?'none':'flex';if(s.style.display==='flex'){showCardsTab('boosters');updateBoosterBtns();}}
+function showCardsTab(tab){document.querySelectorAll('.cards-tab').forEach(t=>t.classList.remove('active'));document.getElementById('cards-boosters').style.display=tab==='boosters'?'block':'none';document.getElementById('cards-collection').style.display=tab==='collection'?'block':'none';document.querySelectorAll('.cards-tab')[tab==='boosters'?0:1].classList.add('active');if(tab==='collection')renderCollection();}
+function updateBoosterBtns(){document.getElementById('booster-coins-btn').disabled=coins<50;document.getElementById('booster-xp-btn').disabled=xp<200;document.getElementById('booster-premium-btn').disabled=coins<150;}
+function openBooster(type){let nb=3;if(type==='coins'){if(coins<50){notif('Pas assez de pièces !','#ef4444');return;}coins-=50;}else if(type==='xp'){if(xp<200){notif('Pas assez de XP !','#ef4444');return;}xp-=200;}else if(type==='premium'){if(coins<150){notif('Pas assez de pièces !','#ef4444');return;}coins-=150;nb=5;}updateStats();const cartes=[];for(let i=0;i<nb;i++)cartes.push(tirerCarte(type==='premium'&&i===0?'rare':null));cartesPendantes=cartes;document.getElementById('booster-pack-wrap').style.display='flex';document.getElementById('revealed-cards').style.display='none';document.getElementById('revealed-cards').innerHTML='';document.getElementById('booster-close').style.display='none';document.getElementById('booster-open').style.display='flex';}
+function revealCards(){document.getElementById('booster-pack-wrap').style.display='none';const rev=document.getElementById('revealed-cards');rev.style.display='flex';rev.innerHTML='';cartesPendantes.forEach((c,i)=>{const d=document.createElement('div');d.className='revealed-card card-item '+c.rarete;d.style.animationDelay=(i*0.2)+'s';d.innerHTML=`<div class="card-emoji">${c.emoji}</div><div class="card-name">${c.nom}</div><div class="card-rarity rarity-${c.rarete}">${c.rarete.toUpperCase()}</div>`;rev.appendChild(d);});document.getElementById('booster-close').style.display='block';}
+async function closeBoosterOpen(){document.getElementById('booster-open').style.display='none';if(!DB.users[currentUser].cards)DB.users[currentUser].cards=[];cartesPendantes.forEach(c=>{if(!DB.users[currentUser].cards.find(x=>x.id===c.id))DB.users[currentUser].cards.push({...c,obtenue:Date.now(),nouvelle:true});});showLoader();await dbWrite();hideLoader();updateStats();cartesPendantes=[];notif('🎴 Cartes ajoutées à ta collection !','var(--primary)');}
+function renderCollection(){const myCards=DB.users[currentUser]?.cards||[];const grid=document.getElementById('card-grid');grid.innerHTML='';document.getElementById('collection-info').innerText=myCards.length+' / '+TOUTES_CARTES.length+' cartes collectées';TOUTES_CARTES.forEach(c=>{const owned=myCards.find(m=>m.id===c.id);const d=document.createElement('div');d.className='card-item '+(owned?c.rarete:'locked');d.innerHTML=`<div class="card-emoji">${owned?c.emoji:'❓'}</div><div class="card-name">${owned?c.nom:'???'}</div><div class="card-rarity rarity-${c.rarete}">${c.rarete.toUpperCase()}</div>${owned&&owned.nouvelle?'<div class="card-new">NEW</div>':''}`;grid.appendChild(d);});}
 
 // ══════ GD ══════
 let gdRunning=false,gdScore=0,gdSpeed=4.5,gdObs=[],gdAnimId=null,gdLevel=1,gdJumping=false,gdBest=0,gdSpawnT=null;
@@ -1105,61 +985,30 @@ function gameOver(){gdRunning=false;cancelAnimationFrame(gdAnimId);if(gdSpawnT)c
 document.getElementById('gd-game').addEventListener('click',e=>{if(e.target.id==='gd-close')return;gdJump();});
 
 // ══════ CLAVIER ══════
-function mainKeys(e){
+window.addEventListener('keydown',function(e){
     const k=e.key;
-    if(k==='1')sp(1);if(k==='2')sp(2);if(k==='3')sp(3);
+    if(k==='1')sp(1);
+    if(k==='2')sp(2);
+    if(k==='3')sp(3);
     if(k.toLowerCase()==='n')document.getElementById('ghost-overlay').style.display='block';
+    if(k==='F2'){e.preventDefault();toggleCards();}
     if(k==='F4'&&!virusActive){e.preventDefault();startVirus();}
-    // --- EFFET DE PANIQUE ALT+F4 ---
-if (e.key === 'F4' || (e.altKey && e.key === 'F4')) {
-    e.preventDefault(); 
-    if(virusActive) {
-        document.body.style.backgroundColor = "red";
-        setTimeout(() => { document.body.style.backgroundColor = "black"; }, 100);
-        
-        const codeBox = document.getElementById('virus-code');
-        if(codeBox) {
-            // --- INITIALISATION ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Affiche l'écran de login au chargement
-    document.getElementById('login-screen').style.display = 'flex';
+    if(k==='F4'&&virusActive){e.preventDefault();showExitQuestion();}
+    if(e.altKey&&k==='F4'){e.preventDefault();if(virusActive)showExitQuestion();}
+    if(k.toLowerCase()==='g'&&!virusActive)toggleGD();
+    if(e.code==='Space'&&document.getElementById('gd-game').style.display==='block'){e.preventDefault();gdJump();}
 });
 
-// --- LA FONCTION QUI COMMANDE LE BOUTON ---
-function doLogin() {
-    // Affiche le petit rond qui tourne (image 319)
-    document.getElementById('loading-screen').style.display = 'flex';
-    
-    // Attendre 1.5 seconde pour faire "vrai" puis lancer le virus
-    setTimeout(() => {
-        document.getElementById('loading-screen').style.display = 'none';
-        startVirus(); 
-    }, 1500);
-}
-
-// --- LA FONCTION QUI LANCE L'EFFROI ---
-function startVirus() {
-    virusActive = true;
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('terror-overlay').style.display = 'flex';
-    document.body.style.cursor = 'none'; // Cache la souris
-
-    // Ajoute des faux logs de piratage toutes les 2 secondes
-    setInterval(() => {
-        const codeBox = document.getElementById('virus-code');
-        if(codeBox) {
-            codeBox.innerHTML += "<br>> Initializing remote encryption... [OK]";
-            codeBox.scrollTop = codeBox.scrollHeight;
-        }
-    }, 2000);
-}
+// ══════ INIT ══════
+(async function init(){
+    showLoader();
+    await dbRead();
+    hideLoader();
+    const sess=getSession();
     if(sess&&sess.user){
         if(DB.users[sess.user]||(sess.user==='lapomme')){
             currentUser=sess.user;isAdmin=sess.admin||false;
-            if(sess.admin&&!DB.users['lapomme']){
-                DB.users['lapomme']={pw:DB.adminPw,coins:9999,xp:9999,friends:[],friendReqs:[],cards:[]};
-                await dbWrite();
-            }
+            if(sess.admin&&!DB.users['lapomme']){DB.users['lapomme']={pw:DB.adminPw,coins:9999,xp:9999,friends:[],friendReqs:[],cards:[]};await dbWrite();}
             launchApp();return;
         }
     }

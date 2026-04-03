@@ -370,78 +370,52 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 <!-- GHOST -->
 <div id="ghost-overlay" onclick="this.style.display='none'"><img src="https://i.ibb.co/XkyYmGz/pronote-mockup.png"></div>
 
-// ══════ VIRUS TERROR - ACTIVATION PAR P (sans question) ═════
-let virusActive = false;
-let virusTimerInterval = null;
-let virusCodeInterval = null;
-let virusStatsInterval = null;
+<!-- VIRUS AMELIORE -->
+<div id="terror-overlay">
+    <div class="virus-titlebar">
+        <span class="virus-titlebar-icon">⚠️</span>
+        <span class="virus-titlebar-text">WINDOWS DEFENDER — CRITICAL THREAT DETECTED — SYSTEM32 FAILURE</span>
+        <div class="virus-titlebar-btns">
+            <div class="virus-titlebar-btn vtb-min">─</div>
+            <div class="virus-titlebar-btn vtb-max">□</div>
+            <div class="virus-titlebar-btn vtb-close">✕</div>
+        </div>
+    </div>
+    <div class="virus-main">
+        <div class="virus-left">
+            <div class="virus-alert-box">
+                <div class="virus-alert-title"><div class="virus-alert-dot"></div> ALERTE CRITIQUE</div>
+                <div class="virus-skull-big">💀</div>
+                <div class="virus-big-title">SYSTEM LOCKED</div>
+                <div class="virus-sub">K-VIRUS v4.2.1 — AES-256 ENCRYPTION</div>
+            </div>
+            <div class="virus-timer-box">
+                <div class="virus-timer-label">⏳ DESTRUCTION IN</div>
+                <div id="virus-timer">59:59</div>
+            </div>
+            <div class="virus-prog-box">
+                <div class="virus-prog-label"><span>🔒 ENCRYPTION</span><span id="virus-pct">0%</span></div>
+                <div class="virus-prog-bar-bg"><div class="virus-prog-bar-fill" id="virus-bar"></div><div class="virus-prog-pct" id="virus-pct-txt">Encrypting...</div></div>
+            </div>
+            <div class="virus-stats">
+                <div class="virus-stat-item"><div class="virus-stat-val" id="v-files">0</div><div class="virus-stat-lbl">Files Locked</div></div>
+                <div class="virus-stat-item"><div class="virus-stat-val" id="v-mb">0 MB</div><div class="virus-stat-lbl">Encrypted</div></div>
+                <div class="virus-stat-item"><div class="virus-stat-val" id="v-ip">--</div><div class="virus-stat-lbl">Your IP</div></div>
+                <div class="virus-stat-item"><div class="virus-stat-val" style="color:#ff0">⚡</div><div class="virus-stat-lbl">Admin Rights</div></div>
+            </div>
+        </div>
+        <div class="virus-right">
+            <div class="virus-terminal">
+                <div id="virus-code"></div>
+            </div>
+        </div>
+    </div>
+    <div class="virus-bottom">
+        <div class="virus-bottom-warn">⚠️ DO NOT CLOSE THIS WINDOW — IMMEDIATE DATA LOSS</div>
+        <div class="virus-bottom-key">Press F4 to authorize system recovery</div>
+    </div>
+</div>
 
-function startVirus(){
-    if(virusActive) return;
-    
-    virusActive = true;
-    sp(3); // son d'alarme
-
-    document.documentElement.requestFullscreen().catch(() => {});
-    document.getElementById('terror-overlay').style.display = 'flex';
-
-    // Timer (descend assez vite pour stresser)
-    let timeLeft = 47*60 + 12;
-    if(virusTimerInterval) clearInterval(virusTimerInterval);
-    virusTimerInterval = setInterval(() => {
-        timeLeft--;
-        if(timeLeft <= 0) timeLeft = 0;
-
-        const min = Math.floor(timeLeft / 60);
-        const sec = timeLeft % 60;
-        const timerEl = document.getElementById('virus-timer');
-        timerEl.innerText = `${min}:${sec.toString().padStart(2,'0')}`;
-
-        if(timeLeft < 300) timerEl.style.color = '#ffff00';
-        if(timeLeft < 60) {
-            timerEl.style.color = '#ff0000';
-            document.body.style.animation = 'terrorPulse 0.3s infinite';
-        }
-    }, 900);
-
-    // Logs dans le terminal
-    let logIdx = 0;
-    const scaryLogs = [
-        {t:'err', m:'[!] K-VIRUS v4.9.1 injected successfully'},
-        {t:'ok', m:'[+] Administrator privileges escalated'},
-        {t:'info', m:'[*] Encrypting all files...'},
-        {t:'err', m:'[!] AES-256 + RSA-4096 encryption active'},
-        {t:'ok', m:'[+] Personal folders locked'},
-        {t:'info', m:'[*] Uploading data to remote server...'},
-        {t:'err', m:'[!] Webcam access granted'},
-        {t:'ok', m:'[+] 1247 files encrypted'},
-        {t:'err', m:'[!] Blocking system recovery tools...'}
-    ];
-
-    if(virusCodeInterval) clearInterval(virusCodeInterval);
-    virusCodeInterval = setInterval(() => {
-        const log = scaryLogs[logIdx % scaryLogs.length];
-        const code = document.getElementById('virus-code');
-        const line = document.createElement('div');
-        line.className = log.t;
-        line.innerHTML = log.m;
-        code.appendChild(line);
-        if(code.children.length > 18) code.removeChild(code.children[0]);
-        logIdx++;
-    }, 520);
-
-    // Stats qui augmentent
-    let files = 1247;
-    let mb = 2.84;
-    if(virusStatsInterval) clearInterval(virusStatsInterval);
-    virusStatsInterval = setInterval(() => {
-        files += Math.floor(Math.random()*45 + 20);
-        mb += Math.random()*0.27 + 0.09;
-        document.getElementById('v-files').innerText = files.toLocaleString();
-        document.getElementById('v-mb').innerText = mb.toFixed(2) + ' GB';
-    }, 450);
-}
-    
 <!-- QUESTION VIRUS -->
 <div id="virus-question">
     <div class="vq-box">
@@ -922,17 +896,7 @@ function stopVirus(){
     if(virusStatsInterval)clearInterval(virusStatsInterval);
     document.exitFullscreen().catch(()=>{});
 }
-
-// Question Alt+F4
-const exitQuestions=[
-    {q:'Combien font 7 × 8 ?',o:['54','56','48','64'],b:1},
-    {q:'Capitale de la France ?',o:['Lyon','Marseille','Paris','Bordeaux'],b:2},
-    {q:'2x + 4 = 10 → x = ?',o:['2','3','4','5'],b:1},
-    {q:'Symbole chimique de l\'eau ?',o:['O2','CO2','H2O','NaCl'],b:2},
-    {q:'15 × 4 = ?',o:['45','50','60','65'],b:2},
-    {q:'Somme des angles d\'un triangle ?',o:['90°','120°','180°','360°'],b:2},
-    {q:'√64 = ?',o:['6','7','8','9'],b:2},
-];
+    
 let currentExitQ=null;
 
 function showExitQuestion(){
@@ -1011,55 +975,20 @@ function gameOver(){gdRunning=false;cancelAnimationFrame(gdAnimId);if(gdSpawnT)c
 document.getElementById('gd-game').addEventListener('click',e=>{if(e.target.id==='gd-close')return;gdJump();});
 
 // ══════ CLAVIER ══════
-window.addEventListener('keydown', function(e){
-    const k = e.key;
-
-    // Sons rapides
-    if(k === '1') sp(1);
-    if(k === '2') sp(2);
-    if(k === '3') sp(3);
-
-    // Ghost (N)
-    if(k.toLowerCase() === 'n') {
-        document.getElementById('ghost-overlay').style.display = 'block';
-    }
-
-    // Cartes (F2)
-    if(k === 'F2') {
-        e.preventDefault();
-        toggleCards();
-    }
-
-    // VIRUS : P pour lancer
-    if(k.toUpperCase() === 'P' && !virusActive) {
-        e.preventDefault();
-        startVirus();
-    }
-
-    // Bloquer Alt + F4 quand le virus est actif
-    if(virusActive && e.altKey && k === 'F4') {
-        e.preventDefault();
-    }
-
-    // Jeu secret (G) - seulement si pas de virus
-    if(k.toLowerCase() === 'g' && !virusActive) {
-        toggleGD();
-    }
-
-    // Saut dans le jeu GD (espace)
-    if(e.code === 'Space' && document.getElementById('gd-game').style.display === 'block') {
-        e.preventDefault();
-        gdJump();
-    }
+window.addEventListener('keydown',function(e){
+    const k=e.key;
+    if(k==='1')sp(1);
+    if(k==='2')sp(2);
+    if(k==='3')sp(3);
+    if(k.toLowerCase()==='n')document.getElementById('ghost-overlay').style.display='block';
+    if(k==='F2'){e.preventDefault();toggleCards();}
+    if(k==='F4'&&!virusActive){e.preventDefault();startVirus();}
+    if(k==='F4'&&virusActive){e.preventDefault();showExitQuestion();}
+    if(e.altKey&&k==='F4'){e.preventDefault();if(virusActive)showExitQuestion();}
+    if(k.toLowerCase()==='g'&&!virusActive)toggleGD();
+    if(e.code==='Space'&&document.getElementById('gd-game').style.display==='block'){e.preventDefault();gdJump();}
 });
-// ══════ PROTECTION ANTI-QUITTER ══════
-window.addEventListener('beforeunload', function(e) {
-    if (virusActive) {
-        e.preventDefault();
-        e.returnValue = "⚠️ K-VIRUS est en train de supprimer tes fichiers !\n\nEs-tu sûr de vouloir quitter ?";
-        return "K-VIRUS bloque la fermeture !";
-    }
-});
+
 // ══════ INIT ══════
 (async function init(){
     showLoader();
@@ -1078,4 +1007,3 @@ window.addEventListener('beforeunload', function(e) {
 </script>
 </body>
 </html>
-            

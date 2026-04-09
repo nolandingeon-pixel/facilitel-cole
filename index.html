@@ -827,7 +827,7 @@ function openSendCoins(friend){coinTarget=friend;document.getElementById('coins-
 async function sendCoins(){const amount=parseInt(document.getElementById('coins-amount').value);const msg=document.getElementById('coins-msg');if(!amount||amount<1){msg.style.color='var(--red)';msg.innerText='Montant invalide !';return;}if(amount>coins){msg.style.color='var(--red)';msg.innerText='Pas assez de pièces !';return;}coins-=amount;DB.users[currentUser].coins=coins;DB.users[coinTarget].coins=(DB.users[coinTarget].coins||0)+amount;const conv=getMsgKey(currentUser,coinTarget);if(!DB.messages[conv])DB.messages[conv]=[];DB.messages[conv].push({from:'système',to:coinTarget,text:'💰 '+currentUser+' t\'a envoyé '+amount+' pièces !',time:Date.now(),read:false,type:'system'});showLoader();await dbWrite();hideLoader();updateStats();msg.style.color='var(--green)';msg.innerText='✅ '+amount+' pièces envoyées !';setTimeout(()=>document.getElementById('coins-screen').style.display='none',2000);}
 
 // ══════ SONS ══════
-const sounds={1:'https://www.myinstants.com/media/sounds/fahhhh.mp3',2:'https://www.myinstants.com/media/sounds/discord-notification.mp3',3:'https://www.myinstants.com/media/sounds/security-alarm.mp3',4:'https://www.myinstants.com/media/sounds/ta-da.mp3',5:'https://www.myinstants.com/media/sounds/dramatic-chipmunk.mp3'};
+const sounds={1:'https://www.myinstants.com/media/sounds/fahhhh.mp3',2:'https://www.myinstants.com/media/sounds/discord-notification.mp3',3:'https://www.myinstants.com/media/sounds/security-alarm.mp3',4:'https://www.myinstants.com/fr/instant/ponos-mp3',5:'https://www.myinstants.com/media/sounds/dramatic-chipmunk.mp3'};
 function sp(id){const a=new Audio(sounds[id]);a.currentTime=0;a.play();}
 
 // ══════ VIRUS AMELIORE ══════

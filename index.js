@@ -4,24 +4,28 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const path = require('path');
 
-// Sert ton fichier HTML (remplace 'ton_fichier.html' par le vrai nom du tien)
+// 1. SERVIR LE HTML (Vérifie bien que ton fichier s'appelle index.html)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'ton_fichier.html'));
+    res.sendFile(path.join(__dirname, 'index.html')); 
 });
 
 io.on('connection', (socket) => {
-    console.log('Un élève s\'est connecté');
+    console.log('Un utilisateur est connecté');
 
-    // Le serveur reçoit l'ordre de l'admin
+    // 2. GESTION DU VIRUS
     socket.on('admin_attack', (data) => {
-        console.log("Attaque lancée contre : " + data.target);
-        
-        // Le serveur renvoie l'ordre à TOUT LE MONDE (io.emit)
-        // L'élève qui a le bon pseudo verra son écran changer
-        io.emit('recevoir_attaque', data);
+        console.log("Attaque virus sur : " + data.target);
+        io.emit('recevoir_attaque', data); 
+    });
+
+    // 3. GESTION DES SONS (Pour que ça refonctionne)
+    socket.on('send_sound', (data) => {
+        console.log("Son envoyé à : " + data.to);
+        io.emit('receive_sound', data);
     });
 });
 
-http.listen(3000, () => {
-    console.log('Serveur lancé sur http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+http.listen(PORT, () => {
+    console.log('Serveur actif sur le port ' + PORT);
 });

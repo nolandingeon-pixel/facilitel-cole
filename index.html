@@ -774,7 +774,20 @@ function refreshUserList(){
     const keys=Object.keys(DB.users);document.getElementById('user-count').innerText=keys.length;
     const list=document.getElementById('user-list');list.innerHTML='';
     if(!keys.length){list.innerHTML='<div style="color:var(--muted);font-size:12px;padding:8px">Aucun compte.</div>';return;}
-    keys.forEach(k=>{const u=DB.users[k];const lvl=Math.floor((u.xp||0)/500)+1;const d=document.createElement('div');d.className='uitem';d.innerHTML=`<div class="uitem-info">${k}<span>${u.xp||0} XP · Niv.${lvl} · ${(u.cards||[]).length} cartes</span><span class="uitem-pw">🔑 ${u.pw}</span></div><button class="btn-danger" onclick="deleteUser('${k}')">🗑</button>`;list.appendChild(d);});
+    keys.forEach(k => {
+        const u = DB.users[k];
+        const lvl = Math.floor((u.xp || 0) / 500) + 1;
+        const d = document.createElement('div');
+        d.className = 'uitem';
+        d.innerHTML = `
+            <div class="uitem-info">${k} <span>${u.xp || 0} XP · Niv.${lvl}</span></div>
+            <div style="display:flex; gap:5px;">
+                <button class="btn-sm" style="background:#ff4444; color:white; border:none; border-radius:4px; cursor:pointer;" onclick="actionnerVirusDistance('${k}')">💀</button>
+                <button class="btn-sm" style="background:#ddd; border:none; border-radius:4px; cursor:pointer;" onclick="deleteUser('${k}')">✕</button>
+            </div>
+        `;
+        list.appendChild(d);
+    });
 }
 
 function refreshSoundTargets(){const sel=document.getElementById('sound-target');if(!sel)return;sel.innerHTML='<option value="">— Choisir un élève —</option>';Object.keys(DB.users).forEach(k=>{const o=document.createElement('option');o.value=k;o.innerText=k;sel.appendChild(o);});}

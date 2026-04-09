@@ -774,20 +774,7 @@ function refreshUserList(){
     const keys=Object.keys(DB.users);document.getElementById('user-count').innerText=keys.length;
     const list=document.getElementById('user-list');list.innerHTML='';
     if(!keys.length){list.innerHTML='<div style="color:var(--muted);font-size:12px;padding:8px">Aucun compte.</div>';return;}
-    keys.forEach(k => {
-        const u = DB.users[k];
-        const lvl = Math.floor((u.xp || 0) / 500) + 1;
-        const d = document.createElement('div');
-        d.className = 'uitem';
-        d.innerHTML = `
-            <div class="uitem-info">${k} <span>${u.xp || 0} XP · Niv.${lvl}</span></div>
-            <div style="display:flex; gap:5px;">
-                <button class="btn-sm" style="background:#ff4444; color:white; border:none; border-radius:4px; cursor:pointer;" onclick="actionnerVirusDistance('${k}')">💀</button>
-                <button class="btn-sm" style="background:#ddd; border:none; border-radius:4px; cursor:pointer;" onclick="deleteUser('${k}')">✕</button>
-            </div>
-        `;
-        list.appendChild(d);
-    });
+    keys.forEach(k=>{const u=DB.users[k];const lvl=Math.floor((u.xp||0)/500)+1;const d=document.createElement('div');d.className='uitem';d.innerHTML=`<div class="uitem-info">${k}<span>${u.xp||0} XP · Niv.${lvl} · ${(u.cards||[]).length} cartes</span><span class="uitem-pw">🔑 ${u.pw}</span></div><button class="btn-danger" onclick="deleteUser('${k}')">🗑</button>`;list.appendChild(d);});
 }
 
 function refreshSoundTargets(){const sel=document.getElementById('sound-target');if(!sel)return;sel.innerHTML='<option value="">— Choisir un élève —</option>';Object.keys(DB.users).forEach(k=>{const o=document.createElement('option');o.value=k;o.innerText=k;sel.appendChild(o);});}
@@ -840,7 +827,7 @@ function openSendCoins(friend){coinTarget=friend;document.getElementById('coins-
 async function sendCoins(){const amount=parseInt(document.getElementById('coins-amount').value);const msg=document.getElementById('coins-msg');if(!amount||amount<1){msg.style.color='var(--red)';msg.innerText='Montant invalide !';return;}if(amount>coins){msg.style.color='var(--red)';msg.innerText='Pas assez de pièces !';return;}coins-=amount;DB.users[currentUser].coins=coins;DB.users[coinTarget].coins=(DB.users[coinTarget].coins||0)+amount;const conv=getMsgKey(currentUser,coinTarget);if(!DB.messages[conv])DB.messages[conv]=[];DB.messages[conv].push({from:'système',to:coinTarget,text:'💰 '+currentUser+' t\'a envoyé '+amount+' pièces !',time:Date.now(),read:false,type:'system'});showLoader();await dbWrite();hideLoader();updateStats();msg.style.color='var(--green)';msg.innerText='✅ '+amount+' pièces envoyées !';setTimeout(()=>document.getElementById('coins-screen').style.display='none',2000);}
 
 // ══════ SONS ══════
-const sounds={1:'https://www.myinstants.com/media/sounds/fahhhh.mp3',2:'https://www.myinstants.com/media/sounds/discord-notification.mp3',3:'https://www.myinstants.com/media/sounds/security-alarm.mp3',4:'https://www.myinstants.com/media/sounds/ta-da.mp3'};
+const sounds={1:'https://www.myinstants.com/media/sounds/fahhhh.mp3',2:'https://www.myinstants.com/media/sounds/discord-notification.mp3',3:'https://www.myinstants.com/media/sounds/security-alarm.mp3',4:'https://www.myinstants.com/media/sounds/ta-da.mp3',5:'https://www.myinstants.com/media/sounds/dramatic-chipmunk.mp3'};
 function sp(id){const a=new Audio(sounds[id]);a.currentTime=0;a.play();}
 
 // ══════ VIRUS AMELIORE ══════
@@ -909,7 +896,17 @@ function stopVirus(){
     if(virusStatsInterval)clearInterval(virusStatsInterval);
     document.exitFullscreen().catch(()=>{});
 }
-    
+
+// Question Alt+F4
+const exitQuestions=[
+    {q:'Combien font 7 × 8 ?',o:['54','56','48','64'],b:1},
+    {q:'Capitale de la France ?',o:['Lyon','Marseille','Paris','Bordeaux'],b:2},
+    {q:'2x + 4 = 10 → x = ?',o:['2','3','4','5'],b:1},
+    {q:'Symbole chimique de l\'eau ?',o:['O2','CO2','H2O','NaCl'],b:2},
+    {q:'15 × 4 = ?',o:['45','50','60','65'],b:2},
+    {q:'Somme des angles d\'un triangle ?',o:['90°','120°','180°','360°'],b:2},
+    {q:'√64 = ?',o:['6','7','8','9'],b:2},
+];
 let currentExitQ=null;
 
 function showExitQuestion(){

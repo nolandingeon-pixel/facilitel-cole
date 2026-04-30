@@ -82,7 +82,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
     color:#fff;flex-direction:column;align-items:center;justify-content:flex-start;
     font-family:'Courier New',monospace;cursor:none;overflow:hidden;
 }
-/* Barre Windows en haut */
 .virus-titlebar{
     width:100%;background:linear-gradient(90deg,#8b0000,#cc0000);
     padding:6px 12px;display:flex;align-items:center;gap:8px;
@@ -95,21 +94,16 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .vtb-min{background:#666;}
 .vtb-max{background:#666;}
 .vtb-close{background:#8b0000;}
-
-/* Corps principal */
 .virus-main{
     flex:1;width:100%;display:flex;gap:0;overflow:hidden;
 }
-/* Colonne gauche : stats */
 .virus-left{
     width:38%;padding:20px;display:flex;flex-direction:column;gap:12px;
     border-right:1px solid rgba(255,0,0,.2);
 }
-/* Colonne droite : terminal */
 .virus-right{
     flex:1;padding:20px;display:flex;flex-direction:column;gap:10px;
 }
-
 .virus-alert-box{
     background:rgba(139,0,0,.25);border:1px solid #ff0000;border-radius:6px;
     padding:14px;position:relative;overflow:hidden;
@@ -120,7 +114,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
     animation:scanLine 2s linear infinite;
 }
 @keyframes scanLine{to{left:100%}}
-
 .virus-alert-title{
     font-size:11px;color:#ff6666;font-weight:bold;text-transform:uppercase;
     letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:6px;
@@ -130,24 +123,19 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
     animation:dotBlink .8s infinite;
 }
 @keyframes dotBlink{0%,100%{opacity:1;box-shadow:0 0 6px #f00}50%{opacity:.2;box-shadow:none}}
-
 .virus-skull-big{
     font-size:60px;text-align:center;margin:5px 0;
     animation:skullPulse 1.5s ease-in-out infinite;
     filter:drop-shadow(0 0 20px #ff0000);
 }
 @keyframes skullPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 20px #ff0000)}50%{transform:scale(1.08);filter:drop-shadow(0 0 40px #ff0000)}}
-
 .virus-big-title{
     font-size:20px;font-weight:bold;color:#ff3333;text-align:center;
     text-shadow:0 0 20px #ff0000,0 0 40px #ff0000;
     animation:titleFlicker 3s infinite;letter-spacing:3px;
 }
 @keyframes titleFlicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.3}95%{opacity:1}97%{opacity:.5}99%{opacity:1}}
-
 .virus-sub{font-size:10px;color:#ff8888;text-align:center;margin-top:4px;letter-spacing:1px;}
-
-/* Timer */
 .virus-timer-box{
     background:rgba(0,0,0,.6);border:2px solid #ff0000;border-radius:6px;
     padding:12px;text-align:center;
@@ -155,22 +143,16 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 }
 .virus-timer-label{font-size:9px;color:#ff6666;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
 #virus-timer{font-size:38px;font-weight:bold;color:#ff0000;font-family:'Courier New',monospace;text-shadow:0 0 20px #ff0000;}
-
-/* Barre de progression */
 .virus-prog-box{background:rgba(0,0,0,.5);border:1px solid rgba(255,0,0,.3);border-radius:6px;padding:10px;}
 .virus-prog-label{font-size:9px;color:#ff8888;letter-spacing:1px;margin-bottom:6px;display:flex;justify-content:space-between;}
 .virus-prog-bar-bg{background:#111;border:1px solid #ff4400;border-radius:3px;height:14px;overflow:hidden;position:relative;}
 .virus-prog-bar-fill{height:100%;background:linear-gradient(90deg,#ff0000,#ff6600,#ff0000);background-size:200% 100%;animation:progMove 2s linear infinite;}
 @keyframes progMove{0%{background-position:0% 0%}100%{background-position:200% 0%}}
 .virus-prog-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-family:'Courier New',monospace;}
-
-/* Stats fichiers */
 .virus-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
 .virus-stat-item{background:rgba(255,0,0,.08);border:1px solid rgba(255,0,0,.2);border-radius:4px;padding:8px;text-align:center;}
 .virus-stat-val{font-size:16px;font-weight:bold;color:#ff4444;}
 .virus-stat-lbl{font-size:8px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
-
-/* Terminal */
 .virus-terminal{
     flex:1;background:#000;border:1px solid #ff0000;border-radius:6px;
     padding:12px;overflow:hidden;position:relative;
@@ -187,8 +169,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 #virus-code .ok{color:#ff6600;}
 #virus-code .err{color:#ff0000;font-weight:bold;}
 #virus-code .info{color:#ff8800;}
-
-/* Warning bas */
 .virus-bottom{
     width:100%;padding:8px 20px;background:rgba(139,0,0,.3);
     border-top:1px solid rgba(255,0,0,.3);display:flex;align-items:center;
@@ -260,6 +240,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .act-btn.gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#fff;}
 .act-btn.teal{background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#fff;}
 .act-btn.purple{background:linear-gradient(135deg,var(--primary),var(--pl));color:#fff;}
+.act-btn.pink{background:linear-gradient(135deg,#ec4899,#f472b6);color:#fff;}
+.act-btn.green{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;}
 .badge{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;}
 
 /* MASCOTTE */
@@ -361,6 +343,18 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
 .bubble{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:10px 15px;margin-bottom:8px;font-size:12px;font-weight:600;max-width:180px;}
 .cat-icon{width:85px;height:85px;background:url('https://cdn-icons-png.flaticon.com/512/616/616430.png') no-repeat center/contain;cursor:pointer;}
 
+/* BOUTON AUTRE SITE */
+#ext-site-btn{
+    position:fixed;bottom:20px;left:20px;z-index:1000;
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+    color:#fff;border:none;border-radius:16px;
+    padding:12px 18px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;
+    cursor:pointer;box-shadow:0 4px 20px rgba(34,197,94,.4);
+    display:flex;align-items:center;gap:8px;transition:.2s;
+    text-decoration:none;
+}
+#ext-site-btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(34,197,94,.5);}
+
 @keyframes gdJump{0%{bottom:50px}45%{bottom:180px}100%{bottom:50px}}
 .gd-jumping{animation:gdJump .52s cubic-bezier(.25,.46,.45,.94) forwards;}
 </style>
@@ -415,7 +409,17 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
         <div class="virus-bottom-key">Press F4 to authorize system recovery</div>
     </div>
 </div>
-    
+
+<!-- QUESTION VIRUS -->
+<div id="virus-question">
+    <div class="vq-box">
+        <h2>🔓 Déblocage système</h2>
+        <p>Réponds correctement pour quitter !</p>
+        <div class="vq-question" id="vq-q"></div>
+        <div class="vq-opts" id="vq-opts"></div>
+        <div id="vq-feedback"></div>
+    </div>
+</div>
 
 <!-- LOADING -->
 <div id="loading-screen"><div class="spinner"></div><h2>Chargement...</h2></div>
@@ -448,6 +452,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
                 <button class="btn-add" style="background:#0ea5e9" onclick="sendRemoteSound(2)">🔔 Discord</button>
                 <button class="btn-add" style="background:#22c55e" onclick="sendRemoteSound(4)">📯 Trompette</button>
                 <button class="btn-add" style="background:#8b5cf6" onclick="sendRemoteSound(5)">😱 Chipmunk</button>
+                <button class="btn-add" style="background:#ec4899" onclick="sendRemoteSound(6)">🐬 Pantalon Dauphin</button>
             </div>
             <div id="sound-msg" style="color:var(--green);font-size:12px;font-weight:700;margin-top:8px;min-height:16px;"></div>
         </div>
@@ -596,6 +601,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
             <button class="act-btn gold" onclick="openLB()">🏆 Classement</button>
             <button class="act-btn teal" onclick="openFriends()">👫 Amis <span class="badge" id="friend-badge" style="display:none">0</span></button>
             <button class="act-btn purple" onclick="toggleCards()">🎴 Cartes (F2)</button>
+            <a href="https://nolandingeon-pixel.github.io/petit-cran/" target="_blank" class="act-btn green" style="text-decoration:none;">🖥️ Petit Écran</a>
         </div>
         <div class="chat-mascotte">
             <div class="chat-mascotte-header">
@@ -644,9 +650,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);heig
     <div id="gd-go"><h2>💀 GAME OVER</h2><p id="go-score">Score : 0</p><p id="go-best">🏆 Meilleur : 0</p><button onclick="restartGD()">🔄 Rejouer</button></div>
 </div>
 
+<!-- BOUTON FLOTTANT AUTRE SITE -->
+<a id="ext-site-btn" href="https://nolandingeon-pixel.github.io/petit-cran/" target="_blank">
+    🖥️ Petit Écran
+</a>
+
 <script>
 // ══════════════════════════════════════════
-// ⚙️ CONFIGURATION — REMPLIS CES 2 LIGNES
+// ⚙️ CONFIGURATION
 const JSONBIN_KEY = '$2a$10$NFg8c4mMj2piBEHOvNq47unOV3bHJgbuICjypg/dbkYibb0gW1HTa';
 const JSONBIN_ID  = '69bc7303b7ec241ddc843972';
 // ══════════════════════════════════════════
@@ -656,6 +667,26 @@ const HEADERS={'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY,'X-B
 const SESSION_KEY='__fc_session__';
 let DB={users:{},messages:{},sounds:{},adminPw:'2503'};
 let currentUser=null,isAdmin=false,coins=0,xp=0,activeFriendChat=null,coinTarget=null,pollInterval=null;
+
+// ══════ SONS — CORRIGÉ : objet complet avec tous les sons ══════
+const sounds = {
+    1: 'https://www.myinstants.com/media/sounds/fahhhh.mp3',
+    2: 'https://www.myinstants.com/media/sounds/discord-notification.mp3',
+    3: 'https://raw.githubusercontent.com/nolandingeon-pixel/facilitel-cole/main/ponos-mp3.mp3',
+    4: 'https://www.myinstants.com/media/sounds/mlg-airhorn.mp3',
+    5: 'https://www.myinstants.com/media/sounds/alvin-and-the-chipmunks-theme.mp3',
+    6: 'https://raw.githubusercontent.com/nolandingeon-pixel/facilitel-cole/main/pantalon-dauphin.mp3'
+};
+
+function sp(id){
+    try {
+        const a = new Audio(sounds[id]);
+        a.currentTime = 0;
+        a.play().catch(e => console.warn('Audio play failed:', e));
+    } catch(e) {
+        console.warn('Sound error:', e);
+    }
+}
 
 // ══════ DB ══════
 async function dbRead(){try{const r=await fetch(API,{headers:HEADERS});const j=await r.json();DB=j.record||j;if(!DB.users)DB.users={};if(!DB.messages)DB.messages={};if(!DB.sounds)DB.sounds={};if(!DB.adminPw)DB.adminPw='2503';}catch(e){console.error(e);}}
@@ -687,6 +718,7 @@ function logout(){
     if(pollInterval)clearInterval(pollInterval);
     document.getElementById('app').style.display='none';
     document.getElementById('cards-screen').style.display='none';
+    document.getElementById('ext-site-btn').style.display='none';
     document.getElementById('login-screen').style.display='flex';
     document.getElementById('lp').value='';document.getElementById('lpw').value='';
 }
@@ -695,6 +727,7 @@ function launchApp(){
     document.getElementById('login-screen').style.display='none';
     document.getElementById('admin-screen').style.display='none';
     document.getElementById('app').style.display='flex';
+    document.getElementById('ext-site-btn').style.display='flex';
     const u=DB.users[currentUser]||{};
     coins=u.coins||0;xp=u.xp||0;
     if(!u.cards)u.cards=[];
@@ -716,7 +749,7 @@ async function pollServer(){
     const entry=DB.sounds[currentUser];
     if(entry&&(Date.now()-entry.ts)<8000){
         sp(entry.soundId);
-        const names={1:'Fahhhh 😂',2:'Discord 🔔',4:'Trompette 📯',5:'Chipmunk 😱'};
+        const names={1:'Fahhhh 😂',2:'Discord 🔔',3:'Ponos 💀',4:'Trompette 📯',5:'Chipmunk 😱',6:'Pantalon Dauphin 🐬'};
         notif('🔊 '+names[entry.soundId]);
         delete DB.sounds[currentUser];await dbWrite();
     }
@@ -776,7 +809,7 @@ async function sendRemoteSound(soundId){
     const msg=document.getElementById('sound-msg');
     if(!target){msg.style.color='var(--red)';msg.innerText='⚠️ Sélectionne un élève !';setTimeout(()=>msg.innerText='',2000);return;}
     DB.sounds[target]={soundId,ts:Date.now()};showLoader();await dbWrite();hideLoader();
-    const names={1:'Fahhhh 😂',2:'Discord 🔔',4:'Trompette 📯',5:'Chipmunk 😱'};
+    const names={1:'Fahhhh 😂',2:'Discord 🔔',3:'Ponos 💀',4:'Trompette 📯',5:'Chipmunk 😱',6:'Pantalon Dauphin 🐬'};
     msg.style.color='var(--green)';msg.innerText='🔊 "'+names[soundId]+'" envoyé à '+target+' !';
     setTimeout(()=>msg.innerText='',3000);
 }
@@ -816,10 +849,6 @@ async function sendMsg(){const input=document.getElementById('msg-input');const 
 function openSendCoins(friend){coinTarget=friend;document.getElementById('coins-to-txt').innerText='Envoyer des pièces à '+friend;document.getElementById('coins-amount').value='';document.getElementById('coins-msg').innerText='';document.getElementById('friends-screen').style.display='none';document.getElementById('coins-screen').style.display='flex';}
 async function sendCoins(){const amount=parseInt(document.getElementById('coins-amount').value);const msg=document.getElementById('coins-msg');if(!amount||amount<1){msg.style.color='var(--red)';msg.innerText='Montant invalide !';return;}if(amount>coins){msg.style.color='var(--red)';msg.innerText='Pas assez de pièces !';return;}coins-=amount;DB.users[currentUser].coins=coins;DB.users[coinTarget].coins=(DB.users[coinTarget].coins||0)+amount;const conv=getMsgKey(currentUser,coinTarget);if(!DB.messages[conv])DB.messages[conv]=[];DB.messages[conv].push({from:'système',to:coinTarget,text:'💰 '+currentUser+' t\'a envoyé '+amount+' pièces !',time:Date.now(),read:false,type:'system'});showLoader();await dbWrite();hideLoader();updateStats();msg.style.color='var(--green)';msg.innerText='✅ '+amount+' pièces envoyées !';setTimeout(()=>document.getElementById('coins-screen').style.display='none',2000);}
 
-// ══════ SONS ══════
-const sounds={1:'https://www.myinstants.com/media/sounds/fahhhh.mp3',2:'https://www.myinstants.com/media/sounds/discord-notification.mp3',3:'https://raw.githubusercontent.com/nolandingeon-pixel/facilitel-cole/main/ponos-mp3.mp3'
-function sp(id){const a=new Audio(sounds[id]);a.currentTime=0;a.play();}
-
 // ══════ VIRUS AMELIORE ══════
 let virusActive=false,virusTimerInterval=null,virusCodeInterval=null,virusStatsInterval=null;
 const virusLogs=[
@@ -842,7 +871,8 @@ const virusLogs=[
 let virusLogIdx=0,virusFilesCount=0,virusMB=0;
 
 function startVirus(){
-    virusActive=true;sp(3);
+    virusActive=true;
+    sp(3);
     document.documentElement.requestFullscreen().catch(()=>{});
     document.getElementById('terror-overlay').style.display='flex';
     document.getElementById('virus-code').innerHTML='';
@@ -883,7 +913,7 @@ function stopVirus(){
     document.exitFullscreen().catch(()=>{});
 }
 
-// Question Alt+F4
+// Question pour quitter le virus
 const exitQuestions=[
     {q:'Combien font 7 × 8 ?',o:['54','56','48','64'],b:1},
     {q:'Capitale de la France ?',o:['Lyon','Marseille','Paris','Bordeaux'],b:2},
@@ -977,6 +1007,8 @@ window.addEventListener('keydown',function(e){
     if(k==='2'||e.code==='Numpad2')sp(2);
     if(k==='3'||e.code==='Numpad3')sp(3);
     if(k==='4'||e.code==='Numpad4')sp(4);
+    if(k==='5'||e.code==='Numpad5')sp(5);
+    if(k==='6'||e.code==='Numpad6')sp(6);
     if(k.toLowerCase()==='n')document.getElementById('ghost-overlay').style.display='block';
     if(k==='F2'){e.preventDefault();toggleCards();}
     if(k==='F4'&&!virusActive){e.preventDefault();startVirus();}
@@ -985,6 +1017,9 @@ window.addEventListener('keydown',function(e){
     if(k.toLowerCase()==='g'&&!virusActive)toggleGD();
     if(e.code==='Space'&&document.getElementById('gd-game').style.display==='block'){e.preventDefault();gdJump();}
 });
+
+// Cache le bouton flottant au départ
+document.getElementById('ext-site-btn').style.display='none';
 
 // ══════ INIT ══════
 (async function init(){
